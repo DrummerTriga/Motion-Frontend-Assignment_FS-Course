@@ -2,6 +2,9 @@
 # TeamHungry - Motion - Frontend Assignments
 
 **Useful Links**
+- Boards
+   - [Dev Board](https://gitlab.propulsion-home.ch/full-stack/batch-34-oct-2025/motion-frontend-assignment/teamhungry/-/boards/1165)
+   - [Page Board](https://gitlab.propulsion-home.ch/full-stack/batch-34-oct-2025/motion-frontend-assignment/teamhungry/-/boards/1164)
 - [Figma project copy](https://www.figma.com/design/BIhmAUontXJfWNtCipdpVG/Motion_TeamHungry?node-id=0-1&p=f&t=fZH6B1zSBEN7VEpv-0)
 - [Discord Meeting room](https://discord.com/channels/689122077504176142/689123774787747903)
 
