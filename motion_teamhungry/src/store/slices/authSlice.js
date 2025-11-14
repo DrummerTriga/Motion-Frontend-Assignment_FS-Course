@@ -7,12 +7,14 @@ export const authSlice = createSlice({
     },
     reducers: {
         login: (state, action) => {
-            state.access_token = action.payload
+            console.log("create logic")
             //to be edited - just a reference 
+            // state.access_token = action.payload
         },
         logout: (state, action) => {
-            state.access_token = null
+            console.log("create logic")
             //to be edited - just a reference 
+            // state.access_token = null
         }
     }
 })
