@@ -3,7 +3,7 @@
 
 # Tasks
 *Setup*
-- [ ] Pull current state of project
+- [ ] Pull current state of **main** branch
 - [ ] Make branch on your local clone <!-- naming: "<ticket #>-<short version of ticket name>-<initial of assignee> -->
 
 *Execution*
@@ -12,7 +12,7 @@
 - [ ] ...
 
 *Review and merge*
-- [ ] Pull current state of project --> resolve obvious issues
+- [ ] Go on your **working branch** and pull **origin main branch** --> resolve conflicts locally
 - [ ] Make merge request by pushing your branch to Gitlab
    - [ ] Assign ticket to yourself
    - [ ] Add technical reviewer + tech lead for reviewers
