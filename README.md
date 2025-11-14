@@ -40,10 +40,10 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
 
 **Directories:**
 
+```
 /layouts
      /AuthLayout.jsx
     /MainLayout.jsx
-
 /pages
     /authpages
         /Login.jsx
@@ -53,20 +53,15 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
         /ForgotPassword.jsx
         /ForgotPassword E-Mail.jsx
         /ResetPassword.jsx
-
     /feed
          /SocialWall.jsx
-
      /profile
          /Profile.jsx
-
     /findfriends
         /FindFriends.jsx
-       
 /components
     /Header
         /Header.jsx
-
     /Auth
         /VerticalHero.jsx
         /Form.jsx
@@ -77,7 +72,6 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
         /ForgotPasswordForm.jsx
         /ForgotPasswordE-MailForm.jsx
         /ResetPasswordForm.jsx
-
     /Feed
         /TextPost.jsx
         /GalleryPost.jsx
@@ -89,12 +83,9 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
         /CreatePost.jsx
         /ViewPost.jsx
         /DeletePost.jsx
-
     /Profile
         /ProfileSummary.jsx
         /EditProfile.jsx
-   
-
 /elements
     /Buttons
         /PrimaryButton.jsx (eG SignUp with color)
@@ -102,19 +93,16 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
         /SecondaryButtonIcon.jsx
     /Login    
         /InputField.jsx (label+ inputfield)
-     
 /assets
-
-
 /utils
     /fetchingwithAuth.js
     /fetchingnoAuth.js
-
-
 /store
     /store.js
     /slices
         /authSlice.js
+```
+
 
 
 
