@@ -12,6 +12,7 @@
 - [ ] ...
 
 *Review and merge*
+- [ ] Pull current state of project --> resolve obvious issues
 - [ ] Make merge request by pushing your branch to Gitlab
    - [ ] Assign ticket to yourself
    - [ ] Add technical reviewer + tech lead for reviewers
