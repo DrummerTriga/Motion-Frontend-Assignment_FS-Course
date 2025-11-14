@@ -5,10 +5,12 @@
 *Setup*
 - [ ] Pull current state of project
 - [ ] Make branch on your local clone <!-- naming: "<ticket #>-<short version of ticket name>-<initial of assignee> -->
+
 *Execution*
 - [ ] Step 1 exection
 - [ ] Step 2 exection
 - [ ] ...
+
 *Review and merge*
 - [ ] Make merge request by pushing your branch to Gitlab
    - [ ] Assign ticket to yourself
