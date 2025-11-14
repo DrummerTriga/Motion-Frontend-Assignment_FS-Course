@@ -1,6 +1,10 @@
 
 # TeamHungry - Motion - Frontend Assignments
 
+**Useful Links**
+- [Figma project copy](https://www.figma.com/design/BIhmAUontXJfWNtCipdpVG/Motion_TeamHungry?node-id=0-1&p=f&t=fZH6B1zSBEN7VEpv-0)
+- [Discord Meeting room](https://discord.com/channels/689122077504176142/689123774787747903)
+
 **Project Specifications:**
 
 - Tailwind CSS
