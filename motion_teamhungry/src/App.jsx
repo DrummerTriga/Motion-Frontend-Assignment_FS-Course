@@ -1,5 +1,5 @@
 import "./App.css"
-import axios from "axios" //test to import axios
+import axios from "axios" //todo test to import axios
 
 function App() {
   return (
