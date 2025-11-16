@@ -103,7 +103,8 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
         /SecondaryButton.jsx (eG whiteOutline)
         /SecondaryButtonIcon.jsx
     /Login    
-        /InputField.jsx (label+ inputfield)
+        /InputField.jsx 
+        /InputFieldIcon.jsx !!!!!!!NEW!!!!!!!
 /Tag.jsx. !!!!!!!NEW!!!!!!!
 /assets
 /utils
