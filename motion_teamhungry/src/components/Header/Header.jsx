@@ -113,7 +113,7 @@ const Header = () => {
             className={({ isActive }) =>
               `inline-flex items-center py-7 gap-2 border-b-transparent border-b-2 text-neutral-400 ${isActive ? "border-b-purple-400 text-purple-400" : "text-neutral-400"}`
             }
-            to="socialwall"
+            to="findfriends"
           >
             {findFriendsSvg}
             <p className="text-black">Find Friends</p>
