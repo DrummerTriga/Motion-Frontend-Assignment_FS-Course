@@ -1,10 +1,10 @@
-const InputField = ({ label, placeholder, type = "text" }) => {
+const InputFieldIcon = ({ icon, placeholder, type = "text" }) => {
   return (
     <div className="flex flex-col justify-between h-[42px] w-72 ">
-      <label className="text-[12px] ml-1 text-gray-500">{label}</label>
       <div className="flex justify-start items-center">
+        <img className="h-5 w-5 mr-5" src={icon} />
         <input
-          className="w-full h-8 placeholder:text-black text-[16px] ml-1 focus:outline-0"
+          className="w-full h-8 placeholder:text-black text-[16px] focus:outline-0"
           placeholder={placeholder}
           type={type}
         />
@@ -14,4 +14,4 @@ const InputField = ({ label, placeholder, type = "text" }) => {
   )
 }
 
-export default InputField
+export default InputFieldIcon
