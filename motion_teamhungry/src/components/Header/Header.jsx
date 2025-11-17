@@ -1,6 +1,5 @@
-import logo from "../../assets/logo.png"
+import logo from "/logo.png"
 import { NavLink } from "react-router-dom"
-
 //JTI todo define the right routes to the NavLinks
 //JTI todo define the functions for the notification, profilepic and dotmenu
 //JTI InformationYou can override the color of all the icons via text-color
