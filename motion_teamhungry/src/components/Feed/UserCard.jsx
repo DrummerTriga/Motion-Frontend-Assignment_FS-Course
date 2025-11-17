@@ -25,12 +25,9 @@ const UserCard = ({
       <div>
         <p className="text-center min-h-15">{about_me}</p>
       </div>
-      {/* JTI todo Check if this is okay: 
-UserCard.jsx:31 Each child in a list should have a unique "key" prop.
-Check the render method of `UserCard`. See https://react.dev/link/warning-keys for more information. */}
       <div className="flex items-center justify-center flex-wrap gap-2 ">
-        {things_user_likes.map((item) => {
-          return <Tag label={item} />
+        {things_user_likes.map((item, index) => {
+          return <Tag key={index} label={item} />
         })}
       </div>
     </div>
