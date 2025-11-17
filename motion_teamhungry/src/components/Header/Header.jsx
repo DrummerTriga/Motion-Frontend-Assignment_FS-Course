@@ -101,9 +101,9 @@ const Header = () => {
         <div className="flex justify-center lg:pl-40 lg:gap-15 md:pl-10 md:gap-10 sm:pl-10 sm:gap-1  ">
           <NavLink
             className={({ isActive }) =>
-              `inline-flex items-center py-7 gap-2 border-b-transparent border-b-2 text-neutral-400 ${isActive ? "border-b-purple-400 text-purple-400" : "text-neutral-400"}`
+              `inline-flex items-center py-7 gap-2  border-b-2 text-neutral-400 ${isActive ? "border-b-purple-400 text-purple-400" : "text-neutral-400 border-b-transparent"}`
             }
-            to="socialwall"
+            to="posts"
           >
             {socialWallSvg}
             <p className="text-black">Posts</p>
@@ -111,7 +111,7 @@ const Header = () => {
 
           <NavLink
             className={({ isActive }) =>
-              `inline-flex items-center py-7 gap-2 border-b-transparent border-b-2 text-neutral-400 ${isActive ? "border-b-purple-400 text-purple-400" : "text-neutral-400"}`
+              `inline-flex items-center py-7 gap-2  border-b-2 text-neutral-400 ${isActive ? "border-b-purple-400 text-purple-400" : "text-neutral-400 border-b-transparent"}`
             }
             to="findfriends"
           >

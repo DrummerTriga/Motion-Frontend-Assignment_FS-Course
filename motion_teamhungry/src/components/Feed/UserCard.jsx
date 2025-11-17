@@ -1,4 +1,5 @@
 import Tag from "../../elements/Tags/Tag"
+import SecondaryButton from "../../elements/Buttons/SecondaryButton"
 
 const UserCard = ({
   first_name,
@@ -17,8 +18,8 @@ const UserCard = ({
       <p className="">{location}</p>
       <div className="flex gap-5">
         {/* JTI todo add secondaryButtons */}
-        <button className="bg-amber-200">Hello</button>
-        <button className="bg-amber-200">Hello</button>
+        <SecondaryButton label={"FOLLOW"} />
+        <SecondaryButton label={"ADD FRIEND"} />
       </div>
 
       <div>
