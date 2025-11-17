@@ -1,5 +1,11 @@
+import SignupCongratulationsForm from "../../components/Auth/SignupCongratulationsForm"
+
 const SignupCongratulationsPage = () => {
-  return <div>SignupCongratulationsPage</div>
+  return (
+    <>
+      <SignupCongratulationsForm />
+    </>
+  )
 }
 
 export default SignupCongratulationsPage
