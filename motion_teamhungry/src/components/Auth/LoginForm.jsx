@@ -1,14 +1,5 @@
-
-
-
-
 const LoginForm = () => {
-
-    return (
-        <dvi>
-            LoginForm
-        </dvi>
-    )
+  return (<div>LoginForm<div/>  )
 }
 
 export default LoginForm

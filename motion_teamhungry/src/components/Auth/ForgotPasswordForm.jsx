@@ -1,14 +1,5 @@
-
-
-
-
 const ForgotPasswordForm = () => {
-
-    return (
-        <dvi>
-            ForgotPasswordForm
-        </dvi>
-    )
+  return <div>ForgotPasswordForm</div>
 }
 
 export default ForgotPasswordForm

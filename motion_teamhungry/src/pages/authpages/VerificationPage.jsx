@@ -1,14 +1,5 @@
-
-
-
-
 const VerificationPage = () => {
-
-    return (
-        <dvi>
-            VerificationPage
-        </dvi>
-    )
+  return <div>VerificationPage</div>
 }
 
 export default VerificationPage

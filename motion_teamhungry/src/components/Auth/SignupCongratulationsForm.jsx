@@ -1,14 +1,5 @@
-
-
-
-
 const SignupCongratulationsForm = () => {
-
-    return (
-        <dvi>
-            SignupCongratulationsForm
-        </dvi>
-    )
+  return <div>SignupCongratulationsForm</div>
 }
 
 export default SignupCongratulationsForm

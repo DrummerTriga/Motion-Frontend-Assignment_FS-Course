@@ -1,14 +1,11 @@
-
-
-
+import LoginForm from "../../components/Auth/LoginForm"
 
 const LoginPage = () => {
-
-    return (
-        <dvi>
-            LoginPage
-        </dvi>
-    )
+  return (
+    <>
+      <LoginForm />
+    </>
+  )
 }
 
 export default LoginPage
