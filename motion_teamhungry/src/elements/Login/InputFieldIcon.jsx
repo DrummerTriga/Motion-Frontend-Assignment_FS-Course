@@ -1,4 +1,4 @@
-const InputFieldIcon = ({ icon, placeholder, type = "text" }) => {
+const InputFieldIcon = ({ icon, placeholder, type = "text",id,value,handleInputChange }) => {
   return (
     <div className="flex flex-col justify-between h-[42px] w-72 ">
       <div className="flex justify-start items-center">
@@ -7,6 +7,9 @@ const InputFieldIcon = ({ icon, placeholder, type = "text" }) => {
           className="w-full h-8 placeholder:text-black text-[16px] focus:outline-0"
           placeholder={placeholder}
           type={type}
+          id={id}
+          value={value}
+          onChange={handleInputChange}
         />
       </div>
       <hr className="w-full opacity-30" />
