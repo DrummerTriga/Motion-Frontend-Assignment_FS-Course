@@ -10,12 +10,16 @@ import VerificationPage from "./pages/authpages/VerificationPage"
 import ForgotPasswordCodePage from "./pages/authpages/ForgotPasswordCodePage"
 import ForgotPasswordEmailPage from "./pages/authpages/ForgotPasswordEmailPage"
 import ResetPasswordPage from "./pages/authpages/ResetPasswordPage"
+import FindFriendsPage from "./pages/findfriends/FindFriendsPage"
+import SocialWallPage from "./pages/feed/SocialWallPage"
 import ProfilePage from "./pages/profile/ProfilePage"
 
 function App() {
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
+        <Route path="posts" element={<SocialWallPage />} />
+        <Route path="findfriends" element={<FindFriendsPage />} />
         <Route path="profile" element={<ProfilePage />} />
         {/* todo - RH- add none auth routes here */}
       </Route>

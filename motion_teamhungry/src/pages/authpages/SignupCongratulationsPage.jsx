@@ -1,14 +1,5 @@
-
-
-
-
 const SignupCongratulationsPage = () => {
-
-    return (
-        <dvi>
-            SignupCongratulationsPage
-        </dvi>
-    )
+  return <div>SignupCongratulationsPage</div>
 }
 
 export default SignupCongratulationsPage
