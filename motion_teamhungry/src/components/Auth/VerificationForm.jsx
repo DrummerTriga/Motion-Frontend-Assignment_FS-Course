@@ -1,14 +1,5 @@
-
-
-
-
 const VerificationForm = () => {
-
-    return (
-        <dvi>
-            VerificationForm
-        </dvi>
-    )
+  return <div>VerificationForm</div>
 }
 
 export default VerificationForm

@@ -1,11 +1,12 @@
 import { Outlet } from "react-router"
+import VerticalHero from "../components/Auth/VerticalHero"
 
 const AuthLayout = () => {
   return (
-    <>
-      <div>AuthLayout</div>
+    <div className="flex w-full h-screen">
+      <VerticalHero />
       <Outlet />
-    </>
+    </div>
   )
 }
 
