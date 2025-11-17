@@ -1,5 +1,5 @@
 
-# TeamHungry - Motion - Frontend Assignments
+# Commotion - Frontend Assignments
 
 **Useful Links**
 - Boards
