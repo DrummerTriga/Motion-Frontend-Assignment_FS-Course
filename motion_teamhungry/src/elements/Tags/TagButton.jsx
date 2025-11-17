@@ -1,9 +1,9 @@
 //JTI: Implement the component with the variable "label" to display the content inside the label
+//Example how to use the TagButton: <TagButton label={"test"} onClickHandler={() => console.log("hellooo")}/>
+
 import xIcon from "../../assets/x-button.svg"
 
-const TagButton = ({ label }) => {
-  const onClickHandler = () => {}
-
+const TagButton = ({ label, onClickHandler }) => {
   return (
     <button
       type="button"
