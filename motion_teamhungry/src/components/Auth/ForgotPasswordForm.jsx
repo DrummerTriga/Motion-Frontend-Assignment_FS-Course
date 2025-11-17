@@ -5,7 +5,9 @@
 const ForgotPasswordForm = () => {
 
     return (
-        console.log("ForgotPasswordForm")
+        <dvi>
+            ForgotPasswordForm
+        </dvi>
     )
 }
 

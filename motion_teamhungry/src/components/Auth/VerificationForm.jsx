@@ -5,7 +5,9 @@
 const VerificationForm = () => {
 
     return (
-        console.log("VerificationForm")
+        <dvi>
+            VerificationForm
+        </dvi>
     )
 }
 

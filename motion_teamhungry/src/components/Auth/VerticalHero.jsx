@@ -1,12 +1,5 @@
-
-
-
-
 const VerticalHero = () => {
-
-    return (
-        console.log("VerticalHero")
-    )
+  return <dvi>VerticalHero</dvi>
 }
 
 export default VerticalHero

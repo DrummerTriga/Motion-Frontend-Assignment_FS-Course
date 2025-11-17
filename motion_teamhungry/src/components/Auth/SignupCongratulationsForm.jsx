@@ -5,7 +5,9 @@
 const SignupCongratulationsForm = () => {
 
     return (
-        console.log("SignupCongratulationsForm")
+        <dvi>
+            SignupCongratulationsForm
+        </dvi>
     )
 }
 

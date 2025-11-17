@@ -5,7 +5,9 @@
 const SignupForm = () => {
 
     return (
-        console.log("SignupForm")
+        <dvi>
+            SignupForm
+        </dvi>
     )
 }
 
