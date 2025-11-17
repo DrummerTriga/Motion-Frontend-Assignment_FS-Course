@@ -105,7 +105,9 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
     /Login    
         /InputField.jsx 
         /InputFieldIcon.jsx !!!!!!!NEW!!!!!!!
-/Tag.jsx. !!!!!!!NEW!!!!!!!
+    /Tags
+        /Tag.jsx. !!!!!!!NEW!!!!!!!
+        /TagButton.jsx !!!!!!!NEW!!!!!!!
 /assets
 /utils
     /fetchingwithAuth.js
