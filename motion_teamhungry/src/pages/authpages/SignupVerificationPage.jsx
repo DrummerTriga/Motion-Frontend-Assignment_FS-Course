@@ -1,5 +1,11 @@
-const VerificationPage = () => {
-  return <div>VerificationPage</div>
+import VerificationForm from '../../components/Auth/VerificationForm'
+
+const SignupVerificationPage = () => {
+   return (
+      <>
+         <VerificationForm />
+      </>
+   )
 }
 
-export default VerificationPage
+export default SignupVerificationPage

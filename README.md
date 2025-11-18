@@ -74,6 +74,7 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
         /Header.jsx
         /NotificationDropdown.jsx !!!!!!!NEW!!!!!!!
         /HeaderDropdown.jsx !!!!!!!NEW!!!!!!!
+        /FriendRequests.jsx !!!!!!!NEW!!!!!!!
     /Auth
         /VerticalHero.jsx
         /Form.jsx

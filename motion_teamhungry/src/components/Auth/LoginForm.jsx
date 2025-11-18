@@ -4,13 +4,16 @@ import InputFieldIcon from '../../elements/Login/InputFieldIcon'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../store/slices/authSlice'
+import PrimaryButton from '../../elements/Buttons/PrimaryButton'
+import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 
 const LoginForm = () => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const userData = useSelector((state) => state.auth.user_data)
 
-   console.log('data from redux', userData.access)
+   console.log('Data coming from redux', userData.access)
+
 
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
@@ -44,13 +47,18 @@ const LoginForm = () => {
 
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
-         <div className="flex w-full justify-end gap-8 pr-10 pt-10">
+         <div className="flex w-full justify-end items-center gap-8 pr-10 pt-10">
             <h2>Don't have an account?</h2>
-            <button className="border">SIGN UP</button>
+            <SecondaryButton label="SIGN UP" />
          </div>
-         <h1 className="text-[40px]">Sign In</h1>
+         <h1 className="text-[40px] mt-auto">Sign In</h1>
+         {
+            <div>
+               {loginError && <p className="text-red-500">{loginError}</p>}
+            </div>
+         }
          <form
-            className="flex flex-col justify-between items-center h-[467px] w- border mt-auto mb-auto"
+            className="flex flex-col justify-center gap-10 items-center h-[467px] mb-auto"
             onSubmit={handleLoginSubmit}
          >
             <InputFieldIcon
@@ -75,9 +83,7 @@ const LoginForm = () => {
                </div>
             }
             <Link to="/auth/password-email">Forgot Password?</Link>
-            <button className="border" type="submit">
-               SIGN IN
-            </button>
+            <PrimaryButton className="mt-10" label="SIGN IN" type="submit" />
          </form>
       </div>
    )
