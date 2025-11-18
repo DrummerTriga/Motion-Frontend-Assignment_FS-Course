@@ -8,6 +8,7 @@ import { motion_api_no_auth } from '../../axios/axiosBase'
 
 const SignupForm = () => {
    const navigate = useNavigate()
+   const dispatch = useDispatch()
 
    const [email, setEmail] = useState('')
    const [loginError, setLoginError] = useState(null)

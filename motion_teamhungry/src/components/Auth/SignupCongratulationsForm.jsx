@@ -1,6 +1,12 @@
+import { useNavigate } from 'react-router'
 import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 
 const SignupCongratulationsForm = () => {
+   const email = localStorage.getItem('email')
+   const navigate = useNavigate()
+
+   console.log('congrats', email)
+
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex flex-col justify-between items-center h-[467px] w- mt-auto mb-auto">
@@ -11,12 +17,12 @@ const SignupCongratulationsForm = () => {
                </div>
                <p className="text-center mt-15  text-[16px] text-gray-900 opacity-90">
                   We’ve sent a confirmation code to your email <br />
-                  -----johnsmith@gmail.com------ {/*Login to be added here*/}
+                  {email}
                </p>
             </div>
             <PrimaryButton
                label="CONTINUE"
-               onClickHandler={() => console.log('Sign Up was clicked')}
+               onClickHandler={() => navigate('/auth/signup-verification')}
             />
          </div>
          {/* the dots still need to be added */}

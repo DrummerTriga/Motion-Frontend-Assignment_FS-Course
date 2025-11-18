@@ -14,7 +14,6 @@ const LoginForm = () => {
 
    console.log('Data coming from redux', userData.access)
 
-
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
    const [loginError, setLoginError] = useState(null)
@@ -49,7 +48,7 @@ const LoginForm = () => {
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex w-full justify-end items-center gap-8 pr-10 pt-10">
             <h2>Don't have an account?</h2>
-            <SecondaryButton label="SIGN UP" />
+            <SecondaryButton label="SIGN UP" type="button" />
          </div>
          <h1 className="text-[40px] mt-auto">Sign In</h1>
          {
