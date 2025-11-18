@@ -10,12 +10,14 @@ import VerificationPage from "./pages/authpages/VerificationPage"
 import ForgotPasswordPage from "./pages/authpages/ForgotPasswordPage"
 import ForgotPasswordEmailPage from "./pages/authpages/ForgotPasswordEmailPage"
 import ResetPasswordPage from "./pages/authpages/ResetPasswordPage"
+import ProfilePage from "./pages/profile/ProfilePage"
 
 function App() {
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
         {/* todo - RH- add none auth routes here */}
+        <Route path="profile" element={<ProfilePage />} />
       </Route>
       <Route path="auth" element={<AuthLayout />}>
         <Route path="login" element={<LoginPage />} />
