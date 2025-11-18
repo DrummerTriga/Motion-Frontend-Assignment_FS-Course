@@ -1,5 +1,11 @@
+import ForgotPasswordForm from '../../components/Auth/ForgotPasswordForm'
+
 const ForgotPasswordEmailPage = () => {
-  return <div>ForgotPasswordEmailPage</div>
+   return (
+      <>
+         <ForgotPasswordForm />
+      </>
+   )
 }
 
 export default ForgotPasswordEmailPage
