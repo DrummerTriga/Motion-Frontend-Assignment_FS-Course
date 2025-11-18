@@ -1,8 +1,11 @@
 module.exports = {
   theme: {
     fontFamily: {
-      sans: [your_main_font],
+      sans: ["Roboto", "sans-serif"],
       roboto: ["Roboto", "sans-serif"],
     },
+    fontWeight: {
+        light: '300',
+    }
   },
 }

@@ -1,9 +1,11 @@
 const SocialWallPage = () => {
-  return (
-    <div className=" bg-zinc-100 py-15 flex justify-center">
-      <div className=""></div>
-    </div>
-  )
+   return (
+      <div className="">
+         <div className=" h-[60vh] bg-zinc-100 flex align-middle justify-center">
+            <div className=" bg-white w-full justify-center text-center"> Social Wall</div>
+         </div>
+      </div>
+   )
 }
 
 export default SocialWallPage

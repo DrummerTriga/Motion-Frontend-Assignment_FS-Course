@@ -17,7 +17,8 @@ import PageNotFoundPage from './pages/PageNotFoundPage'
 import ProtectedRoutes from './ProtectedRoutes'
 
 function App() {
-   return (
+   
+  return (
       <Routes>
          <Route path="" element={<MainLayout />}>
             <Route path="" element={<ProtectedRoutes />}>

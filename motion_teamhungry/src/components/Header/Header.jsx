@@ -17,7 +17,7 @@ const Header = () => {
    const findFriendsSvg = (
       <svg
          id="fi_17561655"
-         enable-background="new 0 0 512 512"
+         enableBackground="new 0 0 512 512"
          width="30"
          height="30"
          viewBox="0 0 512 512"
