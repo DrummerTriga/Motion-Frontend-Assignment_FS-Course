@@ -1,5 +1,4 @@
 import PrimaryButtonIcon from '../../elements/Buttons/PrimaryButtonIcon'
-import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 import SecondaryButtonIcon from '../../elements/Buttons/SecondaryButtonIcon'
 
 const FriendRequests = ({ key, first_name, last_name, location, avatar }) => {

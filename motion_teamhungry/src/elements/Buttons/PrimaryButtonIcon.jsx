@@ -1,8 +1,5 @@
 // (eG SignUp with color)
-
-
 //Example how to use the PrimaryButtonIcon: <PrimaryButtonIcon onClickHandler={() => console.log("hellooo")}/>
-
 
 const PrimaryButtonIcon = ({ icon, onClickHandler }) => {
    console.log(icon)

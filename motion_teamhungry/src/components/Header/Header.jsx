@@ -3,10 +3,7 @@ import HeaderDropdown from './HeaderDropdown'
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
 import NotificationDropdown from './NotificationDropdown'
-//JTI todo define the right routes to the NavLinks
-//JTI todo define the functions for the notification, profilepic and dotmenu
 //JTI InformationYou can override the color of all the icons via text-color
-//JTI todo problems with small screens
 
 const Header = () => {
    const profileClickHandler = () => {
@@ -16,7 +13,6 @@ const Header = () => {
    const [showHeaderDropdown, setShowHeaderDropdown] = useState(false)
    const [showNotificationDropdown, setShowNotificationDropdown] =
       useState(false)
-   
 
    const findFriendsSvg = (
       <svg
