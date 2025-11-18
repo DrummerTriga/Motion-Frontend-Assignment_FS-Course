@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 const NotificationDropdown = () => {
    //We need the results Array from the API
-
    //JTI todo this needs to be our own ID for the loggedin user
    const ownId = 1
    const [friendRequests, setfriendRequests] = useState([
