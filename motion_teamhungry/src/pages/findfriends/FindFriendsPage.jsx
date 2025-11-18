@@ -103,11 +103,9 @@ const FindFriendsPage = () => {
     },
   ])
 
-  console.log(users)
-
   return (
-    <div className="Pagewrapper bg-zinc-100 py-10 px-15 flex justify-center">
-      <div className="  inline-grid grid-cols-3 gap-10">
+    <div className="Pagewrapper bg-zinc-100 py-15 flex justify-center">
+      <div className="  grid sm:grid-cols-3 gap-6">
         {users.map((user) => {
           return (
             <UserCard
