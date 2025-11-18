@@ -1,5 +1,11 @@
+import ForgotPasswordCodeForm from '../../components/Auth/ForgotPasswordCodeForm'
+
 const ForgotPasswordCodePage = () => {
-  return <dvi>ForgotPasswordCodePage</dvi>
+   return (
+      <>
+         <ForgotPasswordCodeForm />
+      </>
+   )
 }
 
 export default ForgotPasswordCodePage
