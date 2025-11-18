@@ -22,7 +22,7 @@ const ProfileSummary = () => {
   return (
     <div>
       <div
-        className="grid grid-cols-[2fr_3fr] gap-4 border-1 bg-emerald-600 border-1 border-gray-300"
+        className="grid grid-cols-[2fr_3fr] gap-4 border bg-emerald-600  border-gray-300"
         key={thisUser.id}
       >
         <div className="flex flex-col text-sm align-middle items-center">
@@ -35,7 +35,7 @@ const ProfileSummary = () => {
           </div>
           <div className="text-xs">{thisUser[0].location}</div>
         </div>
-        <div className="grid grid-cols-[1fr_3fr] gap-4 border-1">
+        <div className="grid grid-cols-[1fr_3fr] gap-4 border">
           <div className="row-span-2">
             <img
               src={thisUser[0].avatar}
