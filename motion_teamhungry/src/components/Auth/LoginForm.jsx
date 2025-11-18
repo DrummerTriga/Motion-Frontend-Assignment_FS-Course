@@ -12,29 +12,17 @@ const LoginForm = () => {
    const navigate = useNavigate()
    const userData = useSelector((state) => state.auth.user_data)
 
-   console.log('Check data from redux', userData.access)
+   console.log('Data coming from redux', userData.access)
+
 
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
    const [loginError, setLoginError] = useState(null)
 
-   const handleLoginSubmit = async (event) => {
-      console.log('code submitted')
-
-      event.preventDefault()
-
-      const success = await fetchingUserDataWithToken()
-
-      if (success) {
-         navigate('/profile')
-      } else {
-         setLoginError('Login failed. Please check your email and password')
-      }
-   }
-
    // =================================================================
    // FETCHING
-   async function fetchingUserDataWithToken() {
+   async function handleLoginSubmit(event) {
+      event.preventDefault()
       console.log('checkpoint 1', email, password)
       try {
          const response = await motion_api_no_auth.post('auth/token/', {
@@ -44,16 +32,17 @@ const LoginForm = () => {
          console.log('checkpoint 2 response is', response)
          localStorage.setItem('access_token', response.data.access)
          dispatch(login(response.data))
-         return true
+         navigate('/profile')
       } catch (error) {
          console.log(error)
          // todo - RH - add more cases to handle errors
          if (error.response) {
             console.log(error)
-            return false
+            setLoginError('Login failed. Please check your email and password')
          }
       }
    }
+
    // =================================================================
 
    return (
@@ -88,6 +77,11 @@ const LoginForm = () => {
                value={password}
                handleInputChange={(e) => setPassword(e.target.value)}
             />
+            {
+               <div>
+                  {loginError && <p className="text-red-500">{loginError}</p>}
+               </div>
+            }
             <Link to="/auth/password-email">Forgot Password?</Link>
             <PrimaryButton className="mt-10" label="SIGN IN" type="submit" />
          </form>
