@@ -205,6 +205,7 @@ const NotificationDropdown = () => {
                         last_name={user.receiver.last_name}
                         location={user.receiver.location}
                         avatar={user.receiver.avatar}
+                        type={'request'}
                      />
                   )
                }

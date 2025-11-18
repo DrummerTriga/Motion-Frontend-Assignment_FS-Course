@@ -1,7 +1,14 @@
 import PrimaryButtonIcon from '../../elements/Buttons/PrimaryButtonIcon'
 import SecondaryButtonIcon from '../../elements/Buttons/SecondaryButtonIcon'
 
-const FriendRequests = ({ key, first_name, last_name, location, avatar }) => {
+const FriendRequests = ({
+   key,
+   first_name,
+   last_name,
+   location,
+   avatar,
+   type,
+}) => {
    const iconSVG = (
       <svg
          fill="none"
@@ -35,6 +42,23 @@ const FriendRequests = ({ key, first_name, last_name, location, avatar }) => {
       </svg>
    )
 
+   const pendingSVG = (
+      <svg
+         id="fi_2088617"
+         enable-background="new 0 0 443.294 443.294"
+         height="25"
+         viewBox="0 0 443.294 443.294"
+         width="25"
+         xmlns="http://www.w3.org/2000/svg"
+      >
+         <path d="m221.647 0c-122.214 0-221.647 99.433-221.647 221.647s99.433 221.647 221.647 221.647 221.647-99.433 221.647-221.647-99.433-221.647-221.647-221.647zm0 415.588c-106.941 0-193.941-87-193.941-193.941s87-193.941 193.941-193.941 193.941 87 193.941 193.941-87 193.941-193.941 193.941z"></path>
+         <path
+            d="m235.5 83.118h-27.706v144.265l87.176 87.176 19.589-19.589-79.059-79.059z"
+            fill="grey"
+         ></path>
+      </svg>
+   )
+
    return (
       <div className="flex items-center w-full gap-2 p-4">
          <div className="w-1/5">
@@ -46,16 +70,25 @@ const FriendRequests = ({ key, first_name, last_name, location, avatar }) => {
             </p>
             <p className="text-neutral-400">{location}</p>
          </div>
-         <div className="w-2/5 flex justify-end gap-3">
-            <PrimaryButtonIcon
-               icon={iconSVG}
-               onClickHandler={() => console.log('I am the accept button')}
-            />
-            <SecondaryButtonIcon
-               icon={crossIconSVG}
-               onClickHandler={() => console.log('I am the abort button')}
-            />
-         </div>
+
+         {type !== 'request' && (
+            <div className="w-2/5 flex justify-end gap-3">
+               <PrimaryButtonIcon
+                  icon={iconSVG}
+                  onClickHandler={() => console.log('I am the accept button')}
+               />
+               <SecondaryButtonIcon
+                  icon={crossIconSVG}
+                  onClickHandler={() => console.log('I am the abort button')}
+               />
+            </div>
+         )}
+
+         {type === 'request' && (
+            <div className="w-2/5 flex justify-end gap-3 hover:cursor-progress">
+               <SecondaryButtonIcon icon={pendingSVG} />
+            </div>
+         )}
       </div>
    )
 }
