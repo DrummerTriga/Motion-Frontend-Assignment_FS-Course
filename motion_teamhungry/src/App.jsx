@@ -13,14 +13,18 @@ import ResetPasswordPage from "./pages/authpages/ResetPasswordPage"
 import FindFriendsPage from "./pages/findfriends/FindFriendsPage"
 import SocialWallPage from "./pages/feed/SocialWallPage"
 import ProfilePage from "./pages/profile/ProfilePage"
+import PageNotFoundPage from "./pages/PageNotFoundPage"
+import ProtectedRoutes from "./ProtectedRoutes"
 
 function App() {
   return (
     <Routes>
       <Route path="" element={<MainLayout />}>
-        <Route path="posts" element={<SocialWallPage />} />
-        <Route path="findfriends" element={<FindFriendsPage />} />
-        <Route path="profile" element={<ProfilePage />} />
+        <Route path="" element={<ProtectedRoutes />}>
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="posts" element={<SocialWallPage />} />
+          <Route path="findfriends" element={<FindFriendsPage />} />
+        </Route>
         {/* todo - RH- add none auth routes here */}
       </Route>
       <Route path="auth" element={<AuthLayout />}>
@@ -32,6 +36,7 @@ function App() {
         <Route path="password-code" element={<ForgotPasswordCodePage />} />
         <Route path="password-reset" element={<ResetPasswordPage />} />
       </Route>
+      <Route path="/*" element={<PageNotFoundPage />} />
     </Routes>
   )
 }
