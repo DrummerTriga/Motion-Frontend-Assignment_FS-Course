@@ -1,14 +1,5 @@
-
-
-
-
 const ResetPasswordPage = () => {
-
-    return (
-        <dvi>
-            ResetPasswordPage
-        </dvi>
-    )
+  return <div>ResetPasswordPage</div>
 }
 
 export default ResetPasswordPage

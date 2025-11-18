@@ -1,14 +1,11 @@
-
-
-
+import SignupCongratulationsForm from "../../components/Auth/SignupCongratulationsForm"
 
 const SignupCongratulationsPage = () => {
-
-    return (
-        <dvi>
-            SignupCongratulationsPage
-        </dvi>
-    )
+  return (
+    <>
+      <SignupCongratulationsForm />
+    </>
+  )
 }
 
 export default SignupCongratulationsPage

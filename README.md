@@ -1,5 +1,5 @@
 
-# TeamHungry - Motion - Frontend Assignments
+# Commotion - Frontend Assignments
 
 **Useful Links**
 - Boards
@@ -72,6 +72,9 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
 /components
     /Header
         /Header.jsx
+        /NotificationDropdown.jsx !!!!!!!NEW!!!!!!!
+        /HeaderDropdown.jsx !!!!!!!NEW!!!!!!!
+        /FriendRequests.jsx !!!!!!!NEW!!!!!!!
     /Auth
         /VerticalHero.jsx
         /Form.jsx
@@ -83,10 +86,11 @@ Gil —> - Project Setup / Person for Frontend —> Which components we need? / 
         /ForgotPasswordE-MailForm.jsx
         /ResetPasswordForm.jsx
     /Feed
-        /TextPost.jsx
-        /GalleryPost.jsx
-        /PicturePost.jsx
-        /Repost.jsx
+        /Post.jsx !!!!!!!NEW!!!!!!!
+        ~~/TextPost.jsx~~ !!!!!!!DELETED!!!!!!!
+       ~~ /GalleryPost.jsx~~ !!!!!!!DELETED!!!!!!!
+       ~~ /PicturePost.jsx~~ !!!!!!!DELETED!!!!!!!
+        ~~/Repost.jsx~~ !!!!!!!DELETED!!!!!!!
         /UserCard.jsx
         /SearchBar.jsx
         /FilterBar.jsx

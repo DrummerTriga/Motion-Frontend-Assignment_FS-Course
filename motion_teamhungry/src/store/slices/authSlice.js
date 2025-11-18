@@ -1,22 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 export const authSlice = createSlice({
-    name:"auth",
-    initialState: {
-        access_token: ""
+  name: "auth",
+  initialState: {
+    user_data: {},
+    auth_is_loading: true,
+  },
+  reducers: {
+    login: (state, action) => {
+      console.log("authSlice is used during login")
+      state.user_data = action.payload
+      state.auth_is_loading = false
     },
-    reducers: {
-        login: (state, action) => {
-            console.log("create logic")
-            //to be edited - just a reference 
-            // state.access_token = action.payload
-        },
-        logout: (state, action) => {
-            console.log("create logic")
-            //to be edited - just a reference 
-            // state.access_token = null
-        }
-    }
+    logout: (state, action) => {
+      //todo - RH -  is this working? Check when we have a login button
+      console.log("create logic")
+      state.user_data = null
+      localStorage.clear
+    },
+  },
 })
 
 export const { login, logout } = authSlice.actions
