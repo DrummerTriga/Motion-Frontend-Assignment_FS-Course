@@ -2,21 +2,32 @@ import { Link, useNavigate } from "react-router"
 import { motion_api_no_auth } from "../../axios/axiosBase"
 import InputFieldIcon from "../../elements/Login/InputFieldIcon"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { login } from "../../store/slices/authSlice"
 
 const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const userData = useSelector((state) => state.auth.user_data)
+
+  console.log("Check data from redux", userData.access)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [loginError, setLoginError] = useState(null)
 
-  const handleLoginSubmit = (event) => {
+  const handleLoginSubmit = async (event) => {
     console.log("code submitted")
+
     event.preventDefault()
-    fetchingUserDataWithToken()
-    navigate("/profile")
+
+    const success = await fetchingUserDataWithToken()
+
+    if (success) {
+      navigate("/profile")
+    } else {
+      setLoginError("Login failed. Please check your email and password")
+    }
   }
 
   // =================================================================
@@ -31,15 +42,16 @@ const LoginForm = () => {
       console.log("checkpoint 2 response is", response)
       localStorage.setItem("access_token", response.data.access)
       dispatch(login(response.data))
+      return true
     } catch (error) {
       console.log(error)
       // todo - RH - add more cases to handle errors
       if (error.response) {
         console.log(error)
+        return false
       }
     }
   }
-
   // =================================================================
 
   return (
@@ -49,6 +61,7 @@ const LoginForm = () => {
         <button className="border">SIGN UP</button>
       </div>
       <h1 className="text-[40px]">Sign In</h1>
+      {<div>{loginError && <p className="text-red-500">{loginError}</p>}</div>}
       <form
         className="flex flex-col justify-between items-center h-[467px] w- border mt-auto mb-auto"
         onSubmit={handleLoginSubmit}
@@ -79,4 +92,3 @@ const LoginForm = () => {
 }
 
 export default LoginForm
-
