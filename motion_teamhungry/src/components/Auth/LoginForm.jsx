@@ -82,7 +82,14 @@ const LoginForm = () => {
                </div>
             }
             <Link to="/auth/password-email">Forgot Password?</Link>
-            <PrimaryButton className="mt-10" label="SIGN IN" type="submit" />
+            <PrimaryButton
+               className="mt-10"
+               label="SIGN IN"
+               type="submit"
+               onClickHandler={(e) => {
+                  handleLoginSubmit(e)
+               }}
+            />
          </form>
       </div>
    )
