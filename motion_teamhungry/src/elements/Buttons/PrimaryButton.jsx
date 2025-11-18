@@ -1,5 +1,4 @@
 // (eG SignUp with color)
-
 //Example how to use the PrimaryButton: <PrimaryButton label={"test"} onClickHandler={() => console.log("hellooo")}/>
 
 const PrimaryButton = ({ label, onClickHandler, type, className }) => {
