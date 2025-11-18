@@ -10,7 +10,7 @@ const LoginForm = () => {
   const navigate = useNavigate()
   const userData = useSelector((state) => state.auth.user_data)
 
-  console.log("data from redux", userData.access)
+  console.log("Check data from redux", userData.access)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -52,7 +52,6 @@ const LoginForm = () => {
       }
     }
   }
-
   // =================================================================
 
   return (
