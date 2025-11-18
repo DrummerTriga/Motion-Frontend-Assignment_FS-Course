@@ -2,23 +2,21 @@ import logo from '/logo.png'
 import HeaderDropdown from './HeaderDropdown'
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
+import NotificationDropdown from './NotificationDropdown'
 //JTI todo define the right routes to the NavLinks
 //JTI todo define the functions for the notification, profilepic and dotmenu
 //JTI InformationYou can override the color of all the icons via text-color
 //JTI todo problems with small screens
 
 const Header = () => {
-   const notificationClickHandler = () => {
-      console.log('I react to notificationClickHandler')
-   }
    const profileClickHandler = () => {
       console.log('I react to profileClickHandler')
    }
-   const dotClickHandler = () => {
-      console.log('I react to dotClickHandler')
-   }
 
    const [showHeaderDropdown, setShowHeaderDropdown] = useState(false)
+   const [showNotificationDropdown, setShowNotificationDropdown] =
+      useState(false)
+   
 
    const findFriendsSvg = (
       <svg
@@ -127,10 +125,15 @@ const Header = () => {
                <div className="flex">
                   <button
                      className="text-neutral-400"
-                     onClick={notificationClickHandler}
+                     onClick={() =>
+                        !showNotificationDropdown
+                           ? setShowNotificationDropdown(true)
+                           : setShowNotificationDropdown(false)
+                     }
                   >
                      {notificationSvg}
                   </button>
+                  {showNotificationDropdown && <NotificationDropdown />}
                   {/* The number 4 is the placeholder for the amount of notifications */}
                   <p className="rounded-4xl w-6 h-6 text-s text-center mb-5 text-white bg-gradient-to-r from-purple-400 to-indigo-400">
                      3
@@ -142,6 +145,7 @@ const Header = () => {
                   onClick={profileClickHandler}
                />
                <div
+                  className="relative"
                   onClick={() =>
                      !showHeaderDropdown
                         ? setShowHeaderDropdown(true)
@@ -149,8 +153,8 @@ const Header = () => {
                   }
                >
                   {dotMenuSvg}
+                  {showHeaderDropdown && <HeaderDropdown />}
                </div>
-               {showHeaderDropdown && <HeaderDropdown />}
             </div>
          </div>
       </div>
