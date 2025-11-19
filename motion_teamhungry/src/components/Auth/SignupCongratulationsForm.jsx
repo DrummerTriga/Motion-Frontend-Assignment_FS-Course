@@ -5,8 +5,6 @@ const SignupCongratulationsForm = () => {
    const email = localStorage.getItem('email')
    const navigate = useNavigate()
 
-   console.log('congrats', email)
-
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex flex-col justify-between items-center h-[467px] w- mt-auto mb-auto">
@@ -25,7 +23,7 @@ const SignupCongratulationsForm = () => {
                onClickHandler={() => navigate('/auth/signup-verification')}
             />
          </div>
-         {/* the dots still need to be added */}
+               <img src='/progressDotes-2.png' className='h-15 flex align-top'/>
       </div>
    )
 }

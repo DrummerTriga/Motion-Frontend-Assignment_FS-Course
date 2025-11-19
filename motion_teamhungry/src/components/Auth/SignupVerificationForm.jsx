@@ -20,7 +20,6 @@ const VerificationForm = () => {
    const handleVerificationSubmit = (event) => {
       setPasswordNotMatching(null)
       setLoginError(null)
-      console.log('confimation was clicked', username, password, passwordRepeat)
       if (password !== passwordRepeat) {
          setPasswordNotMatching(true)
          setPassword('')
@@ -35,7 +34,6 @@ const VerificationForm = () => {
    // FETCHING
    async function fetchVerification(event) {
       event.preventDefault()
-      console.log('checkpoint 1', email, password, code, username)
       try {
          const response = await motion_api_auth.patch(
             'auth/registration/validation/',
@@ -49,12 +47,10 @@ const VerificationForm = () => {
                password_repeat: passwordRepeat,
             }
          )
-         console.log('checkpoint 2 response is', response)
          localStorage.clear('email')
          navigate('/auth/login')
       } catch (error) {
          if (error.response) {
-            console.log('error response is!!!', error.response.data)
             setLoginError(error.response.data)
          }
       }
@@ -289,7 +285,7 @@ const VerificationForm = () => {
                }}
             />
          </form>
-         {/* todo - gs - the "3 progress dots" still need to be added */}
+         <img src='/progressDotes-3.png' className='h-15 flex align-top'/>
       </div>
    )
 }
