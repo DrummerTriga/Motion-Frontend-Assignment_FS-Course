@@ -1,14 +1,14 @@
 import jenniferpic from '../../assets/users/jennifer.png'
 import sendButton from '../../../public/send_button.svg'
 import { useState } from 'react'
-import { motion_api_auth, motion_api_no_auth } from '../../axios/axiosBase'
+import { motion_api_auth } from '../../axios/axiosBase'
 
 const CreatePost = ({ userFirstName }) => {
    const [createPost, setCreatePost] = useState(false)
    const [selectedFile, setSelectedFile] = useState(null)
    const [previewURL, setPreviewURL] = useState(null)
    const [postMessage, setPostMessage] = useState('')
-   // const [errorMessage, setErrorMessage] = useState({})
+   const [errorMessage, setErrorMessage] = useState({})
 
    const handleFileChange = (event) => {
       const file = event.target.files[0]
@@ -22,14 +22,20 @@ const CreatePost = ({ userFirstName }) => {
 
    const handlePostSubmit = async (event) => {
       event.preventDefault()
-      // console.log(errorMessage)
       try {
-         const response = await motion_api_auth.post('social/posts', {
-            content: postMessage,
-         })
+         const formData = new FormData()
+         formData.append('content', postMessage)
+         if (selectedFile) {
+            formData.append('images', selectedFile)
+         }
+         const response = await motion_api_auth.post('social/posts', formData)
+         console.log('API Response:', response.data)
+         setCreatePost(false)
+         setSelectedFile(null)
+         setPreviewURL(null)
+         setPostMessage('')
       } catch (error) {
-         console.log(error.response.data.detail)
-         // setErrorMessage(error.response.data)
+         setErrorMessage(error.response?.data?.detail)
       }
    }
 
