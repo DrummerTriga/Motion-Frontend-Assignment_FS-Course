@@ -133,7 +133,7 @@ const SocialWallPage = () => {
 
    return (
       <div className=" bg-zinc-100 py-15 flex justify-center">
-         <div className="Griddivider grid grid-cols-2 gap-5">
+         <div className="Griddivider grid lg:grid-cols-2 gap-5">
             <div className="gridleft">
                <div className="flex flex-col gap-5">
                   {posts.map((post, index) => {

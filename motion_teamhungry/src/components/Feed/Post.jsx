@@ -91,7 +91,7 @@ const Post = ({
       setDetailPost(<ViewPost id={id} setDetailPostToggle={setDetailPost} />)
    }
    return (
-      <div className="postwrapper bg-white w-[600px] rounded-lg">
+      <div className="postwrapper bg-white  w-[580px] rounded-lg">
          <div className="PostHeader flex gap-4 px-5 py-5 items-center">
             <div className="pic">
                <img className="h-10" src={author_avatar} />

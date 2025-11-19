@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DeletePostDropdown from './DeletePostDropdown'
 const ViewPost = ({ id, setDetailPostToggle }) => {
    const crossIconSVG = (
       <svg
@@ -14,6 +15,7 @@ const ViewPost = ({ id, setDetailPostToggle }) => {
          ></path>
       </svg>
    )
+   const [showEditMenu, setShowEditMenu] = useState(false)
 
    const formatTimeStamp = (timestamp) => {
       const now = new Date()
@@ -143,9 +145,10 @@ const ViewPost = ({ id, setDetailPostToggle }) => {
             }}
             className="absolute top-50 right-60"
          >
+            {/* JTI todo fix problem with smaller screens and the crossIcon */}
             {crossIconSVG}
          </div>
-         <div className="grid grid-cols-2 Cardwrapper w-[70%] bg-amber-200">
+         <div className="grid grid-cols-2 Cardwrapper w-[70%] bg-white">
             <div className="Left">
                <img className="h-full" src={detailPost.images[0].image} />
             </div>
@@ -166,10 +169,18 @@ const ViewPost = ({ id, setDetailPostToggle }) => {
                         </p>
                      </div>
 
-                     <div className="menu ml-auto text-neutral-400">
-                        <button className="hover:cursor-pointer">
+                     <div className="relative ml-auto text-neutral-400">
+                        <button
+                           onClick={() =>
+                              !showEditMenu
+                                 ? setShowEditMenu(true)
+                                 : setShowEditMenu(false)
+                           }
+                           className=" hover:cursor-pointer"
+                        >
                            {dotMenuSvg}
                         </button>
+                        {showEditMenu && <DeletePostDropdown />}
                      </div>
                   </div>
                   <div className="postbody px-5 py-5 flex flex-col h-full">
