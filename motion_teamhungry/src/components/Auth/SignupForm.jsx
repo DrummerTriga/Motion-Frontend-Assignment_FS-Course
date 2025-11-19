@@ -3,7 +3,7 @@ import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 import InputFieldIcon from '../../elements/Login/InputFieldIcon'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { motion_api_no_auth } from '../../axios/axiosBase'
 
 const SignupForm = () => {
@@ -40,7 +40,9 @@ const SignupForm = () => {
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex w-full justify-end items-center gap-6 pr-10 pt-10">
-            <h2>Already have an account?</h2>
+            <Link to="/auth/login">
+               <h2>Already have an account?</h2>
+            </Link>
             <SecondaryButton label={'SIGN IN'} />
          </div>
          <form
@@ -67,6 +69,9 @@ const SignupForm = () => {
                   </div>
                }
             </div>
+            <Link to="/auth/signup-verification">
+               Got a verification code? Go straight to registration
+            </Link>
             <PrimaryButton
                label="SIGN UP"
                onClickHandler={(e) => handleSignupSubmit(e)}
