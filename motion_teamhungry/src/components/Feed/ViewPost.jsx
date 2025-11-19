@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import DeletePostDropdown from './DeletePostDropdown'
-const ViewPost = ({ id, setDetailPostToggle }) => {
+const ViewPost = ({ id, setDetailPostToggle, showDeletePostModal }) => {
    const crossIconSVG = (
       <svg
          height="25"
@@ -180,7 +180,9 @@ const ViewPost = ({ id, setDetailPostToggle }) => {
                         >
                            {dotMenuSvg}
                         </button>
-                        {showEditMenu && <DeletePostDropdown />}
+                        {showEditMenu && (
+                           <DeletePostDropdown hideEditMenu={setShowEditMenu} hideDetailPost={setDetailPostToggle} showDeletePostModal={showDeletePostModal}/>
+                        )}
                      </div>
                   </div>
                   <div className="postbody px-5 py-5 flex flex-col h-full">

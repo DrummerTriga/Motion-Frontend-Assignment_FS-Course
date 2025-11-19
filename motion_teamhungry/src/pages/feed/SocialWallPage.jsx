@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DeletePost from '../../components/Feed/DeletePost'
 import Post from '../../components/Feed/Post'
 
 const SocialWallPage = () => {
@@ -126,6 +127,7 @@ const SocialWallPage = () => {
          comments: 2,
       },
    ])
+   const [viewDeletePost, setViewDeletePost] = useState(false)
 
    //  const sortedPosts = posts.toSorted(
    //     (a, b) => new Date(b.created) - new Date(a.created)
@@ -133,6 +135,9 @@ const SocialWallPage = () => {
 
    return (
       <div className=" bg-zinc-100 py-15 flex justify-center">
+         {viewDeletePost && (
+            <DeletePost showDeletePostModal={setViewDeletePost} />
+         )}
          <div className="Griddivider grid lg:grid-cols-2 gap-5">
             <div className="gridleft">
                <div className="flex flex-col gap-5">
@@ -151,6 +156,7 @@ const SocialWallPage = () => {
                               shared_post={post.shared_post}
                               likes={post.likes}
                               comments={post.comments}
+                              showDeletePostModal={setViewDeletePost}
                            />
                         </div>
                      ) : null

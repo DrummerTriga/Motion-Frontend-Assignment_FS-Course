@@ -1,4 +1,10 @@
-const DeletePostDropdown = () => {
+import DeletePost from './DeletePost'
+
+const DeletePostDropdown = ({
+   hideEditMenu,
+   hideDetailPost,
+   showDeletePostModal,
+}) => {
    const editSVG = (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -29,8 +35,10 @@ const DeletePostDropdown = () => {
    }
 
    const onClickHandlerDelete = () => {
+      hideEditMenu(false)
+      hideDetailPost(false)
       //JTI todo add function for logout
-      console.log('I react on delete click')
+      showDeletePostModal(true)
    }
 
    return (

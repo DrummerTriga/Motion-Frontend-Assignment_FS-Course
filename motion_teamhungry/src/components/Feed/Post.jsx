@@ -13,6 +13,7 @@ const Post = ({
    shared_post,
    likes,
    comments,
+   showDeletePostModal,
 }) => {
    //formats the posted date to show Just now, hours or dates
    const formatTimeStamp = (timestamp) => {
@@ -85,10 +86,17 @@ const Post = ({
          <path d="m11.9 6.71v-3.68c0-.41-.24-.77-.62-.93-.37-.15-.8-.07-1.09.22l-7.87 7.87c-.39.39-.39 1.03 0 1.42l7.87 7.88c.29.29.72.37 1.09.22.38-.16.62-.52.62-.92v-3.9c3.09-.73 6.14.05 8.86 2.28 3.08 2.5 5.58 6.69 7.25 12.1.14.42.53.7.96.7.05 0 .1 0 .15-.01.49-.08.85-.5.85-.99 0-13.5-6.73-21.75-18.07-22.26z"></path>
       </svg>
    )
-   const [viewDetailPost, setDetailPost] = useState()
+   const [viewDetailPost, setViewDetailPost] = useState()
+
    //when i click on the picture i render the ViewPost Element..But i need to close it..so probably i need a slice? Or should i render a second element just an X on the Post Component???
    const viewPostFunction = (id) => {
-      setDetailPost(<ViewPost id={id} setDetailPostToggle={setDetailPost} />)
+      setViewDetailPost(
+         <ViewPost
+            id={id}
+            setDetailPostToggle={setViewDetailPost}
+            showDeletePostModal={showDeletePostModal}
+         />
+      )
    }
    return (
       <div className="postwrapper bg-white  w-[580px] rounded-lg">
