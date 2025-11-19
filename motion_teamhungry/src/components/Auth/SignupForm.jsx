@@ -40,10 +40,10 @@ const SignupForm = () => {
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex w-full justify-end items-center gap-6 pr-10 pt-10">
-            <h2>Already have an account?</h2>
             <Link to="/auth/login">
-               <SecondaryButton label="SIGN IN" />
+               <h2>Already have an account?</h2>
             </Link>
+            <SecondaryButton label={'SIGN IN'} />
          </div>
          <form
             className="flex flex-col justify-between items-center h-[467px] w- mt-auto mb-auto"
@@ -69,6 +69,9 @@ const SignupForm = () => {
                   </div>
                }
             </div>
+            <Link to="/auth/signup-verification">
+               Got a verification code? Go straight to registration
+            </Link>
             <PrimaryButton
                label="SIGN UP"
                onClickHandler={(e) => handleSignupSubmit(e)}
