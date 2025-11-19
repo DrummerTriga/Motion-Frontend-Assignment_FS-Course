@@ -10,7 +10,7 @@ export const motion_api_no_auth = axios.create({
    },
 })
 
-//todo - RH - using localStorage is probably not a good idea security whise. To review
+// For simplicity we have decided to save access_token in localStorage. We acknowledge this is not best practice.
 export const motion_api_auth = axios.create({
    baseURL: MOTION_URL,
    timeout: 10000,

@@ -16,9 +16,7 @@ const ForgotPasswordForm = () => {
 
    const handleForgotPasswordSubmit = async (event) => {
       event.preventDefault()
-      console.log(errorMessage)
       try {
-         // console.log('Sending payload:', { email })
          const response = await motion_api_no_auth.post(
             'auth/password-reset/',
             {
@@ -28,7 +26,6 @@ const ForgotPasswordForm = () => {
          localStorage.setItem('email', email)
          navigate('/auth/password-code')
       } catch (error) {
-         console.log(error.response.data.email[0])
          setErrorMessage('User does not exist. Please Sign Up.')
       }
    }
@@ -60,7 +57,7 @@ const ForgotPasswordForm = () => {
                   <p className="text-red-500 mt-4">{errorMessage}</p>
                )}
             </div>
-            {/* todo - RH - something is strange here --> this should be handled in fetch? */}
+            {/* todo - future improvement - could be handled in the fetch instead  of here */}
             {errorMessage ? (
                <PrimaryButton
                   onClickHandler={(event) => handleForgotPasswordSubmit(event)}
@@ -79,7 +76,7 @@ const ForgotPasswordForm = () => {
                </Link>
             )}
          </form>
-         {/* the dots still need to be added */}
+         <img src="/progressDotes-1.png" className="h-15 flex align-top" />
       </div>
    )
 }
