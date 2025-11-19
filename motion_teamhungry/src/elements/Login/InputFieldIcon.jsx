@@ -5,9 +5,12 @@ const InputFieldIcon = ({
    id,
    value,
    handleInputChange,
+   className,
 }) => {
    return (
-      <div className="flex flex-col justify-between h-[42px] w-72 ">
+      <div
+         className={`flex flex-col justify-between h-[42px] w-72 ${className}`}
+      >
          <div className="flex justify-start items-center">
             <img className="h-5 w-5 mr-5" src={icon} />
             <input

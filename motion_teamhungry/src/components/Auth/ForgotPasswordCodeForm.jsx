@@ -1,6 +1,15 @@
+import { useEffect, useState } from 'react'
 import PrimaryButton from '../../elements/Buttons/PrimaryButton'
+import { Link } from 'react-router'
 
 const ForgotPasswordCodeForm = () => {
+   const [email, setEmail] = useState('')
+
+   useEffect(() => {
+      const storedEmail = localStorage.getItem('email')
+      storedEmail && setEmail(storedEmail)
+   }, [])
+
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex flex-col justify-between items-center h-[467px] w- mt-auto mb-auto">
@@ -12,13 +21,15 @@ const ForgotPasswordCodeForm = () => {
                <p className="text-center mt-15  text-[16px] text-gray-900 opacity-90">
                   We’ve sent a reset code to your email
                   <br />
-                  -----johnsmith@gmail.com------ {/*Login to be added here*/}
+                  {`${email}`} {/*Login to be added here*/}
                </p>
             </div>
-            <PrimaryButton
-               label="CONTINUE"
-               onClickHandler={() => console.log('Sign Up was clicked')}
-            />
+            <Link to="/auth/password-reset">
+               <PrimaryButton
+                  label="CONTINUE"
+                  onClickHandler={() => console.log('CONTINUE was clicked')}
+               />
+            </Link>
          </div>
          {/* the dots still need to be added */}
       </div>
