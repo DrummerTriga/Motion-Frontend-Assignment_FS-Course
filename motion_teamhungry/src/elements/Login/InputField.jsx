@@ -7,6 +7,7 @@ const InputField = ({
    handleInputChange,
    className,
    wrapperClassName,
+   error,
 }) => {
    return (
       <div
