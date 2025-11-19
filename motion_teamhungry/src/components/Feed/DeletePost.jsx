@@ -24,6 +24,7 @@ const DeletePost = ({ showDeletePostModal }) => {
             </div>
             <div className="buttons flex gap-4 items-center">
                <SecondaryButton
+                  className="py-4 px-15"
                   label={'NO'}
                   onClickHandler={() => showDeletePostModal(false)}
                />

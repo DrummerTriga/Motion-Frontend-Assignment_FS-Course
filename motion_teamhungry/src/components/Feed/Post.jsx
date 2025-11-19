@@ -162,7 +162,7 @@ const Post = ({
                      src={images[3]}
                      alt=""
                   />
-                  <p className="absolute top-62 left-62 text-4xl text-white">
+                  <p className="absolute top-97 left-94 text-5xl text-white">
                      +{images.length - 4}
                   </p>
                </div>
