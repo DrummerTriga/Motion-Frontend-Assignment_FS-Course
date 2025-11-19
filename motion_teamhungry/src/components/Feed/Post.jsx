@@ -80,7 +80,7 @@ const Post = ({
          id="fi_18472875"
          viewBox="0 0 32 32"
          xmlns="http://www.w3.org/2000/svg"
-         class="w-6 h-6"
+         className="w-6 h-6"
          fill="currentColor"
       >
          <path d="m11.9 6.71v-3.68c0-.41-.24-.77-.62-.93-.37-.15-.8-.07-1.09.22l-7.87 7.87c-.39.39-.39 1.03 0 1.42l7.87 7.88c.29.29.72.37 1.09.22.38-.16.62-.52.62-.92v-3.9c3.09-.73 6.14.05 8.86 2.28 3.08 2.5 5.58 6.69 7.25 12.1.14.42.53.7.96.7.05 0 .1 0 .15-.01.49-.08.85-.5.85-.99 0-13.5-6.73-21.75-18.07-22.26z"></path>
@@ -102,7 +102,11 @@ const Post = ({
       <div className="postwrapper bg-white  w-[580px] rounded-lg">
          <div className="PostHeader flex gap-4 px-5 py-5 items-center">
             <div className="pic">
-               <img className="h-10" src={author_avatar} />
+               {author_avatar ? (
+                  <img className="rounded-full h-10" src={author_avatar} />
+               ) : (
+                  <img className="h-8" src="/noAvatarReplace.png" />
+               )}
             </div>
 
             <div className="Name und Zeit">
@@ -120,33 +124,34 @@ const Post = ({
          </div>
          <div className="postbody px-5 py-5 ">
             <p>{content}</p>
-
             {images.length === 1 && (
                <img
                   className="mt-5 rounded-sm"
-                  src={images[0]}
+                  src={images[0].image}
                   onClick={() => {
                      viewPostFunction(id)
                   }}
                />
             )}
-
             {images.length > 1 && images.length <= 4 && (
                <div className="grid grid-cols-2 grid-rows-2">
                   {images.slice(0, 4).map((src, index) => (
-                     <img
-                        onClick={() => {
-                           viewPostFunction(id)
-                        }}
-                        className="rounded-sm"
+                     <div
                         key={index}
-                        src={src}
-                        alt=""
-                     />
+                        className="h-55 w-full overflow-hidden rounded-sm"
+                     >
+                        <img
+                           onClick={() => {
+                              viewPostFunction(id)
+                           }}
+                           className="rounded-sm h-full w-full object-cover"
+                           src={src.image}
+                           alt=""
+                        />
+                     </div>
                   ))}
                </div>
             )}
-
             {images.length > 4 && (
                <div
                   onClick={() => {
@@ -155,14 +160,24 @@ const Post = ({
                   className="grid grid-cols-2 gap-2 grid-rows-2 relative"
                >
                   {images.slice(0, 3).map((src, index) => (
-                     <img className="rounded-sm" key={index} src={src} alt="" />
+                     <div
+                        key={index}
+                        className="h-55 w-full overflow-hidden rounded-sm"
+                     >
+                        <img
+                           className="rounded-sm h-full w-full object-cover"
+                           key={index}
+                           src={src.image}
+                           alt=""
+                        />{' '}
+                     </div>
                   ))}
                   <img
-                     className="rounded-sm brightness-20 "
-                     src={images[3]}
+                     className="h-55 w-full overflow-hidden rounded-sm brightness-20 h-full w-full object-cover"
+                     src={images[3].image}
                      alt=""
                   />
-                  <p className="absolute top-97 left-94 text-5xl text-white">
+                  <p className="absolute top-80 left-94 text-5xl text-white">
                      +{images.length - 4}
                   </p>
                </div>
