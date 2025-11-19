@@ -1,5 +1,4 @@
 import './App.css'
-import axios from 'axios' //todo - RH - test to import axios
 import AuthLayout from './layouts/AuthLayout'
 import { Route, Routes } from 'react-router'
 import LoginPage from './pages/authpages/LoginPage'
@@ -15,17 +14,40 @@ import SocialWallPage from './pages/feed/SocialWallPage'
 import ProfilePage from './pages/profile/ProfilePage'
 import PageNotFoundPage from './pages/PageNotFoundPage'
 import ProtectedRoutes from './ProtectedRoutes'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { motion_api_auth } from './axios/axiosBase.js'
+import { add_requests } from './store/slices/notificationSlice'
+import EditProfile from './components/Profile/EditProfile.jsx'
 
 function App() {
+   const dispatch = useDispatch()
+
+   //JT Todo: Prove if the slice is working properly. Cancel this task because we need Invitations
+   useEffect(() => {
+      const fetchNotifications = async () => {
+         try {
+            const response = await motion_api_auth.get(
+               'social/friends/requests/'
+            )
+            console.log(response.data.results)
+            dispatch(add_requests(response.data.results))
+         } catch (error) {
+            console.error('Failed to load users', error)
+         }
+      }
+      fetchNotifications()
+   }, [])
+
    return (
       <Routes>
          <Route path="" element={<MainLayout />}>
             <Route path="" element={<ProtectedRoutes />}>
                <Route path="profile" element={<ProfilePage />} />
+               <Route path="edit-profile" element={<EditProfile />} />
                <Route path="posts" element={<SocialWallPage />} />
                <Route path="findfriends" element={<FindFriendsPage />} />
             </Route>
-            {/* todo - RH- add none auth routes here */}
          </Route>
          <Route path="auth" element={<AuthLayout />}>
             <Route path="login" element={<LoginPage />} />

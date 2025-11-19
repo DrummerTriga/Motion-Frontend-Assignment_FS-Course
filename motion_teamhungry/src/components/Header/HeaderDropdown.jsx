@@ -1,6 +1,11 @@
-import { Link } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router'
+import { logout } from '../../store/slices/authSlice'
 
 const HeaderDropdown = () => {
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
    const iconWrapper = 'w-8 h-8 text-neutral-400 mr-5'
 
    const profileSVG = (
@@ -50,8 +55,9 @@ const HeaderDropdown = () => {
    )
 
    const onClickHandler = () => {
-      //JTI todo add function for logout
       console.log('I react on logout click')
+      dispatch(logout())
+      navigate('/auth/login')
    }
 
    return (
