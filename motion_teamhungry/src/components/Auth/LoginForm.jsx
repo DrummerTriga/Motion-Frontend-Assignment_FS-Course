@@ -10,12 +10,11 @@ import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 const LoginForm = () => {
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
-   
+
    // todo - RH - delete both lines below, this is to test that the data is being set correctly in Redux
    const userData = useSelector((state) => state.auth.user_data)
    console.log('Data coming from redux', userData.access)
-   
-   
+
    const [loginError, setLoginError] = useState(null)
    const dispatch = useDispatch()
    const navigate = useNavigate()
@@ -38,8 +37,8 @@ const LoginForm = () => {
       } catch (error) {
          console.log(error)
          if (error.response) {
-            console.log(error)
-            setLoginError('Login failed. Please check your email and password')
+            console.log('error response on login is!!!', error.response.data)
+            setLoginError(error.response.data)
          }
       }
    }
@@ -79,7 +78,9 @@ const LoginForm = () => {
             />
             {
                <div>
-                  {loginError && <p className="text-red-500">{loginError}</p>}
+                  {loginError && (
+                     <p className="text-red-500">{loginError.detail}</p>
+                  )}
                </div>
             }
             <Link to="/auth/password-email">Forgot Password?</Link>
