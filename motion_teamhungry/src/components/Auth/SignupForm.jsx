@@ -43,7 +43,9 @@ const SignupForm = () => {
             <Link to="/auth/login">
                <h2>Already have an account?</h2>
             </Link>
-            <SecondaryButton label={'SIGN IN'} />
+            <Link to="/auth/login">
+               <SecondaryButton label={'SIGN IN'} />
+            </Link>
          </div>
          <form
             className="flex flex-col justify-between items-center h-[467px] w- mt-auto mb-auto"

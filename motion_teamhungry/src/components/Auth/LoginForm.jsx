@@ -8,15 +8,17 @@ import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 
 const LoginForm = () => {
-   const dispatch = useDispatch()
-   const navigate = useNavigate()
-   const userData = useSelector((state) => state.auth.user_data)
-
-   console.log('Data coming from redux', userData.access)
-
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
+   
+   // todo - RH - delete both lines below, this is to test that the data is being set correctly in Redux
+   const userData = useSelector((state) => state.auth.user_data)
+   console.log('Data coming from redux', userData.access)
+   
+   
    const [loginError, setLoginError] = useState(null)
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
 
    // =================================================================
    // FETCHING
@@ -35,7 +37,6 @@ const LoginForm = () => {
          navigate('/profile')
       } catch (error) {
          console.log(error)
-         // todo - RH - add more cases to handle errors
          if (error.response) {
             console.log(error)
             setLoginError('Login failed. Please check your email and password')
@@ -51,14 +52,11 @@ const LoginForm = () => {
             <Link to="/auth/signup-email">
                <h2>Don't have an account?</h2>
             </Link>
-            <SecondaryButton label="SIGN UP" type="button" />
+            <Link to="/auth/signup-email">
+               <SecondaryButton label="SIGN UP" type="button" />
+            </Link>
          </div>
          <h1 className="text-[40px] mt-auto">Sign In</h1>
-         {
-            <div>
-               {loginError && <p className="text-red-500">{loginError}</p>}
-            </div>
-         }
          <form
             className="flex flex-col justify-center gap-10 items-center h-[467px] mb-auto"
             onSubmit={handleLoginSubmit}
