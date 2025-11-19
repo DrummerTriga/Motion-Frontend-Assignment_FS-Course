@@ -75,7 +75,9 @@ const ResetPasswordForm = () => {
                         handleInputChange={(event) => handleCodeChange(event)}
                         value={code}
                      />
-                     <p>{errorMessage.code[0]}</p>
+                     <div className="h-10">
+                        <p className="text-red-500">{errorMessage.code[0]}</p>
+                     </div>
                   </div>
                ) : (
                   <div>
@@ -98,7 +100,9 @@ const ResetPasswordForm = () => {
                         handleInputChange={(event) => handleEmailChange(event)}
                         value={email}
                      />
-                     <p>{errorMessage.email[0]}</p>
+                     <div className="h-10">
+                        <p className="text-red-500">{errorMessage.email[0]}</p>
+                     </div>
                   </div>
                ) : (
                   <div>
@@ -123,7 +127,11 @@ const ResetPasswordForm = () => {
                         }
                         value={password}
                      />
-                     {/* <p>{errorMessage.password}</p>   crashing when invalid password*/}
+                     <div className="h-10">
+                        <p className="text-red-500">
+                           {errorMessage.password[0]}
+                        </p>
+                     </div>
                   </div>
                ) : (
                   <div>
@@ -150,7 +158,11 @@ const ResetPasswordForm = () => {
                         }
                         value={confirmPassword}
                      />
-                     {/* <p>{errorMessage.password_repeat[0]}</p> crashing when invalid password  */}
+                     <div className="h-10">
+                        <p className="text-red-500">
+                           {errorMessage.password_repeat[0]}
+                        </p>
+                     </div>
                   </div>
                ) : (
                   <div>
@@ -162,6 +174,7 @@ const ResetPasswordForm = () => {
                            handleConfirmPasswordChange(event)
                         }
                         value={confirmPassword}
+                        className={`mb-10`}
                      />
                   </div>
                )}
