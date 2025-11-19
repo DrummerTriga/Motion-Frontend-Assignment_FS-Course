@@ -1,0 +1,28 @@
+const AvatarNamePostDate = ({ 
+  avatarSrc, 
+  avatarAlt = "User avatar",
+  topContent, 
+  bottomContent,
+  avatarSize = "w-16 h-16"
+}) => {
+  return (
+    <div className="grid grid-cols-[auto_1fr] gap-4">
+      {/* Avatar - spans 2 rows */}
+      <div className="row-span-2">
+        <img 
+          src={avatarSrc} 
+          alt={avatarAlt} 
+          className={`${avatarSize} rounded-full object-cover`}
+        />
+      </div>    
+      <div>
+        {topContent}
+      </div>
+      <div>
+        {bottomContent}
+      </div>
+    </div>
+  );
+};
+
+export default AvatarNamePostDate;
