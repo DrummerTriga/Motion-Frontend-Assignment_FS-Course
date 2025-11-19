@@ -26,7 +26,7 @@ const ProfileSummary = () => {
    return (
       <div>
          <div
-            className="h-[30vh] flex  bg-white "
+            className="min-h-[30vh] flex  bg-white "
             key={thisUser.id}
          >
             {/* left side of profile summary */}

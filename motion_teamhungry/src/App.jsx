@@ -15,6 +15,7 @@ import SocialWallPage from './pages/feed/SocialWallPage'
 import ProfilePage from './pages/profile/ProfilePage'
 import PageNotFoundPage from './pages/PageNotFoundPage'
 import ProtectedRoutes from './ProtectedRoutes'
+import EditProfile from './components/Profile/EditProfile'
 
 function App() {
    
@@ -23,6 +24,7 @@ function App() {
          <Route path="" element={<MainLayout />}>
             <Route path="" element={<ProtectedRoutes />}>
                <Route path="profile" element={<ProfilePage />} />
+               <Route path="edit-profile" element={<EditProfile />} />
                <Route path="posts" element={<SocialWallPage />} />
                <Route path="findfriends" element={<FindFriendsPage />} />
             </Route>
