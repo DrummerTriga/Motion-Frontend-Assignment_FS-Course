@@ -8,33 +8,21 @@ import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 
 const LoginForm = () => {
-   const dispatch = useDispatch()
-   const navigate = useNavigate()
-   const userData = useSelector((state) => state.auth.user_data)
-
-   console.log('Check data from redux', userData.access)
-
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
+
+   // todo - RH - delete both lines below, this is to test that the data is being set correctly in Redux
+   const userData = useSelector((state) => state.auth.user_data)
+   console.log('Data coming from redux', userData.access)
+
    const [loginError, setLoginError] = useState(null)
-
-   const handleLoginSubmit = async (event) => {
-      console.log('code submitted')
-
-      event.preventDefault()
-
-      const success = await fetchingUserDataWithToken()
-
-      if (success) {
-         navigate('/profile')
-      } else {
-         setLoginError('Login failed. Please check your email and password')
-      }
-   }
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
 
    // =================================================================
    // FETCHING
-   async function fetchingUserDataWithToken() {
+   async function handleLoginSubmit(event) {
+      event.preventDefault()
       console.log('checkpoint 1', email, password)
       try {
          const response = await motion_api_no_auth.post('auth/token/', {
@@ -43,31 +31,31 @@ const LoginForm = () => {
          })
          console.log('checkpoint 2 response is', response)
          localStorage.setItem('access_token', response.data.access)
+         localStorage.setItem('user_id', response.data.user.id)
          dispatch(login(response.data))
-         return true
+         navigate('/profile')
       } catch (error) {
          console.log(error)
-         // todo - RH - add more cases to handle errors
          if (error.response) {
-            console.log(error)
-            return false
+            console.log('error response on login is!!!', error.response.data)
+            setLoginError(error.response.data)
          }
       }
    }
+
    // =================================================================
 
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex w-full justify-end items-center gap-8 pr-10 pt-10">
-            <h2>Don't have an account?</h2>
-            <SecondaryButton label="SIGN UP" />
+            <Link to="/auth/signup-email">
+               <h2>Don't have an account?</h2>
+            </Link>
+            <Link to="/auth/signup-email">
+               <SecondaryButton label="SIGN UP" type="button" />
+            </Link>
          </div>
          <h1 className="text-[40px] mt-auto">Sign In</h1>
-         {
-            <div>
-               {loginError && <p className="text-red-500">{loginError}</p>}
-            </div>
-         }
          <form
             className="flex flex-col justify-center gap-10 items-center h-[467px] mb-auto"
             onSubmit={handleLoginSubmit}
@@ -88,8 +76,22 @@ const LoginForm = () => {
                value={password}
                handleInputChange={(e) => setPassword(e.target.value)}
             />
+            {
+               <div>
+                  {loginError && (
+                     <p className="text-red-500">{loginError.detail}</p>
+                  )}
+               </div>
+            }
             <Link to="/auth/password-email">Forgot Password?</Link>
-            <PrimaryButton className="mt-10" label="SIGN IN" type="submit" />
+            <PrimaryButton
+               className="mt-10"
+               label="SIGN IN"
+               type="submit"
+               onClickHandler={(e) => {
+                  handleLoginSubmit(e)
+               }}
+            />
          </form>
       </div>
    )

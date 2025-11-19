@@ -1,9 +1,9 @@
-import VerificationForm from '../../components/Auth/VerificationForm'
+import SignupVerificationForm from '../../components/Auth/SignupVerificationForm'
 
 const SignupVerificationPage = () => {
    return (
       <>
-         <VerificationForm />
+         <SignupVerificationForm />
       </>
    )
 }

@@ -91,7 +91,7 @@ const Header = () => {
 
    return (
       <div className="flex w-full bg-white h-20 shadow-[0_10px_15px_-10px_rgba(0,0,0,0.25)]">
-         <div className="flex gap-2 items-center pl-10">
+         <div className="flex gap-2 items-center pl-10 hover:cursor-pointer">
             <img src={logo} />
             <p className="text-xl">Motion</p>
          </div>
@@ -120,7 +120,7 @@ const Header = () => {
             <div className="flex gap-4 items-center pr-10">
                <div className="flex">
                   <button
-                     className="text-neutral-400"
+                     className="text-neutral-400 hover:cursor-pointer"
                      onClick={() =>
                         !showNotificationDropdown
                            ? setShowNotificationDropdown(true)
@@ -137,11 +137,12 @@ const Header = () => {
                </div>
                {/* I decided to not use import for this one because we probably get it directly from the API */}
                <img
+                  className="hover:cursor-pointer"
                   src="/src/assets/users/leticia.png"
                   onClick={profileClickHandler}
                />
                <div
-                  className="relative"
+                  className="relative hover:cursor-pointer"
                   onClick={() =>
                      !showHeaderDropdown
                         ? setShowHeaderDropdown(true)

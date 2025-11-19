@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Outlet, Navigate, useLocation } from 'react-router'
 
+// todo - RH - need to check 1) if token in local storage (done!) and 2) if the token is still valid!!! (open)
 const ProtectedRoutes = () => {
    const authIsLoading = useSelector((state) => state.auth.auth_is_loading)
    const accessToken = localStorage.getItem('access_token')
