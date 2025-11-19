@@ -170,7 +170,7 @@ const SocialWallPage = () => {
                                     content={post.content}
                                     images={post.images}
                                     shared_post={post.shared_post}
-                                    likes={post.likes}
+                                    likes={post.amount_of_likes}
                                     comments={post.comments}
                                     showDeletePostModal={setViewDeletePost}
                                  />
@@ -198,7 +198,7 @@ const SocialWallPage = () => {
                                     content={post.content}
                                     images={post.images}
                                     shared_post={post.shared_post}
-                                    likes={post.likes}
+                                    likes={post.amount_of_likes}
                                     comments={post.comments}
                                     showDeletePostModal={setViewDeletePost}
                                  />

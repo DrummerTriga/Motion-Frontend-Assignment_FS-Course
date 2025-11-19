@@ -1,6 +1,7 @@
 import ViewPost from './ViewPost'
 import { useState } from 'react'
 
+
 const Post = ({
    id,
    author_id,

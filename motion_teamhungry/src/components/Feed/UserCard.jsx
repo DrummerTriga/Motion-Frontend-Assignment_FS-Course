@@ -1,5 +1,7 @@
 import Tag from '../../elements/Tags/Tag'
 import SecondaryButton from '../../elements/Buttons/SecondaryButton'
+import { addNewFollower } from '../../utils/followingandfriends.js'
+import { sendFriendRequest } from '../../utils/followingandfriends.js'
 
 const UserCard = ({
    first_name,
@@ -8,6 +10,7 @@ const UserCard = ({
    about_me,
    things_user_likes,
    avatar,
+   user_id,
 }) => {
    return (
       <div className="bg-white flex flex-col items-center max-w-95 p-10 gap-4 rounded-lg">
@@ -22,8 +25,15 @@ const UserCard = ({
          <p className="min-h-10">{location}</p>
          <div className="flex gap-5">
             {/* JTI todo add secondaryButtons */}
-            <SecondaryButton label={'FOLLOW'} />
-            <SecondaryButton label={'ADD FRIEND'} />
+            <SecondaryButton
+               label={'FOLLOW'}
+               //The URL SEEMS TO BE CORRECT BUT I GET A GET REQUEST INSTEAD POST
+               onClickHandler={() => addNewFollower(user_id)}
+            />
+            <SecondaryButton
+               label={'ADD FRIEND'}
+               onClickHandler={() => sendFriendRequest(user_id)}
+            />
          </div>
 
          <div>
