@@ -16,6 +16,6 @@ export const motion_api_auth = axios.create({
    timeout: 10000,
    headers: {
       'Content-Type': 'application/json',
-      Authorization: `Baerer ${localStorage.getItem('access_token')}`,
+      Authorization: `Bearer ${localStorage.getItem('access_token')}`,
    },
 })

@@ -30,6 +30,7 @@ const LoginForm = () => {
          })
          console.log('checkpoint 2 response is', response)
          localStorage.setItem('access_token', response.data.access)
+         localStorage.setItem('user_id', response.data.user.id)
          dispatch(login(response.data))
          navigate('/profile')
       } catch (error) {
@@ -47,7 +48,9 @@ const LoginForm = () => {
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex w-full justify-end items-center gap-8 pr-10 pt-10">
-            <h2>Don't have an account?</h2>
+            <Link to="/auth/signup-email">
+               <h2>Don't have an account?</h2>
+            </Link>
             <SecondaryButton label="SIGN UP" type="button" />
          </div>
          <h1 className="text-[40px] mt-auto">Sign In</h1>
