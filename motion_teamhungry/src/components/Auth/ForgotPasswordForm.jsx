@@ -36,7 +36,9 @@ const ForgotPasswordForm = () => {
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
          <div className="flex w-full justify-end items-center gap-6 pr-10 pt-10">
-            <h2>Don't have an account?</h2>
+            <Link to="/auth/signup-email">
+               <h2>Don't have an account?</h2>
+            </Link>
             <Link to="/auth/signup-email">
                <SecondaryButton label="SIGN UP" />
             </Link>
@@ -58,6 +60,7 @@ const ForgotPasswordForm = () => {
                   <p className="text-red-500 mt-4">{errorMessage}</p>
                )}
             </div>
+            {/* todo - RH - something is strange here --> this should be handled in fetch? */}
             {errorMessage ? (
                <PrimaryButton
                   onClickHandler={(event) => handleForgotPasswordSubmit(event)}

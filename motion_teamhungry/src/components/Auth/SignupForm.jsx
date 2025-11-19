@@ -2,16 +2,14 @@ import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 import InputFieldIcon from '../../elements/Login/InputFieldIcon'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router'
 import { motion_api_no_auth } from '../../axios/axiosBase'
 
 const SignupForm = () => {
-   const navigate = useNavigate()
-   const dispatch = useDispatch()
-
    const [email, setEmail] = useState('')
+
    const [loginError, setLoginError] = useState(null)
+   const navigate = useNavigate()
 
    // =================================================================
    // FETCHING
@@ -27,11 +25,9 @@ const SignupForm = () => {
          localStorage.setItem('email', email)
          navigate('/auth/signup-code')
       } catch (error) {
-         // todo - RH - add more cases to handle errors
-         // todo - RH - improve error annoucement --> email is the sentence "this email already exists"??
-         console.log(error)
+         console.log('error in sigup is', error.response.data.email[0])
          setEmail('')
-         setLoginError(`${error}. Provide other email`)
+         setLoginError(error.response.data.email[0])
       }
    }
 
@@ -43,7 +39,9 @@ const SignupForm = () => {
             <Link to="/auth/login">
                <h2>Already have an account?</h2>
             </Link>
-            <SecondaryButton label={'SIGN IN'} />
+            <Link to="/auth/login">
+               <SecondaryButton label={'SIGN IN'} />
+            </Link>
          </div>
          <form
             className="flex flex-col justify-between items-center h-[467px] w- mt-auto mb-auto"
