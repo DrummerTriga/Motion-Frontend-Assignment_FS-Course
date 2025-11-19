@@ -15,8 +15,30 @@ import SocialWallPage from './pages/feed/SocialWallPage'
 import ProfilePage from './pages/profile/ProfilePage'
 import PageNotFoundPage from './pages/PageNotFoundPage'
 import ProtectedRoutes from './ProtectedRoutes'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { motion_api_auth } from './axios/axiosBase.js'
+import { add_requests } from './store/slices/notificationSlice'
 
 function App() {
+   const dispatch = useDispatch()
+
+   //JT Todo: Prove if the slice is working properly. Cancel this task because we need Invitations
+   useEffect(() => {
+      const fetchNotifications = async () => {
+         try {
+            const response = await motion_api_auth.get(
+               'social/friends/requests/'
+            )
+            console.log(response.data.results)
+            dispatch(add_requests(response.data.results))
+         } catch (error) {
+            console.error('Failed to load users', error)
+         }
+      }
+      fetchNotifications()
+   }, [])
+
    return (
       <Routes>
          <Route path="" element={<MainLayout />}>
