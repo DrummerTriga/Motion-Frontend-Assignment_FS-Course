@@ -1,30 +1,164 @@
+import { useState } from 'react'
 import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import InputField from '../../elements/Login/InputField'
+import { motion_api_auth } from '../../axios/axiosBase'
+import { useNavigate } from 'react-router'
 
 const VerificationForm = () => {
+   const [code, setCode] = useState('')
+   const [email, setEmail] = useState(localStorage.getItem('email'))
+   const [firstName, setFirstName] = useState('')
+   const [lastName, setLastName] = useState('')
+   const [username, setUsername] = useState('')
+   const [password, setPassword] = useState('')
+   const [passwordRepeat, setpasswordRepeat] = useState('')
+
+   const [passwordsNotMatching, setPasswordNotMatching] = useState(null)
+   const [loginError, setLoginError] = useState(null)
+   const navigate = useNavigate()
+
+   console.log('signup verification', email)
+
+   const handleVerificationSubmit = (event) => {
+      setPasswordNotMatching(null)
+      setLoginError(null)
+      console.log('confimation was clicked', username, password, passwordRepeat)
+      if (password !== passwordRepeat) {
+         setPasswordNotMatching(true)
+         setPassword('')
+         setpasswordRepeat('')
+         return
+      } else {
+         fetchVerification(event)
+      }
+   }
+
+   // =================================================================
+   // FETCHING
+   async function fetchVerification(event) {
+      event.preventDefault()
+      console.log('checkpoint 1', email, password, code, username)
+      try {
+         const response = await motion_api_auth.patch(
+            'auth/registration/validation/',
+            {
+               username: username,
+               code: code,
+               email: email,
+               first_name: firstName,
+               last_name: lastName,
+               password: password,
+               password_repeat: passwordRepeat,
+            }
+         )
+         console.log('checkpoint 2 response is', response)
+         // todo - RH - is it correct to delete this? --> the login action will happen on the login page
+         // localStorage.setItem('access_token', response.data.access)
+         // dispatch(login(response.data))
+         localStorage.clear('email')
+         navigate('/auth/login')
+      } catch (error) {
+         // todo - RH - add more cases to handle errors
+         // todo - RH - improve error message
+         if (error.response) {
+            console.log('error response is!!!', error.response.data)
+            setLoginError(error.response.data)
+         }
+      }
+   }
+
+   // =================================================================
+
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
-         <form className="flex flex-col justify-between items-center h-[467px] w- mt-auto mb-auto">
+         <form
+            className="flex flex-col justify-between items-center h-[467px] w- mt-auto mb-auto"
+            onSubmit={handleVerificationSubmit}
+         >
             <h1 className="text-[40px] mb-10">Verification</h1>
             <InputField
                wrapperClassName={'w-full mb-10 mt-8'}
                type="text"
                placeholder={'Validation code'}
+               id="code"
+               value={code}
+               handleInputChange={(e) => setCode(e.target.value)}
             />
+            {loginError?.code && (
+               <div className="text-red-500">{loginError.code[0]}</div>
+            )}
             <div className="grid grid-cols-2 gap-15 items-center mb-20">
-               <InputField type="email" placeholder={'Email'} />
-               <InputField type="text" placeholder={'Username'} />
-               <InputField type="text" placeholder={'First name'} />
-               <InputField type="text" placeholder={'Last name'} />
-               <InputField type="password" placeholder={'Password'} />
-               <InputField type="password" placeholder={'Password repeat'} />
+               <InputField
+                  type="email"
+                  placeholder={email ? email : 'Email'}
+                  id="email"
+                  value={email}
+                  handleInputChange={(e) => setEmail(e.target.value)}
+               />
+               {loginError?.email && (
+                  <div className="text-red-500">{loginError.email[0]}</div>
+               )}
+               <InputField
+                  type="text"
+                  placeholder={'Username'}
+                  id="username"
+                  value={username}
+                  handleInputChange={(e) => setUsername(e.target.value)}
+               />
+               {loginError?.username && (
+                  <div className="text-red-500">{loginError.username[0]}</div>
+               )}
+               <InputField
+                  type="text"
+                  placeholder={'First name'}
+                  id="firstName"
+                  value={firstName}
+                  handleInputChange={(e) => setFirstName(e.target.value)}
+               />
+               {loginError?.first_name && (
+                  <div className="text-red-500">{loginError.first_name[0]}</div>
+               )}
+               <InputField
+                  type="text"
+                  placeholder={'Last name'}
+                  id="lastName"
+                  value={lastName}
+                  handleInputChange={(e) => setLastName(e.target.value)}
+               />
+               {loginError?.last_name && (
+                  <div className="text-red-500">{loginError.last_name[0]}</div>
+               )}
+               <InputField
+                  type="password"
+                  placeholder={'Password'}
+                  id="password"
+                  value={password}
+                  handleInputChange={(e) => setPassword(e.target.value)}
+               />
+               {loginError?.password && (
+                  <div className="text-red-500">{loginError.password[0]}</div>
+               )}
+               <InputField
+                  type="password"
+                  placeholder={'Password repeat'}
+                  id="password"
+                  value={passwordRepeat}
+                  handleInputChange={(e) => setpasswordRepeat(e.target.value)}
+               />
+               {passwordsNotMatching && (
+                  <p className="text-red-500">
+                     Passwords don't match. Re-enter.
+                  </p>
+               )}
             </div>
             <PrimaryButton
                label="COMPLETE"
-               onClickHandler={() => console.log('Sign Up was clicked')}
+               onClickHandler={(e) => {
+                  handleVerificationSubmit(e)
+               }}
             />
          </form>
-         {/* the dots still need to be added */}
+         {/* todo - gs - the "3 progress dots" still need to be added */}
       </div>
    )
 }
