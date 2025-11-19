@@ -1,3 +1,6 @@
+import ViewPost from './ViewPost'
+import { useState } from 'react'
+
 const Post = ({
    id,
    author_id,
@@ -82,9 +85,13 @@ const Post = ({
          <path d="m11.9 6.71v-3.68c0-.41-.24-.77-.62-.93-.37-.15-.8-.07-1.09.22l-7.87 7.87c-.39.39-.39 1.03 0 1.42l7.87 7.88c.29.29.72.37 1.09.22.38-.16.62-.52.62-.92v-3.9c3.09-.73 6.14.05 8.86 2.28 3.08 2.5 5.58 6.69 7.25 12.1.14.42.53.7.96.7.05 0 .1 0 .15-.01.49-.08.85-.5.85-.99 0-13.5-6.73-21.75-18.07-22.26z"></path>
       </svg>
    )
-
+   const [viewDetailPost, setDetailPost] = useState()
+   //when i click on the picture i render the ViewPost Element..But i need to close it..so probably i need a slice? Or should i render a second element just an X on the Post Component???
+   const viewPostFunction = (id) => {
+      setDetailPost(<ViewPost id={id} setDetailPostToggle={setDetailPost} />)
+   }
    return (
-      <div className="postwrapper bg-white w-[400px] rounded-lg">
+      <div className="postwrapper bg-white w-[600px] rounded-lg">
          <div className="PostHeader flex gap-4 px-5 py-5 items-center">
             <div className="pic">
                <img className="h-10" src={author_avatar} />
@@ -107,19 +114,38 @@ const Post = ({
             <p>{content}</p>
 
             {images.length === 1 && (
-               <img className="mt-5 rounded-sm" src={images[0]} />
+               <img
+                  className="mt-5 rounded-sm"
+                  src={images[0]}
+                  onClick={() => {
+                     viewPostFunction(id)
+                  }}
+               />
             )}
 
             {images.length > 1 && images.length <= 4 && (
                <div className="grid grid-cols-2 grid-rows-2">
                   {images.slice(0, 4).map((src, index) => (
-                     <img className="rounded-sm" key={index} src={src} alt="" />
+                     <img
+                        onClick={() => {
+                           viewPostFunction(id)
+                        }}
+                        className="rounded-sm"
+                        key={index}
+                        src={src}
+                        alt=""
+                     />
                   ))}
                </div>
             )}
 
             {images.length > 4 && (
-               <div className="grid grid-cols-2 gap-2 grid-rows-2 relative">
+               <div
+                  onClick={() => {
+                     viewPostFunction(id)
+                  }}
+                  className="grid grid-cols-2 gap-2 grid-rows-2 relative"
+               >
                   {images.slice(0, 3).map((src, index) => (
                      <img className="rounded-sm" key={index} src={src} alt="" />
                   ))}
@@ -151,6 +177,7 @@ const Post = ({
                <p>{likes} likes</p>
             </div>
          </div>
+         <div>{viewDetailPost}</div>
       </div>
    )
 }

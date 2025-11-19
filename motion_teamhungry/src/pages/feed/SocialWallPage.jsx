@@ -127,32 +127,59 @@ const SocialWallPage = () => {
       },
    ])
 
-   const sortedPosts = posts.toSorted(
-      (a, b) => new Date(b.created) - new Date(a.created)
-   )
+   //  const sortedPosts = posts.toSorted(
+   //     (a, b) => new Date(b.created) - new Date(a.created)
+   //  )
 
    return (
       <div className=" bg-zinc-100 py-15 flex justify-center">
-         <div className="flex gap-5">
-            {posts.map((post) => {
-               return (
-                  <div>
-                     <Post
-                        id={post.id}
-                        author_id={post.author.id}
-                        author_first_name={post.author.first_name}
-                        author_last_name={post.author.last_name}
-                        author_avatar={post.author.avatar}
-                        created={post.created}
-                        content={post.content}
-                        images={post.images} // Array
-                        shared_post={post.shared_post}
-                        likes={post.likes}
-                        comments={post.comments}
-                     />
-                  </div>
-               )
-            })}
+         <div className="Griddivider grid grid-cols-2 gap-5">
+            <div className="gridleft">
+               <div className="flex flex-col gap-5">
+                  {posts.map((post, index) => {
+                     return index % 2 === 0 ? (
+                        <div>
+                           <Post
+                              id={post.id}
+                              author_id={post.author.id}
+                              author_first_name={post.author.first_name}
+                              author_last_name={post.author.last_name}
+                              author_avatar={post.author.avatar}
+                              created={post.created}
+                              content={post.content}
+                              images={post.images} // Array
+                              shared_post={post.shared_post}
+                              likes={post.likes}
+                              comments={post.comments}
+                           />
+                        </div>
+                     ) : null
+                  })}
+               </div>
+            </div>
+            <div className="gridright">
+               <div className="flex flex-col gap-5">
+                  {posts.map((post, index) => {
+                     return index % 2 !== 0 ? (
+                        <div>
+                           <Post
+                              id={post.id}
+                              author_id={post.author.id}
+                              author_first_name={post.author.first_name}
+                              author_last_name={post.author.last_name}
+                              author_avatar={post.author.avatar}
+                              created={post.created}
+                              content={post.content}
+                              images={post.images} // Array
+                              shared_post={post.shared_post}
+                              likes={post.likes}
+                              comments={post.comments}
+                           />
+                        </div>
+                     ) : null
+                  })}
+               </div>
+            </div>
          </div>
       </div>
    )
