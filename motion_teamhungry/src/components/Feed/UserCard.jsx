@@ -41,28 +41,33 @@ const UserCard = ({
                // JTI todo probably refine the primary button because of padding
                <PrimaryButton
                   label={'FOLLOWING'}
-                  className={'!px-4 !text-sm'}
+                  className={'!px-4 !py-2 !text-sm'}
                />
             )}
             {!logged_in_user_is_following && (
                <SecondaryButton
                   label={'FOLLOW'}
+                  className={'!px-4 !py-2 !text-sm'}
                   onClickHandler={() => addNewFollower(user_id)}
                />
             )}
             {/* JTI todo add the check as svg inside of the button */}
             {logged_in_user_is_friends && (
-               <SecondaryButton label={'✓ FRIEND'} />
+               <SecondaryButton
+                  label={'✓ FRIEND'}
+                  className={'!px-4 !py-2 !text-sm'}
+               />
             )}
             {logged_in_user_sent_friend_request && (
                <SecondaryButton
                   label={'PENDING'}
-                  className={'hover:cursor-progress'}
+                  className={'hover:cursor-progress !px-4 !py-2 !text-sm'}
                />
             )}
             {!logged_in_user_sent_friend_request && (
                <SecondaryButton
                   label={'ADD FRIEND'}
+                  className={'!px-4 !py-2 !text-sm'}
                   onClickHandler={() => sendFriendRequest(user_id)}
                />
             )}

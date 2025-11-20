@@ -16,4 +16,3 @@ export const rejectFriendRequest = (friendRequestId) => async (dispatch) => {
    const response = await motion_api_auth.get('social/friends/requests/')
    dispatch(add_requests(response.data.results))
 }
-
