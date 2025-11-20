@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import ProfileSummary from '../../components/Profile/ProfileSummary'
 import SocialWallPage from '../feed/SocialWallPage'
 import { motion_api_auth } from '../../axios/axiosBase'
+import { useSelector } from 'react-redux'
+import { profileSlice } from '../../store/slices/profileSlice'
 
 const ProfilePage = () => {
    const [user, setUser] = useState({})
    const [things_user_likes, setThings_user_likes] = useState([])
+   const filterState = useSelector((state) => state.profile.clickedFilter)
 
    useEffect(() => {
       const fetchUserData = async () => {
