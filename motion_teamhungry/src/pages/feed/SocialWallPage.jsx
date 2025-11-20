@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import Post from '../../components/Feed/Post'
 import FilterAndSearchBar from '../../components/Feed/FilterAndSearchBar'
 import { motion_api_auth } from '../../axios/axiosBase.js'
+import CreatePost from '../../components/Feed/CreatePost'
 
 const SocialWallPage = () => {
    //  const [posts, setPosts] = useState([
@@ -156,6 +157,7 @@ const SocialWallPage = () => {
             <div className="Griddivider grid lg:grid-cols-2 gap-5">
                <div className="gridleft">
                   <div className="flex flex-col gap-5">
+                     <CreatePost />
                      {posts.length > 0 ? (
                         posts.map((post, index) =>
                            index % 2 === 0 ? (
