@@ -1,7 +1,6 @@
 import ViewPost from './ViewPost'
 import { useState } from 'react'
 
-
 const Post = ({
    id,
    author_id,
@@ -127,7 +126,7 @@ const Post = ({
             <p>{content}</p>
             {images.length === 1 && (
                <img
-                  className="mt-5 rounded-sm"
+                  className="mt-5 rounded-sm hover:cursor-pointer"
                   src={images[0].image}
                   onClick={() => {
                      viewPostFunction(id)
@@ -135,11 +134,11 @@ const Post = ({
                />
             )}
             {images.length > 1 && images.length <= 4 && (
-               <div className="grid grid-cols-2 grid-rows-2">
+               <div className="grid grid-cols-2 gap-2 grid-rows-2">
                   {images.slice(0, 4).map((src, index) => (
                      <div
                         key={index}
-                        className="h-55 w-full overflow-hidden rounded-sm"
+                        className="h-55 w-full overflow-hidden rounded-sm hover:cursor-pointer"
                      >
                         <img
                            onClick={() => {
@@ -163,7 +162,7 @@ const Post = ({
                   {images.slice(0, 3).map((src, index) => (
                      <div
                         key={index}
-                        className="h-55 w-full overflow-hidden rounded-sm"
+                        className="h-55 w-full overflow-hidden rounded-sm hover:cursor-pointer"
                      >
                         <img
                            className="rounded-sm h-full w-full object-cover"
