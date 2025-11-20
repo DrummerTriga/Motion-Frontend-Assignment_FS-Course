@@ -8,8 +8,19 @@ import CreatePost from '../../components/Feed/CreatePost'
 
 const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    const [filter, setFilter] = useState('')
+   const [search, setSearch] = useState('')
+   const [debouncedSearch, setDebouncedSearch] = useState('')
    const [posts, setPosts] = useState([])
    const [viewDeletePost, setViewDeletePost] = useState(false)
+
+   useEffect(() => {
+      const handler = setTimeout(() => {
+         setDebouncedSearch(search)
+      }, 400)
+
+      return () => clearTimeout(handler)
+   }, [search])
+
    //Runs when filterformProfile is set. By returning directly, it skips the function and otherwise goes to the default fallback.
    useEffect(() => {
       if (!filterfromProfile) return
@@ -29,19 +40,26 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
 
       const fetchAllPosts = async () => {
          try {
-            const response = await motion_api_auth.get(`social/posts/${filter}`)
+            console.log(debouncedSearch)
+            const response = await motion_api_auth.get(
+               `social/posts/${filter}?search=${debouncedSearch}`
+            )
             setPosts(response.data.results)
          } catch (error) {
             console.error('Failed to load users', error)
          }
       }
       fetchAllPosts()
-   }, [filter, filterfromProfile])
+   }, [filter, filterfromProfile, debouncedSearch])
 
    return (
       <div className=" bg-zinc-100 py-5 ">
          {!hide_create_post && (
-            <FilterAndSearchBar setFilter={setFilter} activeTab={filter} />
+            <FilterAndSearchBar
+               setFilter={setFilter}
+               activeTab={filter}
+               onSearchChange={setSearch}
+            />
          )}
          <div className="flex justify-center py-5">
             {viewDeletePost && (

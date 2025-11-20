@@ -10,6 +10,7 @@ const ProfilePage = () => {
    const [user, setUser] = useState({})
    const [things_user_likes, setThings_user_likes] = useState([])
    const filterState = useSelector((state) => state.profile.clickedFilter)
+   console.log(filterState)
 
    useEffect(() => {
       const fetchUserData = async () => {
@@ -51,17 +52,17 @@ const ProfilePage = () => {
             />
          </div>
          <div className=" -mt-8 w-[85%]">
-            {filter === 'me' || filter === 'posts/likes' ? (
+            {filterState === 'me' || filterState === 'likes' ? (
                <SocialWallPage
                   hide_create_post={true}
-                  filterfromProfile={filter}
+                  filterfromProfile={filterState}
                />
             ) : null}
-
-            {filter === 'friends' ||
-            filter === 'followers/followers' ||
-            filter === 'followers/following' ? (
-               <FindFriendsPage filterfromProfile={filter} />
+   
+            {filterState === 'friends' ||
+            filterState === 'followers/followers' ||
+            filterState === 'followers/following' ? (
+               <FindFriendsPage filterfromProfile={filterState} />
             ) : null}
          </div>
       </div>

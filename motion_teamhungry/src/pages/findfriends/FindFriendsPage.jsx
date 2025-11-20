@@ -44,6 +44,7 @@ const FindFriendsPage = ({ filterfromProfile }) => {
          <div className="  grid sm:grid-cols-3 gap-6">
             {users.length >= 1 ? (
                users.map((user) => {
+                  console.log(user)
                   return (
                      <UserCard
                         key={user.id}

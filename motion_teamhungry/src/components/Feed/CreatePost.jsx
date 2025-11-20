@@ -103,7 +103,7 @@ const CreatePost = ({ userFirstName }) => {
          onClick={() => setCreatePost(true)}
          className="flex justify-between items-center bg-white w-[580px] h-[120px] p-5 rounded-lg"
       >
-         {/* <div className="flex gap-8 w-[80%]">
+         <div className="flex gap-8 w-[80%]">
             {userData.user.avatar ? (
                <img
                   className="h-16"
@@ -119,7 +119,7 @@ const CreatePost = ({ userFirstName }) => {
             <p className="flex items-center w-full">
                {`What's on your mind, ${userData.user.first_name}?`}{' '}
             </p>
-         </div> */}
+         </div>
          <div className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]">
             <img src={sendButton} />
          </div>
