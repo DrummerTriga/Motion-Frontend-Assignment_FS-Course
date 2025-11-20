@@ -2,6 +2,7 @@ import jenniferpic from '../../assets/users/jennifer.png'
 import sendButton from '../../../public/send_button.svg'
 import { useState } from 'react'
 import { motion_api_auth } from '../../axios/axiosBase'
+import { useSelector } from 'react-redux'
 
 const CreatePost = ({ userFirstName }) => {
    const [createPost, setCreatePost] = useState(false)
@@ -9,6 +10,9 @@ const CreatePost = ({ userFirstName }) => {
    const [previewURL, setPreviewURL] = useState([])
    const [postMessage, setPostMessage] = useState('')
    const [errorMessage, setErrorMessage] = useState({})
+
+   const userData = useSelector((store) => store.auth.user_data)
+   console.log(userData)
 
    const handleFileChange = (event) => {
       const files = Array.from(event.target.files).slice(0, 4)
@@ -100,9 +104,20 @@ const CreatePost = ({ userFirstName }) => {
          className="flex justify-between items-center bg-white w-[580px] h-[120px] p-5 rounded-lg"
       >
          <div className="flex gap-8 w-[80%]">
-            <img className="h-16" src={jenniferpic} />
+            {userData.user.avatar ? (
+               <img
+                  className="h-16"
+                  src={
+                     userData.user.avatar
+                        ? userData.user.avatar
+                        : '/noAvatarReplace.png'
+                  }
+               />
+            ) : (
+               <img className="h-16" src="/noAvatarReplace.png" />
+            )}
             <p className="flex items-center w-full">
-               {`What's on your mind, ${userFirstName}?`}{' '}
+               {`What's on your mind, ${userData.user.first_name}?`}{' '}
             </p>
          </div>
          <div className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]">
@@ -123,11 +138,18 @@ const CreatePost = ({ userFirstName }) => {
                </div>
                <div className="flex flex-col justify-between relative bg-white w-[560px] h-[406px] rounded-sm">
                   <div className="flex gap-10 p-10 pb-2 h-[70%]">
-                     <img className="h-16" src={jenniferpic} />
+                     <img
+                        className="h-16"
+                        src={
+                           userData.user.avatar
+                              ? userData.user.avatar
+                              : '/noAvatarReplace.png'
+                        }
+                     />
                      <div className="flex flex-col justify-between w-full h-full">
                         <textarea
                            className="w-full h-full focus:outline-0 resize-none"
-                           placeholder={`What's on your mind, ${userFirstName}?`}
+                           placeholder={`What's on your mind, ${userData.user.first_name}?`}
                            onChange={(event) =>
                               setPostMessage(event.target.value)
                            }
