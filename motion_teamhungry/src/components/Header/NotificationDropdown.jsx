@@ -4,10 +4,7 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
 const NotificationDropdown = () => {
-   //We need the results Array from the API
-   //JTI todo this needs to be our own ID for the loggedin user
-
-   const ownId = 4616
+   const ownId = localStorage.getItem('user_id')
    const [friendRequests, setfriendRequests] = useState([
       // {
       //    id: 1,
@@ -189,7 +186,7 @@ const NotificationDropdown = () => {
             <p className="text-xl">Received requests</p>
             {console.log(friendRequests)}
             {friendRequests.map((user) => {
-               if (user.receiver.id == ownId) {
+               if (user.receiver.id == ownId && user.status == 'P') {
                   return (
                      <FriendRequests
                         key={user.requester.id}
@@ -207,7 +204,7 @@ const NotificationDropdown = () => {
          <div className="reveivedrequests">
             <p className="text-xl">Sent requests</p>
             {friendRequests.map((user) => {
-               if (user.requester.id === ownId) {
+               if (user.requester.id == ownId) {
                   return (
                      <FriendRequests
                         key={user.receiver.id}
