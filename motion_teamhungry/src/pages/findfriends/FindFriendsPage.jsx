@@ -134,6 +134,21 @@ const FindFriendsPage = () => {
                         about_me={user.about_me}
                         things_user_likes={user.things_user_likes}
                         avatar={user.avatar}
+                        logged_in_user_is_following={
+                           user.logged_in_user_is_following
+                        }
+                        logged_in_user_is_friends={
+                           user.logged_in_user_is_friends
+                        }
+                        logged_in_user_is_rejected={
+                           user.logged_in_user_is_rejected
+                        }
+                        logged_in_user_received_friend_request={
+                           user.logged_in_user_received_fr
+                        }
+                        logged_in_user_sent_friend_request={
+                           user.logged_in_user_sent_fr
+                        }
                      />
                   )
                })

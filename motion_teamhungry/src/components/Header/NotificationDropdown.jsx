@@ -187,9 +187,9 @@ const NotificationDropdown = () => {
       <div className="dropdownwrapper w-[380px] bg-white rounded-b-lg absolute right-15 top-17 mt-2 p-5">
          <div className="reveivedrequests">
             <p className="text-xl">Received requests</p>
-
+            {console.log(friendRequests)}
             {friendRequests.map((user) => {
-               if (user.receiver.id !== ownId && user.requester.id !== ownId) {
+               if (user.receiver.id == ownId) {
                   return (
                      <FriendRequests
                         key={user.requester.id}
@@ -197,6 +197,7 @@ const NotificationDropdown = () => {
                         last_name={user.requester.last_name}
                         location={user.requester.location}
                         avatar={user.requester.avatar}
+                        request_id={user.id}
                      />
                   )
                }

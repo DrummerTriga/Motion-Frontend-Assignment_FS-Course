@@ -25,7 +25,7 @@ function App() {
 
    //JT Todo: Prove if the slice is working properly. Cancel this task because we need Invitations
    useEffect(() => {
-      const fetchNotifications = async () => {
+       const fetchNotifications = async () => {
          try {
             const response = await motion_api_auth.get(
                'social/friends/requests/'
