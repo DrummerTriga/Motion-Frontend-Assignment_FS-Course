@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
-const FilterAndSearchBar = () => {
-   const [activeTab, setActiveTab] = useState('All')
+const FilterAndSearchBar = ({ setFilter, activeTab }) => {
    const [search, setSearch] = useState('')
 
    return (
@@ -19,26 +18,26 @@ const FilterAndSearchBar = () => {
          </form>
          <div className="flex justify-between items-center gap-10 h-full">
             <div
-               onClick={() => setActiveTab('All')}
-               className={`flex items-center h-full ${activeTab === 'All' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
+               onClick={() => setFilter('')}
+               className={`flex items-center h-full ${activeTab === '' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
             >
                <h2>All</h2>
             </div>
             <div
-               onClick={() => setActiveTab('Liked')}
-               className={`flex items-center h-full ${activeTab === 'Liked' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
+               onClick={() => setFilter('likes')}
+               className={`flex items-center h-full ${activeTab === 'likes' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
             >
                <h2>Liked</h2>
             </div>
             <div
-               onClick={() => setActiveTab('Friends')}
-               className={`flex items-center h-full ${activeTab === 'Friends' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
+               onClick={() => setFilter('friends')}
+               className={`flex items-center h-full ${activeTab === 'friends' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
             >
                <h2>Friends</h2>
             </div>
             <div
-               onClick={() => setActiveTab('Follow')}
-               className={`flex items-center h-full ${activeTab === 'Follow' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
+               onClick={() => setFilter('following')}
+               className={`flex items-center h-full ${activeTab === 'following' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
             >
                <h2>Follow</h2>
             </div>
