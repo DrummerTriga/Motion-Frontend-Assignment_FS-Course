@@ -1,7 +1,6 @@
 import { motion_api_auth } from '../axios/axiosBase.js'
 
 export const displayPosts = async (user_id) => {
-   console.log('entering utils')
    try {
       const response = await motion_api_auth.get(
          `social/posts/user/${user_id}/?limit=25&offset=0`,
@@ -16,9 +15,8 @@ export const displayPosts = async (user_id) => {
 }
 
 export const displayLikes = async () => {
-   console.log('entering utils')
    try {
-      const response = await motion_api_auth.get(`social/post/likes/`, {})
+      const response = await motion_api_auth.get(`social/posts/likes/`, {})
       console.log('likes', response.data)
       return response.data
    } catch (error) {
