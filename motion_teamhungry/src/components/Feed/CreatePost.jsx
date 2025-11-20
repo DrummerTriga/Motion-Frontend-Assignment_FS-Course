@@ -26,9 +26,20 @@ const CreatePost = ({ userFirstName }) => {
          const formData = new FormData()
          formData.append('content', postMessage)
          if (selectedFile) {
-            formData.append('images', selectedFile)
+            formData.append('images[]', selectedFile)
          }
-         const response = await motion_api_auth.post('social/posts', formData)
+         for (let pair of formData.entries()) {
+            console.log(pair[0], pair[1])
+         }
+         const response = await motion_api_auth.post(
+            'social/posts/',
+            formData,
+            {
+               headers: {
+                  'Content-Type': 'multipart/form-data',
+               },
+            }
+         )
          console.log('API Response:', response.data)
          setCreatePost(false)
          setSelectedFile(null)
