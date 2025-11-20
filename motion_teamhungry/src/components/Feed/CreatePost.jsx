@@ -5,18 +5,18 @@ import { motion_api_auth } from '../../axios/axiosBase'
 
 const CreatePost = ({ userFirstName }) => {
    const [createPost, setCreatePost] = useState(false)
-   const [selectedFile, setSelectedFile] = useState(null)
-   const [previewURL, setPreviewURL] = useState(null)
+   const [selectedFile, setSelectedFile] = useState([])
+   const [previewURL, setPreviewURL] = useState([])
    const [postMessage, setPostMessage] = useState('')
    const [errorMessage, setErrorMessage] = useState({})
 
    const handleFileChange = (event) => {
-      const file = event.target.files[0]
-      setSelectedFile(file)
+      const files = Array.from(event.target.files).slice(0, 4)
+      setSelectedFile(files)
 
-      if (file) {
-         const url = URL.createObjectURL(file)
-         setPreviewURL(url)
+      if (files) {
+         const urls = files.map((file) => URL.createObjectURL(file))
+         setPreviewURL(urls)
       }
    }
 
@@ -26,8 +26,9 @@ const CreatePost = ({ userFirstName }) => {
          const formData = new FormData()
          formData.append('content', postMessage)
          if (selectedFile) {
-            formData.append('images[]', selectedFile)
+            selectedFile.forEach((file) => formData.append('images', file))
          }
+         console.log(formData.get('images'))
          for (let pair of formData.entries()) {
             console.log(pair[0], pair[1])
          }
@@ -113,8 +114,8 @@ const CreatePost = ({ userFirstName }) => {
                   onClick={(event) => {
                      event.stopPropagation()
                      setCreatePost(false)
-                     setPreviewURL(null)
-                     setSelectedFile(null)
+                     setPreviewURL([])
+                     setSelectedFile([])
                   }}
                   className="relative bottom-54 left-147 cursor-pointer"
                >
@@ -132,22 +133,36 @@ const CreatePost = ({ userFirstName }) => {
                            }
                         />
                         <div>
-                           {previewURL && (
-                              <div className="relative inline-block">
-                                 <img
-                                    className="h-22 w-20 border border-white rounded-sm"
-                                    src={previewURL}
-                                 />
-
-                                 <div
-                                    onClick={() => {
-                                       ;(setPreviewURL(null),
-                                          setSelectedFile(null))
-                                    }}
-                                    className="absolute top-1 right-1 bg-white text-gray-400 font-bold w-6 h-6 flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200"
-                                 >
-                                    X
-                                 </div>
+                           {previewURL.length > 0 && (
+                              <div className="flex gap-2">
+                                 {previewURL.map((url, index) => (
+                                    <div
+                                       key={index}
+                                       className="relative inline-block"
+                                    >
+                                       <img
+                                          className="h-22 w-20 border border-white rounded-sm object-cover"
+                                          src={url}
+                                          alt={`preview ${index + 1}`}
+                                       />
+                                       <div
+                                          onClick={() => {
+                                             const newURLs = previewURL.filter(
+                                                (_, i) => i !== index
+                                             )
+                                             const newFiles =
+                                                selectedFile.filter(
+                                                   (_, i) => i !== index
+                                                )
+                                             setPreviewURL(newURLs)
+                                             setSelectedFile(newFiles)
+                                          }}
+                                          className="absolute top-1 right-1 bg-white text-gray-400 font-bold w-6 h-6 flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200"
+                                       >
+                                          X
+                                       </div>
+                                    </div>
+                                 ))}
                               </div>
                            )}
                         </div>
@@ -158,6 +173,8 @@ const CreatePost = ({ userFirstName }) => {
                         <input
                            type="file"
                            id="fileUpload"
+                           accept=".png, .jpg, .jpeg"
+                           multiple
                            className="hidden"
                            onChange={handleFileChange}
                         />
