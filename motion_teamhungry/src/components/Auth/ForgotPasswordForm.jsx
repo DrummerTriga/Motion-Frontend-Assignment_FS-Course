@@ -75,8 +75,8 @@ const ForgotPasswordForm = () => {
                   />
                </Link>
             )}
+            <img src="/progressDotes-1.png" className="h-15 flex align-top" />
          </form>
-         <img src="/progressDotes-1.png" className="h-15 flex align-top" />
       </div>
    )
 }

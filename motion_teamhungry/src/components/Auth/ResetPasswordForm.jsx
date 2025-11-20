@@ -187,8 +187,8 @@ const ResetPasswordForm = () => {
                label="COMPLETE"
                onClickHandler={(event) => handleResetPasswordSubmit(event)}
             />
+            <img src="/progressDotes-3.png" className="h-15 flex align-top" />
          </form>
-         <img src="/progressDotes-3.png" className="h-15 flex align-top" />
       </div>
    )
 }
