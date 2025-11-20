@@ -22,8 +22,8 @@ const SignupCongratulationsForm = () => {
                label="CONTINUE"
                onClickHandler={() => navigate('/auth/signup-verification')}
             />
-         </div>
                <img src='/progressDotes-2.png' className='h-15 flex align-top'/>
+         </div>
       </div>
    )
 }
