@@ -1,5 +1,6 @@
 import ViewPost from './ViewPost'
 import { useState } from 'react'
+import { Link } from 'react-router'
 
 const Post = ({
    id,
@@ -102,16 +103,23 @@ const Post = ({
          <div className="PostHeader flex gap-4 px-5 py-5 items-center">
             <div className="pic">
                {author_avatar ? (
-                  <img className="rounded-full h-10" src={author_avatar} />
+                  <Link to={`/profile/?id=${author_id}`}>
+                     <img className="rounded-full h-10" src={author_avatar} />
+                  </Link>
                ) : (
-                  <img className="h-8" src="/noAvatarReplace.png" />
+                  <Link to={`/profile/?id=${author_id}`}>
+                     <img className="h-8" src="/noAvatarReplace.png" />
+                  </Link>
                )}
             </div>
 
             <div className="Name und Zeit">
-               <p className="text-lg">
-                  {author_first_name} {author_last_name}
-               </p>
+               <Link to={`/profile/?id=${author_id}`}>
+                  {' '}
+                  <p className="text-lg">
+                     {author_first_name} {author_last_name}
+                  </p>
+               </Link>
                <p className="text-neutral-400 text-sm">
                   {formatTimeStamp(created)}
                </p>
