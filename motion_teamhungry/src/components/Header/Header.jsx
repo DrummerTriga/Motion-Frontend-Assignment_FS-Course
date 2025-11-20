@@ -9,6 +9,13 @@ const Header = () => {
    const allNotifications = useSelector(
       (store) => store.notifications.notifications ?? []
    )
+
+   const userAvatar = useSelector(
+      (store) => store.auth.user_data?.avatar ?? '/noAvatarReplace.png'
+   )
+
+   console.log(userAvatar)
+
    const pendingCount = allNotifications.filter((n) => n.status === 'P').length
 
    const navigate = useNavigate()
@@ -144,10 +151,9 @@ const Header = () => {
                      {pendingCount}
                   </p>
                </div>
-               {/* I decided to not use import for this one because we probably get it directly from the API */}
                <img
-                  className="hover:cursor-pointer"
-                  src="/src/assets/users/leticia.png"
+                  className="h-8 hover:cursor-pointer"
+                  src={userAvatar}
                   onClick={profileClickHandler}
                />
                <div
