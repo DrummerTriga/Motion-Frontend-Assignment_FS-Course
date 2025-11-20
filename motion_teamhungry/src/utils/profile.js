@@ -6,8 +6,8 @@ export const displayPosts = async (user_id) => {
          `social/posts/user/${user_id}/?limit=25&offset=0`,
          {}
       )
-      console.log('13 posts', response.data)
-      return response
+      console.log('posts', response.data)
+      return response.data
    } catch (error) {
       console.error('Failed to get posts', error)
       throw error

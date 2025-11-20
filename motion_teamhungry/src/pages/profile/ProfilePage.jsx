@@ -10,13 +10,11 @@ const ProfilePage = () => {
    useEffect(() => {
       const fetchUserData = async () => {
          // todo - RH - make the localStorage active again
-         // const user_id = localStorage.getItem('user_id')
+         const user_id = localStorage.getItem('user_id')
          // console.log(user_id)
-         const user_id = 4662
+         // const user_id = 4662
          try {
             const response = await motion_api_auth.get(`users/${user_id}/`)
-            console.log('inside of response', response.data)
-            console.log('array passing', response.data.things_user_likes)
             setUser(response.data)
             setThings_user_likes(response.data.things_user_likes)
          } catch (error) {

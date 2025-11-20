@@ -21,38 +21,21 @@ const ProfileSummary = ({
    amount_of_followers,
    amount_of_following,
 }) => {
+   // todo - RH - make loading logic
    const [isloading, setIsLoading] = useState(true)
+   const [posts, setPosts] = useState({})
    const user_id = localStorage.getItem('user_id')
-   // const thisUser = [
-   //    {
-   //       id: 3,
-   //       first_name: 'Jennifer',
-   //       last_name: 'Aniston',
-   //       avatar: '/users/jennifer.png',
-   //       location: 'Zurich, Switzerland',
-   //       about_me:
-   //          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
-   //       email: 'test@email.com',
-   //       phone_number: '+ 1 234 456',
-   //       things_user_likes: ['Cooking', 'Football', 'Swimming'],
-   //       amount_of_posts: '34',
-   //       amount_of_likes: '35',
-   //       amount_of_friends: '36',
-   //       amount_of_followers: '37',
-   //       amount_of_following: '38',
-   //    },
-   // ]
 
    const handlePostsDisplay = async () => {
       console.log('click for post')
       // loading
       try {
          const posts = await displayPosts(user_id)
-         console.log(posts)
+         setPosts(posts)
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
-         setIsLoading(false)
+         // setIsLoading(false)
       }
    }
 
