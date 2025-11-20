@@ -5,6 +5,7 @@ import Tag from '../../elements/Tags/Tag'
 import { Link } from 'react-router'
 import {
    displayPosts,
+   displayLikes,
    displayFriends,
    displayFollowers,
    displayFollowing,
