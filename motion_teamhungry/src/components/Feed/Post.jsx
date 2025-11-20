@@ -88,7 +88,6 @@ const Post = ({
    )
    const [viewDetailPost, setViewDetailPost] = useState()
 
-   //when i click on the picture i render the ViewPost Element..But i need to close it..so probably i need a slice? Or should i render a second element just an X on the Post Component???
    const viewPostFunction = (id) => {
       setViewDetailPost(
          <ViewPost
