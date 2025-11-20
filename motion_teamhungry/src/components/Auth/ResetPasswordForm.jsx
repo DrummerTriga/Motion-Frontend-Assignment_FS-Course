@@ -18,7 +18,6 @@ const ResetPasswordForm = () => {
    const handleResetPasswordSubmit = (event) => {
       setPasswordNotMatching(null)
       setLoginError(null)
-      console.log('confimation was clicked', password, passwordRepeat)
       if (password !== passwordRepeat) {
          setPasswordNotMatching(true)
          setPassword('')
@@ -46,9 +45,7 @@ const ResetPasswordForm = () => {
          localStorage.clear('email')
          navigate('/auth/login')
       } catch (error) {
-         console.log(error)
          if (error.response) {
-            console.log('error response is!!!', error.response.data)
             setLoginError(error.response.data)
          }
       }
@@ -190,6 +187,7 @@ const ResetPasswordForm = () => {
                label="COMPLETE"
                onClickHandler={(event) => handleResetPasswordSubmit(event)}
             />
+            <img src="/progressDotes-3.png" className="h-15 flex align-top" />
          </form>
       </div>
    )

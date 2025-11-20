@@ -15,17 +15,14 @@ const SignupForm = () => {
    // FETCHING
 
    async function handleSignupSubmit(event) {
-      console.log('checkpoint 1', email)
       event.preventDefault()
       try {
          const response = await motion_api_no_auth.post('auth/registration/', {
             email,
          })
-         console.log('checkpoint 2 response is')
          localStorage.setItem('email', email)
          navigate('/auth/signup-code')
       } catch (error) {
-         console.log('error in sigup is', error.response.data.email[0])
          setEmail('')
          setLoginError(error.response.data.email[0])
       }
@@ -74,8 +71,8 @@ const SignupForm = () => {
                label="SIGN UP"
                onClickHandler={(e) => handleSignupSubmit(e)}
             />
+               <img src='/progressDotes-1.png' className='h-15 flex align-top'/>
          </form>
-         {/* todo - gs - the "3 progress dots" still need to be added */}
       </div>
    )
 }

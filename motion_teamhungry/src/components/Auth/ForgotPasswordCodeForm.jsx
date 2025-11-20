@@ -3,12 +3,7 @@ import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import { Link } from 'react-router'
 
 const ForgotPasswordCodeForm = () => {
-   const [email, setEmail] = useState('')
-
-   useEffect(() => {
-      const storedEmail = localStorage.getItem('email')
-      storedEmail && setEmail(storedEmail)
-   }, [])
+   const email = localStorage.getItem('email')
 
    return (
       <div className="flex flex-col items-center h-full w-[60%]">
@@ -21,17 +16,17 @@ const ForgotPasswordCodeForm = () => {
                <p className="text-center mt-15  text-[16px] text-gray-900 opacity-90">
                   We’ve sent a reset code to your email
                   <br />
-                  {`${email}`} {/*Login to be added here*/}
+                  {`${email}`}
                </p>
             </div>
             <Link to="/auth/password-reset">
                <PrimaryButton
                   label="CONTINUE"
-                  onClickHandler={() => console.log('CONTINUE was clicked')}
+                  onClickHandler={() => navigate('/auth/password-reset')}
                />
             </Link>
+            <img src="/progressDotes-2.png" className="h-15 flex align-top" />
          </div>
-         {/* the dots still need to be added */}
       </div>
    )
 }

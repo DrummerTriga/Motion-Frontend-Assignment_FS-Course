@@ -1,5 +1,4 @@
 import './App.css'
-import axios from 'axios' //todo - RH - test to import axios
 import AuthLayout from './layouts/AuthLayout'
 import { Route, Routes } from 'react-router'
 import LoginPage from './pages/authpages/LoginPage'
@@ -49,7 +48,6 @@ function App() {
                <Route path="posts" element={<SocialWallPage />} />
                <Route path="findfriends" element={<FindFriendsPage />} />
             </Route>
-            {/* todo - RH- add none auth routes here */}
          </Route>
          <Route path="auth" element={<AuthLayout />}>
             <Route path="login" element={<LoginPage />} />

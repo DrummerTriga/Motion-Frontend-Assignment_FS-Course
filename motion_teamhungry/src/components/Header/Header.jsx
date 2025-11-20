@@ -92,7 +92,9 @@ const Header = () => {
    return (
       <div className="flex w-full bg-white h-20 shadow-[0_10px_15px_-10px_rgba(0,0,0,0.25)]">
          <div className="flex gap-2 items-center pl-10 hover:cursor-pointer">
-            <img src={logo} />
+            <NavLink to="posts">
+               <img src={logo} />
+            </NavLink>
             <p className="text-xl">Motion</p>
          </div>
          <div className="flex w-full items-center justify-between">

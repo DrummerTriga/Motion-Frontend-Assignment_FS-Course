@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import InputField from '../../elements/Login/InputField'
-import { motion_api_auth } from '../../axios/axiosBase'
+import { motion_api_no_auth } from '../../axios/axiosBase'
 import { useNavigate } from 'react-router'
 
 const VerificationForm = () => {
@@ -20,7 +20,6 @@ const VerificationForm = () => {
    const handleVerificationSubmit = (event) => {
       setPasswordNotMatching(null)
       setLoginError(null)
-      console.log('confimation was clicked', username, password, passwordRepeat)
       if (password !== passwordRepeat) {
          setPasswordNotMatching(true)
          setPassword('')
@@ -35,9 +34,8 @@ const VerificationForm = () => {
    // FETCHING
    async function fetchVerification(event) {
       event.preventDefault()
-      console.log('checkpoint 1', email, password, code, username)
       try {
-         const response = await motion_api_auth.patch(
+         const response = await motion_api_no_auth.patch(
             'auth/registration/validation/',
             {
                username: username,
@@ -49,13 +47,12 @@ const VerificationForm = () => {
                password_repeat: passwordRepeat,
             }
          )
-         console.log('checkpoint 2 response is', response)
          localStorage.clear('email')
          navigate('/auth/login')
       } catch (error) {
          if (error.response) {
-            console.log('error response is!!!', error.response.data)
             setLoginError(error.response.data)
+            console.log(error.response.data)
          }
       }
    }
@@ -71,37 +68,45 @@ const VerificationForm = () => {
             <h1 className="text-[40px] mb-10">Verification</h1>
 
             {/* // ==================================================== */}
-
-            {loginError?.code ? (
-               <div>
-                  <InputField
-                     wrapperClassName={'w-full mb-40 mt-8'}
-                     type="text"
-                     placeholder={'Validation code'}
-                     id="code"
-                     value={code}
-                     handleInputChange={(e) => setCode(e.target.value)}
-                  />
-                  <div className="h-10">
-                     <p className="text-red-500">{loginError.code[0]}</p>
+            <div className="w-full">
+               {loginError?.code ? (
+                  <div>
+                     {/* // todo - future improvement - add the lable in grey */}
+                     {/* {code !== "" ? (
+                        <>
+                        <div>test<div/>
+                        </>
+                     ) : (<><div>adding label here</div></>)
+                     } */}
+                     <InputField
+                        wrapperClassName={'w-full mt-8'}
+                        type="text"
+                        placeholder={'Validation code'}
+                        id="code"
+                        value={code}
+                        handleInputChange={(e) => setCode(e.target.value)}
+                     />
+                     <div className="h-10">
+                        <p className="text-red-500">{loginError.code[0]}</p>
+                     </div>
                   </div>
-               </div>
-            ) : (
-               <div>
-                  <InputField
-                     wrapperClassName={'w-full mb-10 mt-8'}
-                     type="text"
-                     placeholder={'Validation code'}
-                     id="code"
-                     value={code}
-                     handleInputChange={(e) => setCode(e.target.value)}
-                  />
-               </div>
-            )}
+               ) : (
+                  <div>
+                     <InputField
+                        wrapperClassName={'w-full mb-10 mt-8'}
+                        type="text"
+                        placeholder={'Validation code'}
+                        id="code"
+                        value={code}
+                        handleInputChange={(e) => setCode(e.target.value)}
+                     />
+                  </div>
+               )}
+            </div>
 
             {/* // ==================================================== */}
 
-            <div className="grid grid-cols-2 gap-15 items-center mb-20">
+            <div className="grid grid-cols-2 gap-5 items-center mb-20">
                {/* // ==================================================== */}
 
                {loginError?.email ? (
@@ -126,6 +131,7 @@ const VerificationForm = () => {
                         value={email}
                         handleInputChange={(e) => setEmail(e.target.value)}
                      />
+                     <div className="h-10" />
                   </div>
                )}
 
@@ -153,6 +159,7 @@ const VerificationForm = () => {
                         value={username}
                         handleInputChange={(e) => setUsername(e.target.value)}
                      />
+                     <div className="h-10" />
                   </div>
                )}
 
@@ -182,6 +189,7 @@ const VerificationForm = () => {
                         value={firstName}
                         handleInputChange={(e) => setFirstName(e.target.value)}
                      />
+                     <div className="h-10" />
                   </div>
                )}
 
@@ -211,6 +219,7 @@ const VerificationForm = () => {
                         value={lastName}
                         handleInputChange={(e) => setLastName(e.target.value)}
                      />
+                     <div className="h-10" />
                   </div>
                )}
 
@@ -238,6 +247,7 @@ const VerificationForm = () => {
                         value={password}
                         handleInputChange={(e) => setPassword(e.target.value)}
                      />
+                     <div className="h-10" />
                   </div>
                )}
 
@@ -271,6 +281,7 @@ const VerificationForm = () => {
                            setpasswordRepeat(e.target.value)
                         }
                      />
+                     <div className="h-10" />
                   </div>
                )}
 
@@ -288,8 +299,8 @@ const VerificationForm = () => {
                   handleVerificationSubmit(e)
                }}
             />
+            <img src="/progressDotes-3.png" className="h-15 flex align-top" />
          </form>
-         {/* todo - gs - the "3 progress dots" still need to be added */}
       </div>
    )
 }
