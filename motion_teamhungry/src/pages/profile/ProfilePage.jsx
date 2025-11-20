@@ -10,6 +10,7 @@ const ProfilePage = () => {
    useEffect(() => {
       const fetchUserData = async () => {
          // todo - RH - make the localStorage active again
+         // todo i think we need a switch. If there is a profile id in the URL Parameter it needs so set user_id to this param
          const user_id = localStorage.getItem('user_id')
          // console.log(user_id)
          // const user_id = 4662
@@ -46,7 +47,8 @@ const ProfilePage = () => {
             />
          </div>
          <div className=" -mt-8 w-[85%]">
-            <SocialWallPage />
+            {/* I need a prop called filter with a string */}
+            <SocialWallPage hide_create_post={true} />
          </div>
       </div>
    )
