@@ -1,12 +1,51 @@
+import { useEffect, useState } from 'react'
 import ProfileSummary from '../../components/Profile/ProfileSummary'
 import SocialWallPage from '../feed/SocialWallPage'
+import { motion_api_auth } from '../../axios/axiosBase'
 
 const ProfilePage = () => {
+   const [user, setUser] = useState({})
+   const [things_user_likes, setThings_user_likes] = useState([])
+
+   useEffect(() => {
+      const fetchUserData = async () => {
+         // todo - RH - make the localStorage active again
+         // const user_id = localStorage.getItem('user_id')
+         // console.log(user_id)
+         const user_id = 4662
+         try {
+            const response = await motion_api_auth.get(`users/${user_id}/`)
+            console.log('inside of response', response.data)
+            console.log('array passing', response.data.things_user_likes)
+            setUser(response.data)
+            setThings_user_likes(response.data.things_user_likes)
+         } catch (error) {
+            console.error('failed to load users', error)
+         }
+      }
+      fetchUserData()
+   }, [])
+
    return (
       <div className="flex flex-col h-full justify-center items-center bg-gray-100">
          <img src="/public/users/cloud_image.png" className=" w-full" />
          <div className=" -mt-24 m-15">
-            <ProfileSummary></ProfileSummary>
+            <ProfileSummary
+               id={user.id}
+               first_name={user.first_name}
+               last_name={user.last_name}
+               avatar={user.avatar}
+               location={user.location}
+               about_me={user.about_me}
+               email={user.email}
+               phone_number={user.phone_number}
+               things_user_likes={things_user_likes}
+               amount_of_posts={user.amount_of_posts}
+               amount_of_likes={user.amount_of_likes}
+               amount_of_friends={user.amount_of_friends}
+               amount_of_followers={user.amount_of_followers}
+               amount_of_following={user.amount_following}
+            />
          </div>
          <div className=" -mt-8 w-[85%]">
             <SocialWallPage />

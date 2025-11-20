@@ -1,6 +1,6 @@
 import logo from '/logo.png'
 import HeaderDropdown from './HeaderDropdown'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import NotificationDropdown from './NotificationDropdown'
 import { useSelector } from 'react-redux'
@@ -11,7 +11,10 @@ const Header = () => {
    )
    const pendingCount = allNotifications.filter((n) => n.status === 'P').length
 
+   const navigate = useNavigate()
+
    const profileClickHandler = () => {
+      navigate('/profile')
       console.log('I react to profileClickHandler')
    }
 
