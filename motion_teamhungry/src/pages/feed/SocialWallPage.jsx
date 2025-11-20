@@ -6,15 +6,27 @@ import FilterAndSearchBar from '../../components/Feed/FilterAndSearchBar'
 import { motion_api_auth } from '../../axios/axiosBase.js'
 import CreatePost from '../../components/Feed/CreatePost'
 
-const SocialWallPage = ({ hide_create_post }) => {
+const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    const [filter, setFilter] = useState('')
-
-   console.log(filter)
-   const [viewDeletePost, setViewDeletePost] = useState(false)
-
    const [posts, setPosts] = useState([])
+   const [viewDeletePost, setViewDeletePost] = useState(false)
+   //Runs when filterformProfile is set. By returning directly, it skips the function and otherwise goes to the default fallback.
+   useEffect(() => {
+      if (!filterfromProfile) return
+      setFilter(filterfromProfile)
+
+      const fetchFilteredPosts = async () => {
+         const response = await motion_api_auth.get(
+            `social/posts/${filterfromProfile}`
+         )
+         setPosts(response.data.results)
+      }
+      fetchFilteredPosts()
+   }, [filterfromProfile])
 
    useEffect(() => {
+      if (filterfromProfile) return
+
       const fetchAllPosts = async () => {
          try {
             const response = await motion_api_auth.get(`social/posts/${filter}`)
@@ -24,7 +36,7 @@ const SocialWallPage = ({ hide_create_post }) => {
          }
       }
       fetchAllPosts()
-   }, [filter])
+   }, [filter, filterfromProfile])
 
    return (
       <div className=" bg-zinc-100 py-5 ">

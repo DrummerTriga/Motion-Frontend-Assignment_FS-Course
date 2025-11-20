@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import ProfileSummary from '../../components/Profile/ProfileSummary'
 import SocialWallPage from '../feed/SocialWallPage'
 import { motion_api_auth } from '../../axios/axiosBase'
+import FindFriendsPage from '../findfriends/FindFriendsPage'
 import { useSelector } from 'react-redux'
 import { profileSlice } from '../../store/slices/profileSlice'
 
@@ -50,8 +51,18 @@ const ProfilePage = () => {
             />
          </div>
          <div className=" -mt-8 w-[85%]">
-            {/* I need a prop called filter with a string */}
-            <SocialWallPage hide_create_post={true} />
+            {filter === 'me' || filter === 'posts/likes' ? (
+               <SocialWallPage
+                  hide_create_post={true}
+                  filterfromProfile={filter}
+               />
+            ) : null}
+
+            {filter === 'friends' ||
+            filter === 'followers/followers' ||
+            filter === 'followers/following' ? (
+               <FindFriendsPage filterfromProfile={filter} />
+            ) : null}
          </div>
       </div>
    )
