@@ -1,45 +1,60 @@
+import { useEffect, useState } from 'react'
 import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 import Tag from '../../elements/Tags/Tag'
+import { Link } from 'react-router'
+import { displayPosts } from '../../utils/profile.js'
 
-const ProfileSummary = () => {
-   const thisUser = [
-      {
-         id: 3,
-         first_name: 'Jennifer',
-         last_name: 'Aniston',
-         avatar: '/users/jennifer.png',
-         location: 'Zurich, Switzerland',
-         about_me:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
-         email: 'test@email.com',
-         phone_number: '+ 1 234 456',
-         things_user_likes: ['Cooking', 'Football', 'Swimming'],
-         amount_of_posts: '34',
-         amount_of_likes: '35',
-         amount_of_friends: '36',
-         amount_of_followers: '37',
-         amount_of_following: '38',
-      },
-   ]
+const ProfileSummary = ({
+   id,
+   first_name,
+   last_name,
+   avatar,
+   location,
+   about_me,
+   email,
+   phone_number,
+   things_user_likes,
+   amount_of_posts,
+   amount_of_likes,
+   amount_of_friends,
+   amount_of_followers,
+   amount_of_following,
+}) => {
+   // todo - RH - make loading logic
+   const [isloading, setIsLoading] = useState(true)
+   const [posts, setPosts] = useState({})
+   const user_id = localStorage.getItem('user_id')
+
+   const handlePostsDisplay = async () => {
+      console.log('click for post')
+      // loading
+      try {
+         const posts = await displayPosts(user_id)
+         setPosts(posts)
+      } catch {
+         ;(error) => console.error('fail', error)
+      } finally {
+         // setIsLoading(false)
+      }
+   }
 
    return (
       <div>
-         <div
-            className="min-h-[30vh] flex  bg-white "
-            key={thisUser.id}
-         >
+         <div className="min-h-[30vh] flex  bg-white w-[60vw]" key={id}>
             {/* left side of profile summary */}
             <div className=" w-[30%] flex flex-col justify-center text align-middle items-center border-r border-gray-300">
-               <img className="size-15" src={thisUser[0].avatar} />
+               <img className="size-15" src={avatar} />
                <div className="text-lg">
-                  {thisUser[0].first_name} {thisUser[0].last_name}
+                  {first_name} {last_name}
                </div>
-               <div className="text-xs">{thisUser[0].location}</div>
+               <div className="text-xs">{location}</div>
                <br />
                <div>
                   {' '}
-                  <SecondaryButton label="Edit Profile"></SecondaryButton>
+                  <Link to="/edit-profile">
+                     <SecondaryButton label="Edit Profile"></SecondaryButton>
+                  </Link>
                </div>
             </div>
             {/*  right side of profile summary */}
@@ -51,7 +66,7 @@ const ProfileSummary = () => {
                      <div className="h-[50%] mb-4">
                         About
                         <br />
-                        <div className="text-sm">{thisUser[0].about_me}</div>
+                        <div className="text-sm">{about_me}</div>
                         <br />
                         <br />
                      </div>
@@ -59,14 +74,12 @@ const ProfileSummary = () => {
                         <div className="flex-1">
                            Email
                            <br />
-                           <div className="text-sm">{thisUser[0].email}</div>
+                           <div className="text-sm">{email}</div>
                         </div>
                         <div className="flex-1">
                            Phone
                            <br />
-                           <div className="text-sm">
-                              {thisUser[0].phone_number}
-                           </div>
+                           <div className="text-sm">{phone_number}</div>
                         </div>
                      </div>
                   </div>
@@ -76,7 +89,7 @@ const ProfileSummary = () => {
                      <br />
                      <br />
                      <div className="flex items-center  flex-wrap gap-2 ">
-                        {thisUser[0].things_user_likes.map((item, index) => {
+                        {things_user_likes.map((item, index) => {
                            return <Tag key={index} label={item} />
                         })}
                      </div>
@@ -84,29 +97,36 @@ const ProfileSummary = () => {
                </div>
 
                {/* bottom right side of profile summary */}
-               <div className="flex flex-row text-lg h-[40%] border-t border-gray-300 items-center justify-between  w-full p-4">
-                  <div className="text-left">
-                     {thisUser[0].amount_of_posts}
+               <div className="flex flex-row text-lg h-[40%] border-t border-gray-300 items-center justify-between  w-full p-4 ">
+                  <div
+                     className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                     onClick={handlePostsDisplay}
+                  >
+                     {amount_of_posts}
                      <br></br>
                      <div className="text-sm text-gray-500">Posts</div>
                   </div>
+
                   <div className="text-left">
-                     {thisUser[0].amount_of_likes}
+                     {amount_of_likes}
                      <br></br>
                      <div className="text-sm  text-gray-500">Likes</div>
                   </div>
+
                   <div className="text-left">
-                     {thisUser[0].amount_of_friends}
+                     {amount_of_friends}
                      <br></br>
                      <div className="text-sm  text-gray-500">Friends</div>
                   </div>
+
                   <div className="text-left">
-                     {thisUser[0].amount_of_followers}
+                     {amount_of_followers}
                      <br></br>
                      <div className="text-sm  text-gray-500">Followers</div>
                   </div>
+
                   <div className="text-left">
-                     {thisUser[0].amount_of_following}
+                     {amount_of_following}
                      <br></br>
                      <div className="text-sm  text-gray-500">Following</div>
                   </div>
