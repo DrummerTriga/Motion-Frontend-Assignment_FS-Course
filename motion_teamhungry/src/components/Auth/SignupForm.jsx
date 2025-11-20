@@ -71,8 +71,8 @@ const SignupForm = () => {
                label="SIGN UP"
                onClickHandler={(e) => handleSignupSubmit(e)}
             />
-         </form>
                <img src='/progressDotes-1.png' className='h-15 flex align-top'/>
+         </form>
       </div>
    )
 }

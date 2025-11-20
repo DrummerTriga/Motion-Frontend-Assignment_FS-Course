@@ -143,7 +143,7 @@ const ViewPost = ({ id, setDetailPostToggle, showDeletePostModal }) => {
             onClick={() => {
                setDetailPostToggle(false)
             }}
-            className="absolute top-50 right-60"
+            className="absolute top-50 right-60 hover:cursor-pointer"
          >
             {/* JTI todo fix problem with smaller screens and the crossIcon */}
             {crossIconSVG}
@@ -156,7 +156,10 @@ const ViewPost = ({ id, setDetailPostToggle, showDeletePostModal }) => {
                <div className="postwrapper bg-white rounded-lg h-full flex flex-col">
                   <div className="PostHeader flex gap-4 px-5 py-5 items-center">
                      <div className="pic">
-                        <img className="h-10" src={detailPost.user.avatar} />
+                        <img
+                           className="h-10 rounded-full"
+                           src={detailPost.user.avatar}
+                        />
                      </div>
 
                      <div className="Name und Zeit">
@@ -181,7 +184,11 @@ const ViewPost = ({ id, setDetailPostToggle, showDeletePostModal }) => {
                            {dotMenuSvg}
                         </button>
                         {showEditMenu && (
-                           <DeletePostDropdown hideEditMenu={setShowEditMenu} hideDetailPost={setDetailPostToggle} showDeletePostModal={showDeletePostModal}/>
+                           <DeletePostDropdown
+                              hideEditMenu={setShowEditMenu}
+                              hideDetailPost={setDetailPostToggle}
+                              showDeletePostModal={showDeletePostModal}
+                           />
                         )}
                      </div>
                   </div>

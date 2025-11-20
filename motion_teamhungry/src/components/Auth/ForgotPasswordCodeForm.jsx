@@ -25,8 +25,8 @@ const ForgotPasswordCodeForm = () => {
                   onClickHandler={() => navigate('/auth/password-reset')}
                />
             </Link>
+            <img src="/progressDotes-2.png" className="h-15 flex align-top" />
          </div>
-         <img src="/progressDotes-2.png" className="h-15 flex align-top" />
       </div>
    )
 }

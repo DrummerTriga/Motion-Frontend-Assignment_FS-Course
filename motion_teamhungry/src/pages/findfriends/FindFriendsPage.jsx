@@ -1,6 +1,7 @@
 import UserCard from '../../components/Feed/UserCard'
 import { useEffect, useState } from 'react'
 import { motion_api_auth } from '../../axios/axiosBase.js'
+import ProfileAvatarUpdateDropdown from '../../components/Profile/ProfileAvatarUpdateDropdown.jsx'
 
 const FindFriendsPage = () => {
    const [users, setUsers] = useState([])
