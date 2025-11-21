@@ -6,10 +6,10 @@ import { motion_api_auth } from '../../axios/axiosBase'
 import axios from 'axios'
 import ProfileAvatarUpdateDropdown from './ProfileAvatarUpdateDropdown'
 import DeleteAccountPopup from './DeleteAccountPopup'
-import {useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 const EditProfile = () => {
-    const navigate = useNavigate()
+   const navigate = useNavigate()
    const handleRemoveAvatar = () => {
       setUser((prevUser) => ({
          ...prevUser,
@@ -154,7 +154,7 @@ const EditProfile = () => {
                      <br />
                      <div className="relative" ref={dropdownRef}>
                         <SecondaryButton
-                            className={"min-h-10"}
+                           className={'min-h-10'}
                            label="UPDATE IMAGE"
                            onClickHandler={() => setShowDropdown(!showDropdown)}
                         />

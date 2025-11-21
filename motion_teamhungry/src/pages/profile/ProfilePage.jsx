@@ -56,35 +56,36 @@ const ProfilePage = () => {
                <EditProfile onCancel={() => setIsEditing(false)} />
             ) : (
                <ProfileSummary onEdit={() => setIsEditing(true)} />
-            )}
-            <ProfileSummary */}
-            id={user.id}
-            first_name={user.first_name}
-            last_name={user.last_name}
-            avatar={user.avatar}
-            location={user.location}
-            about_me={user.about_me}
-            email={user.email}
-            phone_number={user.phone_number}
-            things_user_likes={things_user_likes}
-            amount_of_posts={user.amount_of_posts}
-            amount_of_likes={user.amount_of_likes}
-            amount_of_friends={user.amount_of_friends}
-            amount_of_followers={user.amount_of_followers}
-            amount_of_following={user.amount_following}
-            
+            )} */}
+            <ProfileSummary
+               id={user.id}
+               first_name={user.first_name}
+               last_name={user.last_name}
+               avatar={user.avatar}
+               location={user.location}
+               about_me={user.about_me}
+               email={user.email}
+               phone_number={user.phone_number}
+               things_user_likes={things_user_likes}
+               amount_of_posts={user.amount_of_posts}
+               amount_of_likes={user.amount_of_likes}
+               amount_of_friends={user.amount_of_friends}
+               amount_of_followers={user.amount_of_followers}
+               amount_of_following={user.amount_following}
+            />
          </div>
          <div className=" -mt-8 w-[85%]">
-            {filterState === 'me' || filterState === 'likes' ? (
+            {filterState === `user/${user.id}` ||
+            filterState === `likes/user/${user.id}` ? (
                <SocialWallPage
                   hide_create_post={true}
                   filterfromProfile={filterState}
                />
             ) : null}
 
-            {filterState === 'friends' ||
-            filterState === 'followers/followers' ||
-            filterState === 'followers/following' ? (
+            {filterState === `friends/user/${user.id}` ||
+            filterState === `followers/followers/user/${user.id}` ||
+            filterState === `followers/following/user/${user.id}` ? (
                <FindFriendsPage filterfromProfile={filterState} />
             ) : null}
          </div>

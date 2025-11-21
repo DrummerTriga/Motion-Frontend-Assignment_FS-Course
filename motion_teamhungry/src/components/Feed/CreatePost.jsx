@@ -208,7 +208,7 @@ const CreatePost = ({ userFirstName }) => {
                      </div>
                      <div
                         onClick={(event) => handlePostSubmit(event)}
-                        className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]"
+                        className="cursor-pointer flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]"
                      >
                         <img src={sendButton} />
                      </div>

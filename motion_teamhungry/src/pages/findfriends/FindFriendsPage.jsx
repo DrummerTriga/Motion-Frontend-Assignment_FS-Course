@@ -2,6 +2,7 @@ import UserCard from '../../components/Feed/UserCard'
 import { useEffect, useState } from 'react'
 import { motion_api_auth } from '../../axios/axiosBase.js'
 import ProfileAvatarUpdateDropdown from '../../components/Profile/ProfileAvatarUpdateDropdown.jsx'
+import Spinner from '../../elements/Spinner.jsx'
 
 const FindFriendsPage = ({ filterfromProfile }) => {
    const [filter, setFilter] = useState('')
@@ -15,7 +16,7 @@ const FindFriendsPage = ({ filterfromProfile }) => {
       const fetchFilteredUsers = async () => {
          try {
             const response = await motion_api_auth.get(
-               `social/${filterfromProfile}/`
+               `social/${filterfromProfile}`
             )
             setUsers(response.data.results)
          } catch (error) {
@@ -74,7 +75,7 @@ const FindFriendsPage = ({ filterfromProfile }) => {
                   )
                })
             ) : (
-               <p>WAITING</p>
+               <Spinner />
             )}
          </div>
       </div>
