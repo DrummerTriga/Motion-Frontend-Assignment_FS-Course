@@ -16,7 +16,7 @@ const FindFriendsPage = ({ filterfromProfile }) => {
       const fetchFilteredUsers = async () => {
          try {
             const response = await motion_api_auth.get(
-               `social/${filterfromProfile}/`
+               `social/${filterfromProfile}`
             )
             setUsers(response.data.results)
          } catch (error) {

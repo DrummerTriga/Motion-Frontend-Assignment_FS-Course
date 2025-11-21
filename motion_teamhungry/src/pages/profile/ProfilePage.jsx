@@ -52,16 +52,17 @@ const ProfilePage = () => {
             />
          </div>
          <div className=" -mt-8 w-[85%]">
-            {filterState === 'me' || filterState === 'likes' ? (
+            {filterState === `user/${user.id}` ||
+            filterState === `likes/user/${user.id}` ? (
                <SocialWallPage
                   hide_create_post={true}
                   filterfromProfile={filterState}
                />
             ) : null}
 
-            {filterState === 'friends' ||
-            filterState === 'followers/followers' ||
-            filterState === 'followers/following' ? (
+            {filterState === `friends/user/${user.id}` ||
+            filterState === `followers/followers/user/${user.id}` ||
+            filterState === `followers/following/user/${user.id}` ? (
                <FindFriendsPage filterfromProfile={filterState} />
             ) : null}
          </div>

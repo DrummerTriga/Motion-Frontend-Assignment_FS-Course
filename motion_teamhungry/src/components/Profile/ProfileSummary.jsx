@@ -46,7 +46,7 @@ const ProfileSummary = ({
       try {
          const posts = await displayPosts(user_id)
          setPosts(posts)
-         dispatch(filterSelected('me'))
+         dispatch(filterSelected(`user/${user_id}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -60,7 +60,7 @@ const ProfileSummary = ({
       try {
          const likes = await displayLikes()
          setLikes(likes)
-         dispatch(filterSelected('likes'))
+         dispatch(filterSelected(`likes/user/${user_id}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -74,7 +74,7 @@ const ProfileSummary = ({
       try {
          const friends = await displayFriends(user_id)
          setFriends(friends)
-         dispatch(filterSelected('friends'))
+         dispatch(filterSelected(`friends/user/${user_id}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -88,7 +88,7 @@ const ProfileSummary = ({
       try {
          const followers = await displayFollowers(user_id)
          setFollowers(followers)
-         dispatch(filterSelected('followers/followers'))
+         dispatch(filterSelected(`followers/followers/user/${user_id}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -102,7 +102,7 @@ const ProfileSummary = ({
       try {
          const followings = await displayFollowing(user_id)
          setFollowing(followings)
-         dispatch(filterSelected('followers/following'))
+         dispatch(filterSelected(`followers/following/user/${user_id}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
