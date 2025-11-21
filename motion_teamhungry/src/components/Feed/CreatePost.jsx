@@ -1,4 +1,3 @@
-import jenniferpic from '../../assets/users/jennifer.png'
 import sendButton from '../../../public/send_button.svg'
 import { useState } from 'react'
 import { motion_api_auth } from '../../axios/axiosBase'
@@ -12,7 +11,7 @@ const CreatePost = ({ userFirstName }) => {
    const [errorMessage, setErrorMessage] = useState({})
 
    const userData = useSelector((store) => store.auth.user_data)
-   console.log(userData)
+   // console.log(userData)
 
    const handleFileChange = (event) => {
       const files = Array.from(event.target.files).slice(0, 4)
@@ -32,9 +31,9 @@ const CreatePost = ({ userFirstName }) => {
          if (selectedFile) {
             selectedFile.forEach((file) => formData.append('images', file))
          }
-         console.log(formData.get('images'))
+         // console.log(formData.get('images'))
          for (let pair of formData.entries()) {
-            console.log(pair[0], pair[1])
+            // console.log(pair[0], pair[1])
          }
          const response = await motion_api_auth.post(
             'social/posts/',
@@ -45,7 +44,7 @@ const CreatePost = ({ userFirstName }) => {
                },
             }
          )
-         console.log('API Response:', response.data)
+         // console.log('API Response:', response.data)
          setCreatePost(false)
          setSelectedFile(null)
          setPreviewURL(null)
