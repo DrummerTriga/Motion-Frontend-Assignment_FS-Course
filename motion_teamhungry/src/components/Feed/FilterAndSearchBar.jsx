@@ -1,8 +1,6 @@
 import { useState } from 'react'
 
-const FilterAndSearchBar = ({ setFilter, activeTab }) => {
-   const [search, setSearch] = useState('')
-
+const FilterAndSearchBar = ({ setFilter, activeTab, onSearchChange }) => {
    return (
       <div className=" flex justify-between items-center h-20 w-full gap-10 pl-35 pr-35 border-b border-b-gray-100">
          <form
@@ -13,7 +11,7 @@ const FilterAndSearchBar = ({ setFilter, activeTab }) => {
             <input
                className="h-15 w-full p-3 focus:outline-0"
                placeholder="Search posts..."
-               onChange={(event) => setSearch(event.target.value)}
+               onChange={(event) => onSearchChange?.(event.target.value)}
             />
          </form>
          <div className="flex justify-between items-center gap-10 h-full">

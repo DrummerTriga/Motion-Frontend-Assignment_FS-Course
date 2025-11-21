@@ -2,6 +2,7 @@ import ViewPost from './ViewPost'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { motion_api_auth } from '../../axios/axiosBase'
+import { likingPost } from '../../utils/likingPost'
 
 const Post = ({
    id,
@@ -201,7 +202,10 @@ const Post = ({
 
          <div className="postfooter flex gap-4 px-5 py-5 ">
             <div className="interaction flex gap-4 items-center justify-center">
-               <button className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115">
+               <button
+                  className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115"
+                  onClick={() => likingPost(id)}
+               >
                   {heartSVG}
                </button>
                <p>Like</p>
