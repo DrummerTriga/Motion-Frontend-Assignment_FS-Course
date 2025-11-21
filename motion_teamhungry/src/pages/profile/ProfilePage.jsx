@@ -58,7 +58,7 @@ const ProfilePage = () => {
                   filterfromProfile={filterState}
                />
             ) : null}
-   
+
             {filterState === 'friends' ||
             filterState === 'followers/followers' ||
             filterState === 'followers/following' ? (

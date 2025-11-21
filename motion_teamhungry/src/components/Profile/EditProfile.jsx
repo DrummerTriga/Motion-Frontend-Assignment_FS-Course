@@ -41,7 +41,7 @@ const EditProfile = () => {
    }
 
    const handleSave = async () => {
-    const formData = new FormData()
+      const formData = new FormData()
    }
 
    const [user, setUser] = useState(thisUser[0])
