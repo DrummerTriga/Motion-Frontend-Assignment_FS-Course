@@ -215,7 +215,7 @@ const CreatePost = ({ userFirstName }) => {
                            navigate(0)
                            // window.location.href = '/posts'
                         }}
-                        className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px] cursor-pointer"
+                        className="cursor-pointer flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px] cursor-pointer"
                      >
                         <img src={sendButton} />
                      </div>

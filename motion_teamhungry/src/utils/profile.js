@@ -2,6 +2,7 @@ import { motion_api_auth } from '../axios/axiosBase.js'
 
 export const displayPosts = async (user_id) => {
    try {
+      console.log('inside profile util. id beeing called:', user_id)
       const response = await motion_api_auth.get(
          `social/posts/user/${user_id}/?limit=25&offset=0`,
          {}

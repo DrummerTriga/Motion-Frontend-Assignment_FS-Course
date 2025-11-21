@@ -14,8 +14,6 @@ const Header = () => {
       (store) => store.auth.user_data?.avatar ?? '/noAvatarReplace.png'
    )
 
-   console.log(userAvatar)
-
    const pendingCount = allNotifications.filter((n) => n.status === 'P').length
 
    const navigate = useNavigate()
@@ -138,11 +136,14 @@ const Header = () => {
                <div className="flex">
                   <button
                      className="text-neutral-400 hover:cursor-pointer"
-                     onClick={() =>
-                        !showNotificationDropdown
-                           ? setShowNotificationDropdown(true)
-                           : setShowNotificationDropdown(false)
-                     }
+                     onClick={() => {
+                        if (!showNotificationDropdown) {
+                           setShowNotificationDropdown(true)
+                           setShowHeaderDropdown(false)
+                        } else {
+                           setShowNotificationDropdown(false)
+                        }
+                     }}
                   >
                      {notificationSvg}
                   </button>
@@ -158,11 +159,14 @@ const Header = () => {
                />
                <div
                   className="relative hover:cursor-pointer"
-                  onClick={() =>
-                     !showHeaderDropdown
-                        ? setShowHeaderDropdown(true)
-                        : setShowHeaderDropdown(false)
-                  }
+                  onClick={() => {
+                     if (!showHeaderDropdown) {
+                        setShowHeaderDropdown(true)
+                        setShowNotificationDropdown(false)
+                     } else {
+                        setShowHeaderDropdown(false)
+                     }
+                  }}
                >
                   {dotMenuSvg}
                   {showHeaderDropdown && <HeaderDropdown />}

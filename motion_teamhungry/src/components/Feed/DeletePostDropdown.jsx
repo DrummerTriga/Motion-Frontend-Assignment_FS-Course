@@ -30,14 +30,12 @@ const DeletePostDropdown = ({
    )
 
    const onClickHandlerEdit = () => {
-      //JTI todo add function for logout
       console.log('I react on edit click')
    }
 
    const onClickHandlerDelete = () => {
       hideEditMenu(false)
       hideDetailPost(false)
-      //JTI todo add function for logout
       showDeletePostModal(true)
    }
 

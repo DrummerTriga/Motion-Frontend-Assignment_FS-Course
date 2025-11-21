@@ -5,6 +5,7 @@ import Post from '../../components/Feed/Post'
 import FilterAndSearchBar from '../../components/Feed/FilterAndSearchBar'
 import { motion_api_auth } from '../../axios/axiosBase.js'
 import CreatePost from '../../components/Feed/CreatePost'
+import Spinner from '../../elements/Spinner.jsx'
 
 const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    const [filter, setFilter] = useState('')
@@ -12,6 +13,8 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    const [debouncedSearch, setDebouncedSearch] = useState('')
    const [posts, setPosts] = useState([])
    const [viewDeletePost, setViewDeletePost] = useState(false)
+   const [isLoading, setIsLoading] = useState(false)
+   const [error, setError] = useState(null)
 
    useEffect(() => {
       const handler = setTimeout(() => {
@@ -24,32 +27,57 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    //Runs when filterformProfile is set. By returning directly, it skips the function and otherwise goes to the default fallback.
    useEffect(() => {
       if (!filterfromProfile) return
-      setFilter(filterfromProfile)
+      let timeoutId
 
       const fetchFilteredPosts = async () => {
-         const response = await motion_api_auth.get(
-            `social/posts/${filterfromProfile}`
-         )
-         setPosts(response.data.results)
-      }
-      fetchFilteredPosts()
-   }, [filterfromProfile])
+         setIsLoading(true)
+         setError(null)
+         timeoutId = setTimeout(() => {
+            setError('Server not responding – please try again later.')
+         }, 10_000)
 
+         try {
+            const response = await motion_api_auth.get(
+               `social/posts/${filterfromProfile}?search=${debouncedSearch}`
+            )
+            setPosts(response.data.results)
+         } catch {
+            setError('Posts could not be loaded')
+         } finally {
+            clearTimeout(timeoutId)
+            setIsLoading(false)
+         }
+      }
+
+      fetchFilteredPosts()
+      return () => clearTimeout(timeoutId)
+   }, [filterfromProfile, debouncedSearch])
    useEffect(() => {
       if (filterfromProfile) return
+      let timeoutId
 
       const fetchAllPosts = async () => {
+         setIsLoading(true)
+         setError(null)
+         timeoutId = setTimeout(() => {
+            setError('Server not responding – please try again later.')
+         }, 10_000)
+
          try {
-            console.log(debouncedSearch)
             const response = await motion_api_auth.get(
                `social/posts/${filter}?search=${debouncedSearch}`
             )
             setPosts(response.data.results)
-         } catch (error) {
-            console.error('Failed to load users', error)
+         } catch {
+            setError('Posts could not be loaded')
+         } finally {
+            clearTimeout(timeoutId)
+            setIsLoading(false)
          }
       }
+
       fetchAllPosts()
+      return () => clearTimeout(timeoutId)
    }, [filter, filterfromProfile, debouncedSearch])
    
    return (
@@ -87,12 +115,18 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
                                     likes={post.amount_of_likes}
                                     comments={post.comments}
                                     showDeletePostModal={setViewDeletePost}
+                                    logged_in_user_liked={
+                                       post.logged_in_user_liked
+                                    }
                                  />
                               </div>
                            ) : null
                         )
                      ) : (
-                        <p>WAITING</p>
+                        <p className="ml-auto">
+                           {isLoading && <Spinner />}
+                           {error && <p className="text-red-500">{error}</p>}
+                        </p>
                      )}
                   </div>
                </div>
@@ -115,12 +149,15 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
                                     likes={post.amount_of_likes}
                                     comments={post.comments}
                                     showDeletePostModal={setViewDeletePost}
+                                    logged_in_user_liked={
+                                       post.logged_in_user_liked
+                                    }
                                  />
                               </div>
                            ) : null
                         )
                      ) : (
-                        <p>WAITING</p>
+                        <p></p>
                      )}
                   </div>
                </div>

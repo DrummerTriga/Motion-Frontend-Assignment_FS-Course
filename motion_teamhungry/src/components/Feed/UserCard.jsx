@@ -22,15 +22,15 @@ const UserCard = ({
    return (
       <div className="bg-white flex flex-col items-center max-w-95 p-10 gap-4 rounded-lg">
          {avatar ? (
-            <Link to={`/profile/?id=${user_id}`}>
+            <Link to={`/profile/${user_id}`}>
                <img width="85px" className="rounded-full" src={avatar} />
             </Link>
          ) : (
-            <Link to={`/profile/?id=${user_id}`}>
+            <Link to={`/profile/${user_id}`}>
                <img width="85px" src="/noAvatarReplace.png" />{' '}
             </Link>
          )}
-         <Link to={`/profile/?id=${user_id}`}>
+         <Link to={`/profile/${user_id}`}>
             <p className="text-2xl">
                {first_name} {last_name}
             </p>
@@ -64,13 +64,14 @@ const UserCard = ({
                   className={'hover:cursor-progress !px-4 !py-2 !text-sm'}
                />
             )}
-            {!logged_in_user_is_friends && (
-               <SecondaryButton
-                  label={'ADD FRIEND'}
-                  className={'!px-4 !py-2 !text-sm'}
-                  onClickHandler={() => sendFriendRequest(user_id)}
-               />
-            )}
+            {!logged_in_user_is_friends &&
+               !logged_in_user_sent_friend_request && (
+                  <SecondaryButton
+                     label={'ADD FRIEND'}
+                     className={'!px-4 !py-2 !text-sm'}
+                     onClickHandler={() => sendFriendRequest(user_id)}
+                  />
+               )}
          </div>
 
          <div>

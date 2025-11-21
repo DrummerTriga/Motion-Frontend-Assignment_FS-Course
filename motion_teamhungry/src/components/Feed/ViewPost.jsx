@@ -103,7 +103,6 @@ const ViewPost = ({
             }}
             className="absolute top-4 right-4 z-30 cursor-pointer"
          >
-            {/* JTI todo fix problem with smaller screens and the crossIcon */}
             {crossIconSVG}
          </div>
          <div className="grid grid-cols-2 Cardwrapper w-[50%] bg-white">

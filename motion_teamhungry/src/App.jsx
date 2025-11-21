@@ -23,7 +23,6 @@ import EditProfile from './components/Profile/EditProfile.jsx'
 function App() {
    const dispatch = useDispatch()
 
-   //JT Todo: Prove if the slice is working properly. Cancel this task because we need Invitations
    useEffect(() => {
       const fetchNotifications = async () => {
          try {
@@ -43,6 +42,7 @@ function App() {
          <Route path="" element={<MainLayout />}>
             <Route path="" element={<ProtectedRoutes />}>
                <Route path="profile" element={<ProfilePage />} />
+               <Route path="profile/:userId" element={<ProfilePage />} />
                <Route path="edit-profile" element={<EditProfile />} />
                <Route path="posts" element={<SocialWallPage />} />
                <Route path="findfriends" element={<FindFriendsPage />} />
