@@ -11,15 +11,14 @@ const ProfilePage = () => {
    const [user, setUser] = useState({})
    const [things_user_likes, setThings_user_likes] = useState([])
    const filterState = useSelector((state) => state.profile.clickedFilter)
-   console.log(filterState)
 
-   const logedin_profile_user_id = useSelector(
+   const loggedin_profile_user_id = useSelector(
       (state) => state.auth.user_data.user.id
    )
    const { userId } = useParams()
 
    console.log('friend id from Param', userId)
-   console.log('user id from slice', logedin_profile_user_id)
+   console.log('user id from slice', loggedin_profile_user_id)
 
    useEffect(() => {
       const fetchUserData = async () => {
@@ -74,7 +73,7 @@ const ProfilePage = () => {
                   filterfromProfile={filterState}
                />
             ) : null}
-   
+
             {filterState === 'friends' ||
             filterState === 'followers/followers' ||
             filterState === 'followers/following' ? (

@@ -15,6 +15,7 @@ import { filterSelected } from '../../store/slices/profileSlice.js'
 import { useParams } from 'react-router'
 import { addNewFollower } from '../../utils/followingandfriends.js'
 import { sendFriendRequest } from '../../utils/followingandfriends.js'
+import { useSelector } from 'react-redux'
 
 const ProfileSummary = ({
    id,
@@ -39,7 +40,15 @@ const ProfileSummary = ({
 }) => {
    // todo - RH - make loading logic
    // const [isloading, setIsLoading] = useState(true)
-   const user_id = localStorage.getItem('user_id')
+   const loggedin_profile_user_id = useSelector(
+      (state) => state.auth.user_data.user.id
+   )
+   const { userId } = useParams()
+
+   const filterState = useSelector((state) => state.profile.clickedFilter)
+
+   console.log('which filter is selected?', filterState)
+
    const dispatch = useDispatch()
 
    const [posts, setPosts] = useState({})
@@ -48,29 +57,44 @@ const ProfileSummary = ({
    const [followers, setFollowers] = useState({})
    const [following, setFollowing] = useState({})
 
-   const { userId } = useParams()
-
    const handleDisplayPosts = async () => {
       console.log('click for post')
       // loading
-      try {
-         const posts = await displayPosts(user_id)
-         setPosts(posts)
-         dispatch(filterSelected('me'))
-      } catch {
-         ;(error) => console.error('fail', error)
-      } finally {
-         // setIsLoading(false)
+      if (userId) {
+         try {
+            const posts = await displayPosts(userId)
+            setPosts(posts)
+            dispatch(filterSelected('me'))
+         } catch {
+            ;(error) => console.error('fail', error)
+         } finally {
+            // setIsLoading(false)
+         }
+      } else {
+         try {
+            const posts = await displayPosts(loggedin_profile_user_id)
+            setPosts(posts)
+            dispatch(filterSelected('me'))
+         } catch {
+            ;(error) => console.error('fail', error)
+         } finally {
+            // setIsLoading(false)
+         }
       }
    }
 
    const handleDisplayLikes = async () => {
       console.log('click for likes')
       // loading
+
+      // if (userId) {
+      // } else {
+      // }
+
       try {
          const likes = await displayLikes()
          setLikes(likes)
-         dispatch(filterSelected('likes'))
+         dispatch(filterSelected('posts/likes'))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -81,8 +105,13 @@ const ProfileSummary = ({
    const handleDisplayFriends = async () => {
       console.log('click for friends')
       // loading
+
+      // if (userId) {
+      // } else {
+      // }
+
       try {
-         const friends = await displayFriends(user_id)
+         const friends = await displayFriends(loggedin_profile_user_id)
          setFriends(friends)
          dispatch(filterSelected('friends'))
       } catch {
@@ -95,8 +124,13 @@ const ProfileSummary = ({
    const handleDisplayFollowers = async () => {
       console.log('click for followers')
       // loading
+
+      // if (userId) {
+      // } else {
+      // }
+
       try {
-         const followers = await displayFollowers(user_id)
+         const followers = await displayFollowers(loggedin_profile_user_id)
          setFollowers(followers)
          dispatch(filterSelected('followers/followers'))
       } catch {
@@ -109,8 +143,13 @@ const ProfileSummary = ({
    const handleDisplayFollowing = async () => {
       console.log('click for following')
       // loading
+
+      // if (userId) {
+      // } else {
+      // }
+
       try {
-         const followings = await displayFollowing(user_id)
+         const followings = await displayFollowing(loggedin_profile_user_id)
          setFollowing(followings)
          dispatch(filterSelected('followers/following'))
       } catch {
@@ -145,7 +184,9 @@ const ProfileSummary = ({
                         <SecondaryButton
                            label={'FOLLOW'}
                            className={'!px-4 !py-2 !text-sm'}
-                           onClickHandler={() => addNewFollower(user_id)}
+                           onClickHandler={() =>
+                              addNewFollower(loggedin_profile_user_id)
+                           }
                         />
                      )}
                      {/* JTI todo add the check as svg inside of the button */}
@@ -167,7 +208,9 @@ const ProfileSummary = ({
                         <SecondaryButton
                            label={'ADD FRIEND'}
                            className={'!px-4 !py-2 !text-sm'}
-                           onClickHandler={() => sendFriendRequest(user_id)}
+                           onClickHandler={() =>
+                              sendFriendRequest(loggedin_profile_user_id)
+                           }
                         />
                      )}
                   </div>
@@ -220,50 +263,133 @@ const ProfileSummary = ({
 
                {/* bottom right side of profile summary */}
                <div className="flex flex-row text-lg h-[40%] border-t border-gray-300 items-center justify-between  w-full p-4 ">
-                  <div
-                     className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
-                     onClick={handleDisplayPosts}
-                  >
-                     {amount_of_posts}
-                     <br></br>
-                     <div className="text-sm text-gray-500">Posts</div>
-                  </div>
+                  {/* ======================== */}
 
-                  <div
-                     className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
-                     onClick={handleDisplayLikes}
-                  >
-                     {amount_of_likes}
-                     <br></br>
-                     <div className="text-sm  text-gray-500">Likes</div>
-                  </div>
+                  {filterState === 'me' ? (
+                     <>
+                        <div
+                           className="text-left bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayPosts}
+                        >
+                           {amount_of_posts}
+                           <div className="text-sm text-gray-500">Posts</div>
+                        </div>
+                     </>
+                  ) : (
+                     <>
+                        <div
+                           className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayPosts}
+                        >
+                           {amount_of_posts}
+                           <div className="text-sm text-gray-500">Posts</div>
+                        </div>
+                     </>
+                  )}
 
-                  <div
-                     className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
-                     onClick={handleDisplayFriends}
-                  >
-                     {amount_of_friends}
-                     <br></br>
-                     <div className="text-sm  text-gray-500">Friends</div>
-                  </div>
+                  {/* ======================== */}
 
-                  <div
-                     className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
-                     onClick={handleDisplayFollowers}
-                  >
-                     {amount_of_followers}
-                     <br></br>
-                     <div className="text-sm  text-gray-500">Followers</div>
-                  </div>
+                  {filterState === 'posts/likes' ? (
+                     <>
+                        <div
+                           className="text-left  bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayLikes}
+                        >
+                           {amount_of_likes}
+                           <div className="text-sm  text-gray-500">Likes</div>
+                        </div>
+                     </>
+                  ) : (
+                     <>
+                        <div
+                           className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayLikes}
+                        >
+                           {amount_of_likes}
+                           <div className="text-sm  text-gray-500">Likes</div>
+                        </div>
+                     </>
+                  )}
 
-                  <div
-                     className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
-                     onClick={handleDisplayFollowing}
-                  >
-                     {amount_of_following}
-                     <br></br>
-                     <div className="text-sm  text-gray-500">Following</div>
-                  </div>
+                  {/* ======================== */}
+
+                  {filterState === 'friends' ? (
+                     <>
+                        <div
+                           className="text-left  bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayFriends}
+                        >
+                           {amount_of_friends}
+                           <div className="text-sm  text-gray-500">Friends</div>
+                        </div>
+                     </>
+                  ) : (
+                     <>
+                        <div
+                           className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayFriends}
+                        >
+                           {amount_of_friends}
+                           <div className="text-sm  text-gray-500">Friends</div>
+                        </div>
+                     </>
+                  )}
+
+                  {/* ======================== */}
+
+                  {filterState === 'followers/followers' ? (
+                     <>
+                        <div
+                           className="text-left  bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayFollowers}
+                        >
+                           {amount_of_followers}
+                           <div className="text-sm  text-gray-500">
+                              Followers
+                           </div>
+                        </div>
+                     </>
+                  ) : (
+                     <>
+                        <div
+                           className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayFollowers}
+                        >
+                           {amount_of_followers}
+                           <div className="text-sm  text-gray-500">
+                              Followers
+                           </div>
+                        </div>
+                     </>
+                  )}
+
+                  {/* ======================== */}
+
+                  {filterState === 'followers/following' ? (
+                     <>
+                        <div
+                           className="text-left  bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayFollowing}
+                        >
+                           {amount_of_following}
+                           <div className="text-sm  text-gray-500">
+                              Following
+                           </div>
+                        </div>
+                     </>
+                  ) : (
+                     <>
+                        <div
+                           className="text-left border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           onClick={handleDisplayFollowing}
+                        >
+                           {amount_of_following}
+                           <div className="text-sm  text-gray-500">
+                              Following
+                           </div>
+                        </div>
+                     </>
+                  )}
                </div>
             </div>
          </div>
