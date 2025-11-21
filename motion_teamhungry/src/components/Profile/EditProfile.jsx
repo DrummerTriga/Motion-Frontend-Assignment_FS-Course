@@ -1,45 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 import Tag from '../../elements/Tags/Tag'
 import { motion_api_auth } from '../../axios/axiosBase'
 import axios from 'axios'
+import ProfileAvatarUpdateDropdown from './ProfileAvatarUpdateDropdown'
+import DeleteAccountPopup from './DeleteAccountPopup'
+import {useNavigate } from 'react-router'
 
 const EditProfile = () => {
-   //    const thisUser = [
-   //       {
-   //          id: 3,
-   //          first_name: 'Jennifer',
-   //          last_name: 'Aniston',
-   //          avatar: '/users/jennifer.png',
-   //          location: 'Zurich, Switzerland',
-   //          about_me:
-   //             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore',
-   //          email: 'test@email.com',
-   //          phone_number: '+ 1 234 456',
-   //          things_user_likes: [
-   //           'Cooking',
-   //           'Football' ,
-   //            'Swimming' ,
-   //            'Tennis' ,
-   //            'Boardgames' ,
-   //          ],
-   //          username: 'user5',
-   //          job: 'Architect',
-   //          banner: '/users/cloud_image.png',
-   //       },
-   //    ]
-
-   const handleAvatarChange = (e) => {
-      const file = e.target.files[0]
-      if (file) {
-         setAvatarFile(file)
-         const previewUrl = URL.createObjectURL(file)
-         setUser((prevUser) => ({
-            ...prevUser,
-            avatar: previewUrl,
-         }))
-      }
+    const navigate = useNavigate()
+   const handleRemoveAvatar = () => {
+      setUser((prevUser) => ({
+         ...prevUser,
+         avatar: null,
+      }))
+      setAvatarFile(null)
+      setShowDropdown(false)
    }
 
    useEffect(() => {
@@ -63,17 +40,6 @@ const EditProfile = () => {
    }, [])
 
    const handleSave = async () => {
-      const formData = new FormData()
-
-      formData.append('first_name', user.first_name || '')
-      formData.append('last_name', user.last_name || '')
-      formData.append('email', user.email || '')
-      formData.append('username', user.username || '')
-      formData.append('phone_number', user.phone_number || '')
-      formData.append('location', user.location || '')
-      formData.append('about_me', user.about_me || '')
-      formData.append('things_user_likes', JSON.stringify(userLikesTag))
-
       const dataToSend = {
          first_name: user.first_name || '',
          last_name: user.last_name || '',
@@ -82,12 +48,9 @@ const EditProfile = () => {
          phone_number: user.phone_number || '',
          location: user.location || '',
          about_me: user.about_me || '',
-         things_user_likes: userLikesTag, // Array sent as-is
+         things_user_likes: userLikesTag,
       }
 
-      console.log('changed data: ', [...formData.getAll('things_user_likes')])
-
-      // Avatar only if updated
       if (user.avatar instanceof File) {
          formData.append('avatar', user.avatar)
       }
@@ -100,12 +63,57 @@ const EditProfile = () => {
       }
    }
 
+   const handleDeleteMe = async () => {
+      // succesfully deletes the user
+      const dataToSend = {}
+
+      try {
+         const response = await motion_api_auth.delete('users/me/', dataToSend)
+         console.log('Profile deleted', response.data)
+         navigate('/auth/login')
+      } catch (error) {
+         console.error('Failed to delete profile', error)
+      }
+   }
+
+   const [previewURL, setPreviewURL] = useState(null)
+
+   const handleAvatarSave = async (event) => {
+      const file = event.target.files[0]
+
+      if (file) {
+         const objectURL = URL.createObjectURL(file)
+         setPreviewURL(objectURL)
+         console.log('avatar:', file)
+
+         const formData = new FormData()
+
+         formData.append('avatar', file)
+
+         try {
+            const response = await motion_api_auth.patch(
+               'users/me/',
+               formData,
+               {
+                  headers: {
+                     'Content-Type': 'multipart/form-data',
+                  },
+               }
+            )
+            console.log('Avatar updated', response.data)
+         } catch (error) {
+            console.error('Failed to update avatar', error)
+         }
+      }
+   }
+
    const [user, setUser] = useState({})
    const [newTag, setNewTag] = useState('')
    const [userLikesTag, setUserLikesTag] = useState([])
-
-   console.log(userLikesTag)
-
+   const [showDropdown, setShowDropdown] = useState(false)
+   const [showDeleteConfirmation, setDeleteConfirmation] = useState(false)
+   const fileInputRef = useRef(null)
+   const dropdownRef = useRef(null)
    const [avatarFile, setAvatarFile] = useState(null)
 
    const handleOnUserDataChange = (field, value) => {
@@ -114,26 +122,6 @@ const EditProfile = () => {
          [field]: value,
       }))
    }
-
-   const handleRemoveTag = (indexToRemove) => {
-      setUser((prevUser) => ({
-         ...prevUser,
-         things_user_likes: prevUser.things_user_likes.filter(
-            (_, index) => index !== indexToRemove
-         ),
-      }))
-   }
-
-   //    const handleAddTag = () => {
-   //       if (newTag.trim() !== '') {
-   //          setUser((prevUser) => ({
-   //             ...prevUser,
-   //             things_user_likes: [...prevUser.things_user_likes, newTag],
-   //          }))
-   //          setNewTag('')
-   //       }
-   //       console.log(newTag)
-   //    }
 
    const handleAddNewTag = () => {
       setUserLikesTag([...userLikesTag, newTag])
@@ -152,7 +140,7 @@ const EditProfile = () => {
       <div>
          {user && (
             <div
-               className="min-h-[10vh] flex  bg-amber-100 text-neutral-400 text-xs"
+               className="min-h-[10vh] flex  bg-white text-neutral-400 text-xs"
                key={user.id}
             >
                {/* left side of profile summary */}
@@ -160,45 +148,69 @@ const EditProfile = () => {
                   <div className="flex flex-col items-center">
                      <img
                         className="w-16 h-16 rounded-full object-cover"
-                        src={user.avatar}
+                        src={previewURL ? previewURL : user.avatar}
                         alt={'Profile picture'}
                      />
                      <br />
-                     <div>
-                        {' '}
-                        <SecondaryButton label="UPDATE IMAGE" for="file_input">
-                           <label
-                              class="block mb-2.5 text-sm font-medium text-heading"
-                              for="file_input"
-                           >
-                              Upload file
-                           </label>
-                           <input
-                              class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body"
-                              id="file_input"
-                              type="file"
-                           />
-                        </SecondaryButton>
-                        <input
-                           class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body"
-                           id="file_input"
-                           type="file"
+                     <div className="relative" ref={dropdownRef}>
+                        <SecondaryButton
+                            className={"min-h-10"}
+                           label="UPDATE IMAGE"
+                           onClickHandler={() => setShowDropdown(!showDropdown)}
                         />
+
+                        {showDropdown && (
+                           <ProfileAvatarUpdateDropdown
+                              onUpload={() => fileInputRef.current?.click()}
+                              onRemove={handleRemoveAvatar}
+                           />
+                        )}
+
+                        <input
+                           ref={fileInputRef}
+                           type="file"
+                           id="theFileInput"
+                           accept="image/*"
+                           className="hidden"
+                           onChange={handleAvatarSave}
+                        />
+
+                        {/* <input
+                           ref={fileInputRef}
+                           className="hidden"
+                           type="file"
+                           accept="image/*"
+                           onChange={handleAvatarChange}
+                        /> */}
                      </div>
                      <br />
                   </div>
                   <div>
                      <div>
-                        {' '}
                         <SecondaryButton
                            label="DELETE ACCOUNT"
-                           className={'w-full'}
+                           className={'w-full min-h-10'}
+                           onClickHandler={() =>
+                              setDeleteConfirmation(!showDeleteConfirmation)
+                           }
                         ></SecondaryButton>
+
+                        {showDeleteConfirmation && (
+                           <DeleteAccountPopup
+                              onNotConfirmDelete={() =>
+                                 setDeleteConfirmation(false)
+                              }
+                              onConfirmDelete={() => {
+                                 handleDeleteMe()
+                                 setDeleteConfirmation(false)
+                              }}
+                           />
+                        )}
                      </div>
-                     <div className="mt-4">
+                     <div className="mt-4 text-center">
                         <PrimaryButton
                            label="SAVE"
-                           className={'text-xs w-full'}
+                           className={'text-xs w-full max-h-10'}
                            onClickHandler={handleSave}
                         ></PrimaryButton>
                      </div>

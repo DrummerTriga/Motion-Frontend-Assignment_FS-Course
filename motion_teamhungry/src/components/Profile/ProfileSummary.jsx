@@ -2,7 +2,7 @@ import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 import Tag from '../../elements/Tags/Tag'
 
-const ProfileSummary = () => {
+const ProfileSummary = ({onEdit}) => {
    const thisUser = [
       {
          id: 3,
