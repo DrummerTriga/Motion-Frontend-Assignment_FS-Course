@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link } from 'react-router'
 import { motion_api_auth } from '../../axios/axiosBase'
 import { likingPost } from '../../utils/likingPost'
+import { useNavigate } from 'react-router-dom'
 
 const Post = ({
    id,
@@ -18,6 +19,7 @@ const Post = ({
    comments,
    showDeletePostModal,
 }) => {
+   const navigate = useNavigate()
    //formats the posted date to show Just now, hours or dates
    const formatTimeStamp = (timestamp) => {
       const now = new Date()
@@ -204,7 +206,10 @@ const Post = ({
             <div className="interaction flex gap-4 items-center justify-center">
                <button
                   className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115"
-                  onClick={() => likingPost(id)}
+                  onClick={async () => {
+                     await likingPost(id)
+                     navigate(0)
+                  }}
                >
                   {heartSVG}
                </button>
@@ -216,7 +221,11 @@ const Post = ({
             </div>
 
             <div className="likes ml-auto text-neutral-400">
-               <p>{likes} likes</p>
+               {likes > 1 ? (
+                  <p>{`${likes} likes`}</p>
+               ) : (
+                  <p>{`${likes} like`}</p>
+               )}
             </div>
          </div>
          {viewDetailPost && detailPost && (
