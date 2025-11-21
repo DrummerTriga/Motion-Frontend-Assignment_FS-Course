@@ -27,7 +27,7 @@ const LoginForm = () => {
          localStorage.setItem('access_token', response.data.access)
          localStorage.setItem('user_id', response.data.user.id)
          dispatch(login(response.data))
-         navigate('/profile')
+         navigate('/posts')
       } catch (error) {
          if (error.response) {
             setLoginError(error.response.data)
