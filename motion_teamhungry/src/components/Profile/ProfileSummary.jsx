@@ -175,11 +175,14 @@ const ProfileSummary = ({
    }
 
    return (
-      <div>
-         <div className="min-h-[30vh] flex  bg-white w-[60vw]" key={id}>
+      <div className="">
+         <div
+            className="min-h-[30vh] flex  bg-white w-[60vw] rounded-sm"
+            key={id}
+         >
             {/* left side of profile summary */}
             <div className=" w-[30%] flex flex-col justify-center text align-middle items-center border-r border-gray-300">
-               <img className="size-15" src={avatar} />
+               <img className="size-20 rounded-full" src={avatar} />
                <div className="text-lg">
                   {first_name} {last_name}
                </div>

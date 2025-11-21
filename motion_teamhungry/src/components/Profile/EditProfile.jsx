@@ -131,14 +131,14 @@ const EditProfile = () => {
       <div>
          {user && (
             <div
-               className="min-h-[30vh] flex w-400 bg-white text-neutral-400 text-xs"
+               className="min-h-[30vh] flex w-400 bg-white text-neutral-400 text-xs rounded-sm"
                key={user.id}
             >
                {/* left side of profile summary */}
-               <div className="flex flex-col items-center justify-between gap-4 border-r border-neutral-400  text-xs w-1/3 p-4">
+               <div className="flex flex-col py-10 items-center justify-between gap-4 border-r border-neutral-400  text-xs w-1/3 p-4">
                   <div className="flex flex-col items-center">
                      <img
-                        className="w-16 h-16 rounded-full object-cover"
+                        className="w-25 h-25 rounded-full object-cover"
                         src={previewURL ? previewURL : user.avatar}
                         alt={'Profile picture'}
                      />
@@ -201,7 +201,7 @@ const EditProfile = () => {
                   </div>
                </div>
                {/*  right side of profile summary */}
-               <div className="flex flex-col border-gray-300 w-2/3 h-full">
+               <div className="flex py-5 flex-col border-gray-300 w-2/3 h-full">
                   {/*  top right side of profile summary */}
                   <div className="flex flex-row text-sm h-[60%] border-gray-600">
                      {/*  top right (left) side of profile summary */}
@@ -210,7 +210,7 @@ const EditProfile = () => {
                            First name
                            <br />
                            <input
-                              className="text-black"
+                              className="text-black text-lg"
                               type="text"
                               value={user.first_name}
                               onChange={(e) =>
@@ -226,7 +226,7 @@ const EditProfile = () => {
                            Email
                            <br />
                            <input
-                              className="text-black"
+                              className="text-black text-lg"
                               type="text"
                               value={user.email}
                               onChange={(e) =>
@@ -239,7 +239,7 @@ const EditProfile = () => {
                            Location
                            <br />
                            <input
-                              className="text-black"
+                              className="text-black text-lg"
                               type="text"
                               value={user.location}
                               onChange={(e) =>
@@ -255,7 +255,7 @@ const EditProfile = () => {
                            About
                            <br />
                            <textarea
-                              className="text-black"
+                              className="text-black text-lg"
                               value={user.about_me}
                               onChange={(e) =>
                                  handleOnUserDataChange(
@@ -274,7 +274,7 @@ const EditProfile = () => {
                            Last name
                            <br />
                            <input
-                              className="text-black"
+                              className="text-black text-lg"
                               type="text"
                               value={user.last_name}
                               onChange={(e) =>
@@ -289,7 +289,7 @@ const EditProfile = () => {
                            Username
                            <br />
                            <input
-                              className="text-black"
+                              className="text-black text-lg"
                               type="text"
                               value={user.username}
                               onChange={(e) =>
@@ -304,7 +304,7 @@ const EditProfile = () => {
                            Phone
                            <br />
                            <input
-                              className="text-black"
+                              className="text-black text-lg"
                               type="text"
                               value={user.phone_number}
                               onChange={(e) =>
@@ -348,7 +348,7 @@ const EditProfile = () => {
                         <div className="flex flex-row items-center gap-2">
                            <div className="flex flex-col flex-1">
                               <input
-                                 className="text-black px-2 py-1 rounded placeholder:text-neutral-400"
+                                 className="text-black px-2 py-1 text-sm rounded placeholder:text-neutral-400"
                                  type="text"
                                  value={newTag}
                                  onChange={(e) => setNewTag(e.target.value)}
