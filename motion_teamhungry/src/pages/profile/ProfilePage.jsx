@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import ProfileSummary from '../../components/Profile/ProfileSummary'
 import SocialWallPage from '../feed/SocialWallPage'
 import { motion_api_auth } from '../../axios/axiosBase'
+import FindFriendsPage from '../findfriends/FindFriendsPage'
 import { useSelector } from 'react-redux'
 import { profileSlice } from '../../store/slices/profileSlice'
 import { useParams } from 'react-router'
@@ -10,6 +11,7 @@ const ProfilePage = () => {
    const [user, setUser] = useState({})
    const [things_user_likes, setThings_user_likes] = useState([])
    const filterState = useSelector((state) => state.profile.clickedFilter)
+   console.log(filterState)
 
    const logedin_profile_user_id = useSelector(
       (state) => state.auth.user_data.user.id
@@ -66,8 +68,18 @@ const ProfilePage = () => {
             />
          </div>
          <div className=" -mt-8 w-[85%]">
-            {/* I need a prop called filter with a string */}
-            <SocialWallPage hide_create_post={true} />
+            {filterState === 'me' || filterState === 'likes' ? (
+               <SocialWallPage
+                  hide_create_post={true}
+                  filterfromProfile={filterState}
+               />
+            ) : null}
+   
+            {filterState === 'friends' ||
+            filterState === 'followers/followers' ||
+            filterState === 'followers/following' ? (
+               <FindFriendsPage filterfromProfile={filterState} />
+            ) : null}
          </div>
       </div>
    )

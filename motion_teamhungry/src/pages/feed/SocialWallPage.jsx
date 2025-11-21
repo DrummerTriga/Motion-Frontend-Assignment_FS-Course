@@ -6,30 +6,60 @@ import FilterAndSearchBar from '../../components/Feed/FilterAndSearchBar'
 import { motion_api_auth } from '../../axios/axiosBase.js'
 import CreatePost from '../../components/Feed/CreatePost'
 
-const SocialWallPage = ({ hide_create_post }) => {
+const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    const [filter, setFilter] = useState('')
-
-   console.log(filter)
+   const [search, setSearch] = useState('')
+   const [debouncedSearch, setDebouncedSearch] = useState('')
+   const [posts, setPosts] = useState([])
    const [viewDeletePost, setViewDeletePost] = useState(false)
 
-   const [posts, setPosts] = useState([])
+   useEffect(() => {
+      const handler = setTimeout(() => {
+         setDebouncedSearch(search)
+      }, 400)
+
+      return () => clearTimeout(handler)
+   }, [search])
+
+   //Runs when filterformProfile is set. By returning directly, it skips the function and otherwise goes to the default fallback.
+   useEffect(() => {
+      if (!filterfromProfile) return
+      setFilter(filterfromProfile)
+
+      const fetchFilteredPosts = async () => {
+         const response = await motion_api_auth.get(
+            `social/posts/${filterfromProfile}`
+         )
+         setPosts(response.data.results)
+      }
+      fetchFilteredPosts()
+   }, [filterfromProfile])
 
    useEffect(() => {
+      if (filterfromProfile) return
+
       const fetchAllPosts = async () => {
          try {
-            const response = await motion_api_auth.get(`social/posts/${filter}`)
+            console.log(debouncedSearch)
+            const response = await motion_api_auth.get(
+               `social/posts/${filter}?search=${debouncedSearch}`
+            )
             setPosts(response.data.results)
          } catch (error) {
             console.error('Failed to load users', error)
          }
       }
       fetchAllPosts()
-   }, [filter])
+   }, [filter, filterfromProfile, debouncedSearch])
 
    return (
       <div className=" bg-zinc-100 py-5 ">
          {!hide_create_post && (
-            <FilterAndSearchBar setFilter={setFilter} activeTab={filter} />
+            <FilterAndSearchBar
+               setFilter={setFilter}
+               activeTab={filter}
+               onSearchChange={setSearch}
+            />
          )}
          <div className="flex justify-center py-5">
             {viewDeletePost && (

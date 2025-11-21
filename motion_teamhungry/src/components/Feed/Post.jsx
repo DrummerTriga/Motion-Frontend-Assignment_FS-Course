@@ -1,6 +1,8 @@
 import ViewPost from './ViewPost'
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { motion_api_auth } from '../../axios/axiosBase'
+import { likingPost } from '../../utils/likingPost'
 
 const Post = ({
    id,
@@ -87,16 +89,23 @@ const Post = ({
          <path d="m11.9 6.71v-3.68c0-.41-.24-.77-.62-.93-.37-.15-.8-.07-1.09.22l-7.87 7.87c-.39.39-.39 1.03 0 1.42l7.87 7.88c.29.29.72.37 1.09.22.38-.16.62-.52.62-.92v-3.9c3.09-.73 6.14.05 8.86 2.28 3.08 2.5 5.58 6.69 7.25 12.1.14.42.53.7.96.7.05 0 .1 0 .15-.01.49-.08.85-.5.85-.99 0-13.5-6.73-21.75-18.07-22.26z"></path>
       </svg>
    )
-   const [viewDetailPost, setViewDetailPost] = useState()
+   const [detailPost, setDetailPost] = useState(null)
+   const [viewDetailPost, setViewDetailPost] = useState(false)
 
-   const viewPostFunction = (id) => {
-      setViewDetailPost(
-         <ViewPost
-            id={id}
-            setDetailPostToggle={setViewDetailPost}
-            showDeletePostModal={showDeletePostModal}
-         />
-      )
+   const handlePostData = async () => {
+      try {
+         const response = await motion_api_auth.get(`social/posts/${id}`)
+         // console.log('API Response:', response.data)
+         setDetailPost(response.data)
+      } catch (error) {
+         setErrorMessage(error.response?.data?.detail)
+         // console.log(error.response?.data?.detail)
+      }
+   }
+
+   const viewPostFunction = () => {
+      handlePostData()
+      setViewDetailPost(true)
    }
    return (
       <div className="postwrapper bg-white  w-[580px] rounded-lg">
@@ -193,7 +202,10 @@ const Post = ({
 
          <div className="postfooter flex gap-4 px-5 py-5 ">
             <div className="interaction flex gap-4 items-center justify-center">
-               <button className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115">
+               <button
+                  className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115"
+                  onClick={() => likingPost(id)}
+               >
                   {heartSVG}
                </button>
                <p>Like</p>
@@ -207,7 +219,14 @@ const Post = ({
                <p>{likes} likes</p>
             </div>
          </div>
-         <div>{viewDetailPost}</div>
+         {viewDetailPost && detailPost && (
+            <ViewPost
+               id={id}
+               postData={detailPost}
+               setDetailPostToggle={setViewDetailPost}
+               showDeletePostModal={showDeletePostModal}
+            />
+         )}
       </div>
    )
 }
