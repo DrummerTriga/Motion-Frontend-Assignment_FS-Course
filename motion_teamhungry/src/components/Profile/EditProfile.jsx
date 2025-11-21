@@ -3,7 +3,6 @@ import PrimaryButton from '../../elements/Buttons/PrimaryButton'
 import SecondaryButton from '../../elements/Buttons/SecondaryButton'
 import Tag from '../../elements/Tags/Tag'
 import { motion_api_auth } from '../../axios/axiosBase'
-import axios from 'axios'
 import ProfileAvatarUpdateDropdown from './ProfileAvatarUpdateDropdown'
 import DeleteAccountPopup from './DeleteAccountPopup'
 import { useNavigate } from 'react-router'
@@ -23,12 +22,7 @@ const EditProfile = () => {
       const fetchUserMe = async () => {
          try {
             const response = await motion_api_auth.get('users/me/')
-            console.log('Raw response:', response.data)
             const userData = response.data
-            console.log(
-               'things_user_likes type:',
-               typeof userData.things_user_likes
-            )
 
             setUser(userData)
             setUserLikesTag(userData.things_user_likes)
@@ -57,7 +51,7 @@ const EditProfile = () => {
 
       try {
          const response = await motion_api_auth.patch('users/me/', dataToSend)
-         console.log('Profile updated', response.data)
+         navigate('/profile')
       } catch (error) {
          console.error('Failed to update profile', error)
       }
@@ -69,7 +63,6 @@ const EditProfile = () => {
 
       try {
          const response = await motion_api_auth.delete('users/me/', dataToSend)
-         console.log('Profile deleted', response.data)
          navigate('/auth/login')
       } catch (error) {
          console.error('Failed to delete profile', error)
@@ -84,7 +77,6 @@ const EditProfile = () => {
       if (file) {
          const objectURL = URL.createObjectURL(file)
          setPreviewURL(objectURL)
-         console.log('avatar:', file)
 
          const formData = new FormData()
 
@@ -100,7 +92,6 @@ const EditProfile = () => {
                   },
                }
             )
-            console.log('Avatar updated', response.data)
          } catch (error) {
             console.error('Failed to update avatar', error)
          }
@@ -174,14 +165,6 @@ const EditProfile = () => {
                            className="hidden"
                            onChange={handleAvatarSave}
                         />
-
-                        {/* <input
-                           ref={fileInputRef}
-                           className="hidden"
-                           type="file"
-                           accept="image/*"
-                           onChange={handleAvatarChange}
-                        /> */}
                      </div>
                      <br />
                   </div>
@@ -218,7 +201,7 @@ const EditProfile = () => {
                   </div>
                </div>
                {/*  right side of profile summary */}
-               <div className="flex flex-col border-gray-300 w-2/3">
+               <div className="flex flex-col border-gray-300 w-2/3 h-full">
                   {/*  top right side of profile summary */}
                   <div className="flex flex-row text-sm h-[60%] border-gray-600">
                      {/*  top right (left) side of profile summary */}
@@ -280,7 +263,7 @@ const EditProfile = () => {
                                     e.target.value
                                  )
                               }
-                              rows={4}
+                              rows={3}
                            />
                            <hr></hr>
                         </div>
@@ -339,8 +322,6 @@ const EditProfile = () => {
                   <div className="text-xs w-full p-4 align-middle items-start">
                      <div className="flex flex-col gap-4">
                         Things I like
-                        <br />
-                        <br />
                         <div className="flex items-center flex-wrap gap-2 mb-4 text-black">
                            {userLikesTag &&
                               userLikesTag.map((item, index) => (
