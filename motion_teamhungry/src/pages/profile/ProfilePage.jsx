@@ -8,6 +8,8 @@ import { profileSlice } from '../../store/slices/profileSlice'
 import { useParams } from 'react-router'
 
 const ProfilePage = () => {
+   const { userId } = useParams()
+
    //    Possibe code to help switch between profile and edit profile page. Commenting it out - JM
    // const [isEditingMyself, setIsEditingMyself] = useState(false)
    const [user, setUser] = useState({})
@@ -17,7 +19,6 @@ const ProfilePage = () => {
    const loggedin_profile_user_id = useSelector(
       (state) => state.auth.user_data.user.id
    )
-   const { userId } = useParams()
 
    console.log('friend id from Param', userId)
    console.log('user id from slice', loggedin_profile_user_id)
@@ -72,16 +73,30 @@ const ProfilePage = () => {
                amount_of_friends={user.amount_of_friends}
                amount_of_followers={user.amount_of_followers}
                amount_of_following={user.amount_following}
+               logged_in_user_is_following={user.logged_in_user_is_following}
+               logged_in_user_is_friends={user.logged_in_user_is_friends}
+               logged_in_user_received_friend_request={
+                  user.logged_in_user_received_fr
+               }
+               logged_in_user_sent_friend_request={user.logged_in_user_sent_fr}
             />
          </div>
          <div className=" -mt-8 w-[85%]">
-            {filterState === `user/${user.id}` ||
+            {filterState?.startsWith('user/') ||
+            filterState?.startsWith('likes/user/') ? (
+               <SocialWallPage
+                  hide_create_post
+                  filterfromProfile={filterState} // enthält weiterhin user + ID
+               />
+            ) : null}
+
+            {/* {filterState === `user/${user.id}` ||
             filterState === `likes/user/${user.id}` ? (
                <SocialWallPage
                   hide_create_post={true}
                   filterfromProfile={filterState}
                />
-            ) : null}
+            ) : null} */}
 
             {filterState === `friends/user/${user.id}` ||
             filterState === `followers/followers/user/${user.id}` ||

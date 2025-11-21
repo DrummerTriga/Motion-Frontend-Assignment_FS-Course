@@ -43,7 +43,8 @@ const ProfileSummary = ({
    const loggedin_profile_user_id = useSelector(
       (state) => state.auth.user_data.user.id
    )
-   const { userId } = useParams()
+   let { userId } = useParams()
+   userId = userId ? userId : loggedin_profile_user_id
 
    const filterState = useSelector((state) => state.profile.clickedFilter)
 
@@ -185,7 +186,7 @@ const ProfileSummary = ({
                <div className="text-xs">{location}</div>
                <br />
 
-               {userId ? (
+               {userId !== loggedin_profile_user_id ? (
                   <div className="flex flex-col items-center pt-5 gap-3">
                      {logged_in_user_is_following && (
                         // JTI todo probably refine the primary button because of padding
@@ -218,15 +219,16 @@ const ProfileSummary = ({
                            }
                         />
                      )}
-                     {!logged_in_user_sent_friend_request && (
-                        <SecondaryButton
-                           label={'ADD FRIEND'}
-                           className={'!px-4 !py-2 !text-sm'}
-                           onClickHandler={() =>
-                              sendFriendRequest(loggedin_profile_user_id)
-                           }
-                        />
-                     )}
+                     {!logged_in_user_is_friends &&
+                        !logged_in_user_sent_friend_request && (
+                           <SecondaryButton
+                              label={'ADD FRIEND'}
+                              className={'!px-4 !py-2 !text-sm'}
+                              onClickHandler={() =>
+                                 sendFriendRequest(loggedin_profile_user_id)
+                              }
+                           />
+                        )}
                   </div>
                ) : (
                   <div className="pt-10">
