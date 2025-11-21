@@ -112,18 +112,18 @@ const Post = ({
          <div className="PostHeader flex gap-4 px-5 py-5 items-center">
             <div className="pic">
                {author_avatar ? (
-                  <Link to={`/profile/?id=${author_id}`}>
+                  <Link to={`/profile/${author_id}`}>
                      <img className="rounded-full h-10" src={author_avatar} />
                   </Link>
                ) : (
-                  <Link to={`/profile/?id=${author_id}`}>
+                  <Link to={`/profile/${author_id}`}>
                      <img className="h-8" src="/noAvatarReplace.png" />
                   </Link>
                )}
             </div>
 
             <div className="Name und Zeit">
-               <Link to={`/profile/?id=${author_id}`}>
+               <Link to={`/profile/${author_id}`}>
                   {' '}
                   <p className="text-lg">
                      {author_first_name} {author_last_name}
