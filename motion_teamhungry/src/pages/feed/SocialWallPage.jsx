@@ -5,6 +5,7 @@ import Post from '../../components/Feed/Post'
 import FilterAndSearchBar from '../../components/Feed/FilterAndSearchBar'
 import { motion_api_auth } from '../../axios/axiosBase.js'
 import CreatePost from '../../components/Feed/CreatePost'
+import Spinner from '../../elements/Spinner.jsx'
 
 const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    const [filter, setFilter] = useState('')
@@ -12,6 +13,12 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    const [debouncedSearch, setDebouncedSearch] = useState('')
    const [posts, setPosts] = useState([])
    const [viewDeletePost, setViewDeletePost] = useState(false)
+   const [isLoading, setIsLoading] = useState(false)
+   const [error, setError] = useState(null)
+
+   const timeoutId = setTimeout(() => {
+      setError('Server not responding – please try again later.')
+   }, 10_000)
 
    useEffect(() => {
       const handler = setTimeout(() => {
@@ -37,19 +44,30 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
 
    useEffect(() => {
       if (filterfromProfile) return
+      let timeoutId
 
       const fetchAllPosts = async () => {
+         setIsLoading(true)
+         setError(null)
+         timeoutId = setTimeout(() => {
+            setError('Server not responding – please try again later.')
+         }, 10_000)
+
          try {
-            console.log(debouncedSearch)
             const response = await motion_api_auth.get(
                `social/posts/${filter}?search=${debouncedSearch}`
             )
             setPosts(response.data.results)
-         } catch (error) {
-            console.error('Failed to load users', error)
+         } catch {
+            setError('Posts could not be loaded')
+         } finally {
+            clearTimeout(timeoutId)
+            setIsLoading(false)
          }
       }
+
       fetchAllPosts()
+      return () => clearTimeout(timeoutId)
    }, [filter, filterfromProfile, debouncedSearch])
 
    return (
@@ -92,7 +110,10 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
                            ) : null
                         )
                      ) : (
-                        <p>WAITING</p>
+                        <p className="ml-auto">
+                           {isLoading && <Spinner />}
+                           {error && <p className="text-red-500">{error}</p>}
+                        </p>
                      )}
                   </div>
                </div>
@@ -120,7 +141,7 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
                            ) : null
                         )
                      ) : (
-                        <p>WAITING</p>
+                        <p></p>
                      )}
                   </div>
                </div>
