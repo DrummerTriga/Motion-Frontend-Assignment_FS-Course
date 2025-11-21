@@ -154,7 +154,6 @@ const Post = ({
             <p>{content}</p>
             {shared && (
                <div>
-                  {/* <h1>{shared.content}</h1> */}
                   <SharedPost shared={shared} />
                </div>
             )}

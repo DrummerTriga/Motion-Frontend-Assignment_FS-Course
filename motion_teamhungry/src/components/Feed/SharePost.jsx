@@ -52,17 +52,17 @@ const SharePost = ({
          >
             {crossIconSVG}
          </div>
-         <div className="flex flex-col justify-between relative bg-white w-[30%] h-[65%] rounded-sm p-6">
+         <div className="wrapper flex flex-col justify-center relative bg-white w-[30%] max-h-[85%] rounded-sm p-6">
             <div className="flex flex-col">
-               <h2 className="text-xl mb-4">Share this Post</h2>
-               <div className="flex flex-col items-center w-full gap-4">
+               <h2 className="text-xl">Share this Post</h2>
+               <div className="flex flex-col items-center w-full h-full gap-4">
                   <textarea
-                     className="w-full flex-1 border-b border-gray-200 focus:outline-0 resize-none p-4"
+                     className="flex w-full h-max-[10%] border-b border-gray-200 focus:outline-0 resize-none p-4"
                      placeholder="Add a message..."
                      value={message}
                      onChange={(e) => setMessage(e.target.value)}
                   />
-                  <div className=" flex flex-col bg-gray-200 w-[75%] p-4 rounded mb-4">
+                  <div className=" flex flex-col bg-gray-200 w-[75%] h-[70%] p-4 rounded">
                      <p className="font-semibold">
                         {originalPostData.author_first_name}{' '}
                         {originalPostData.author_last_name}
@@ -72,13 +72,13 @@ const SharePost = ({
                      {originalPostData.images.length > 0 && (
                         <img
                            src={originalPostData.images[0].image}
-                           className="rounded mt-3 h-auto w-full object-contain"
+                           className="rounded w-full h-[90%] object-contain"
                         />
                      )}
                   </div>
                </div>
 
-               <div className="flex justify-end gap-3 mt-4 ">
+               <div className="flex justify-end gap-3">
                   <div
                      onClick={async () => {
                         await handleShare()
