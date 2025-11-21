@@ -5,7 +5,11 @@ const SharedPost = ({ shared }) => {
             <div className=" flex items-center gap-3">
                <img
                   className="h-10 w-10 rounded-full"
-                  src={`${shared.user.avatar}`}
+                  src={
+                     shared.user.avatar
+                        ? shared.user.avatar
+                        : '/noAvatarReplace.png'
+                  }
                />
                <h1>{`${shared.user.first_name} ${shared.user.last_name}`}</h1>
             </div>

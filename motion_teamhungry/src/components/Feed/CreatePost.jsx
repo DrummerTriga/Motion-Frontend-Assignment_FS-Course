@@ -36,7 +36,7 @@ const CreatePost = ({ userFirstName }) => {
          }
          // console.log(formData.get('images'))
          for (let pair of formData.entries()) {
-         // console.log(pair[0], pair[1])
+            // console.log(pair[0], pair[1])
          }
          const response = await motion_api_auth.post(
             'social/posts/',
@@ -108,7 +108,7 @@ const CreatePost = ({ userFirstName }) => {
          <div className="flex gap-8 w-[80%]">
             {userData.user.avatar ? (
                <img
-                  className="h-16"
+                  className="h-16 w-16 rounded-full"
                   src={
                      userData.user.avatar
                         ? userData.user.avatar
@@ -116,7 +116,10 @@ const CreatePost = ({ userFirstName }) => {
                   }
                />
             ) : (
-               <img className="h-16" src="/noAvatarReplace.png" />
+               <img
+                  className="h-16 w-16 rounded-full"
+                  src="/noAvatarReplace.png"
+               />
             )}
             <p className="flex items-center w-full">
                {`What's on your mind, ${userData.user.first_name}?`}{' '}
@@ -141,7 +144,7 @@ const CreatePost = ({ userFirstName }) => {
                <div className="flex flex-col justify-between relative bg-white w-[560px] h-[406px] rounded-sm">
                   <div className="flex gap-10 p-10 pb-2 h-[70%]">
                      <img
-                        className="h-16"
+                        className="h-16 w-16 rounded-full"
                         src={
                            userData.user.avatar
                               ? userData.user.avatar

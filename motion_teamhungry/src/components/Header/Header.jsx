@@ -10,8 +10,10 @@ const Header = () => {
       (store) => store.notifications.notifications ?? []
    )
 
-   const userAvatar = useSelector(
-      (store) => store.auth.user_data?.avatar ?? '/noAvatarReplace.png'
+   const userAvatar = useSelector((store) =>
+      store.auth.user_data?.user.avatar
+         ? store.auth.user_data?.user.avatar
+         : '/noAvatarReplace.png'
    )
 
    const pendingCount = allNotifications.filter((n) => n.status === 'P').length
@@ -155,7 +157,7 @@ const Header = () => {
                   </p>
                </div>
                <img
-                  className="h-8 hover:cursor-pointer"
+                  className="h-10 w-10 rounded-full hover:cursor-pointer"
                   src={userAvatar}
                   onClick={profileClickHandler}
                />
