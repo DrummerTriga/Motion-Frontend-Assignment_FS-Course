@@ -222,7 +222,7 @@ const Post = ({
             <div className="interaction flex gap-4 items-center justify-center">
                {logged_in_user_liked ? (
                   <button
-                     className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115"
+                     className="text-neutral-400 text-red-600"
                      onClick={async () => {
                         await likingPost(id)
                         navigate(0)
@@ -232,7 +232,7 @@ const Post = ({
                   </button>
                ) : (
                   <button
-                     className="text-neutral-400 text-red-600 "
+                     className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115"
                      onClick={async () => {
                         await likingPost(id)
                         navigate(0)

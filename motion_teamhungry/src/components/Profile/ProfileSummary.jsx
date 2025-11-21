@@ -199,9 +199,7 @@ const ProfileSummary = ({
                         <SecondaryButton
                            label={'FOLLOW'}
                            className={'!px-4 !py-2 !text-sm'}
-                           onClickHandler={() =>
-                              addNewFollower(loggedin_profile_user_id)
-                           }
+                           onClickHandler={() => addNewFollower(userId)}
                         />
                      )}
                      {/* JTI todo add the check as svg inside of the button */}
@@ -224,9 +222,7 @@ const ProfileSummary = ({
                            <SecondaryButton
                               label={'ADD FRIEND'}
                               className={'!px-4 !py-2 !text-sm'}
-                              onClickHandler={() =>
-                                 sendFriendRequest(loggedin_profile_user_id)
-                              }
+                              onClickHandler={() => sendFriendRequest(userId)}
                            />
                         )}
                   </div>
