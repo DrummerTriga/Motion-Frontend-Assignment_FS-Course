@@ -60,7 +60,7 @@ const ProfileSummary = ({
       try {
          const likes = await displayLikes()
          setLikes(likes)
-         dispatch(filterSelected('posts/likes'))
+         dispatch(filterSelected('likes'))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {

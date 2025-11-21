@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import DeletePostDropdown from './DeletePostDropdown'
-const ViewPost = ({ id, setDetailPostToggle, showDeletePostModal }) => {
+
+const ViewPost = ({
+   id,
+   setDetailPostToggle,
+   showDeletePostModal,
+   postData,
+}) => {
    const crossIconSVG = (
       <svg
          height="25"
@@ -15,26 +21,6 @@ const ViewPost = ({ id, setDetailPostToggle, showDeletePostModal }) => {
          ></path>
       </svg>
    )
-   const [showEditMenu, setShowEditMenu] = useState(false)
-
-   const formatTimeStamp = (timestamp) => {
-      const now = new Date()
-      const postDate = new Date(timestamp)
-      const diffMilliseconds = now - postDate
-      const diffHours = Math.floor(diffMilliseconds / (1000 * 60 * 60))
-
-      if (diffHours < 1) {
-         return 'Just now'
-      } else if (diffHours < 24) {
-         return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`
-      } else {
-         return postDate.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-         })
-      }
-   }
-
    const dotMenuSvg = (
       <svg
          id="fi_2311524"
@@ -87,68 +73,40 @@ const ViewPost = ({ id, setDetailPostToggle, showDeletePostModal }) => {
          <path d="m11.9 6.71v-3.68c0-.41-.24-.77-.62-.93-.37-.15-.8-.07-1.09.22l-7.87 7.87c-.39.39-.39 1.03 0 1.42l7.87 7.88c.29.29.72.37 1.09.22.38-.16.62-.52.62-.92v-3.9c3.09-.73 6.14.05 8.86 2.28 3.08 2.5 5.58 6.69 7.25 12.1.14.42.53.7.96.7.05 0 .1 0 .15-.01.49-.08.85-.5.85-.99 0-13.5-6.73-21.75-18.07-22.26z"></path>
       </svg>
    )
+   const [showEditMenu, setShowEditMenu] = useState(false)
 
-   const [detailPost, setDetailPost] = useState({
-      id: 502,
-      user: {
-         id: 21,
-         email: 'marco.stern@example.com',
-         first_name: 'Marco',
-         last_name: 'Stern',
-         username: 'marcost',
-         job: 'Software Engineer',
-         avatar: 'https://picsum.photos/seed/marco/200',
-         banner: 'https://picsum.photos/seed/marco-banner/600/200',
-         location: 'Munich, Germany',
-         phone_number: '+49 176 99887766',
-         about_me: 'Full-stack developer with passion for TypeScript.',
-         things_user_likes: [
-            { keyword: 'TypeScript' },
-            { keyword: 'Gaming' },
-            { keyword: 'Hiking' },
-         ],
-         logged_in_user_is_following: 'true',
-         logged_in_user_is_friends: 'true',
-         logged_in_user_is_rejected: 'false',
-         logged_in_user_received_fr: 'false',
-         logged_in_user_sent_fr: 'true',
-         amount_of_posts: '34',
-         amount_of_likes: '421',
-         amount_of_friends: '58',
-         amount_of_followers: '120',
-         amount_following: '80',
-      },
+   const formatTimeStamp = (timestamp) => {
+      const now = new Date()
+      const postDate = new Date(timestamp)
+      const diffMilliseconds = now - postDate
+      const diffHours = Math.floor(diffMilliseconds / (1000 * 60 * 60))
 
-      images: [
-         {
-            id: 9002,
-            image: 'https://picsum.photos/seed/marco-setup/800',
-            post: 502,
-         },
-      ],
+      if (diffHours < 1) {
+         return 'Just now'
+      } else if (diffHours < 24) {
+         return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`
+      } else {
+         return postDate.toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+         })
+      }
+   }
 
-      logged_in_user_liked: 'true',
-      is_from_logged_in_user: 'false',
-      amount_of_likes: '23',
-
-      shared: null,
-
-      content: 'Neue Dev-Setup-Ecke fertig. Was sagt ihr? 👨‍💻🔥',
-      created: '2025-01-20T18:30:00Z',
-   })
+   const [detailPost, setDetailPost] = useState(postData)
 
    return (
-      <div className="flex items-center justify-center absolute w-full h-full bg-[rgba(25,25,25,0.87)] top-0 z-20 left-0">
+      <div className="fixed flex items-center justify-center w-full h-full bg-[rgba(25,25,25,0.87)] top-0 z-20 left-0">
          <div
             onClick={() => {
                setDetailPostToggle(false)
             }}
-            className="absolute top-50 right-60 hover:cursor-pointer"
+            className="absolute top-4 right-4 z-30 cursor-pointer"
          >
             {/* JTI todo fix problem with smaller screens and the crossIcon */}
             {crossIconSVG}
          </div>
-         <div className="grid grid-cols-2 Cardwrapper w-[70%] bg-white">
+         <div className="grid grid-cols-2 Cardwrapper w-[50%] bg-white">
             <div className="Left">
                <img className="h-full" src={detailPost.images[0].image} />
             </div>
