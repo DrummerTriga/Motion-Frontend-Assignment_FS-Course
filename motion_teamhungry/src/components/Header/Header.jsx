@@ -108,7 +108,9 @@ const Header = () => {
             <NavLink to="posts">
                <img src={logo} />
             </NavLink>
-            <p className="text-xl">Motion</p>
+            <NavLink to="posts">
+               <p className="text-xl">Motion</p>
+            </NavLink>
          </div>
          <div className="flex w-full items-center justify-between">
             <div className="flex justify-center lg:pl-40 lg:gap-15 md:pl-10 md:gap-10 sm:pl-10 sm:gap-1  ">

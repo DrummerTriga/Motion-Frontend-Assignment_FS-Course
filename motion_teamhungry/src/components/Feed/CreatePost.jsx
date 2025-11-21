@@ -2,6 +2,7 @@ import sendButton from '../../../public/send_button.svg'
 import { useState } from 'react'
 import { motion_api_auth } from '../../axios/axiosBase'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const CreatePost = ({ userFirstName }) => {
    const [createPost, setCreatePost] = useState(false)
@@ -9,6 +10,8 @@ const CreatePost = ({ userFirstName }) => {
    const [previewURL, setPreviewURL] = useState([])
    const [postMessage, setPostMessage] = useState('')
    const [errorMessage, setErrorMessage] = useState({})
+
+   const navigate = useNavigate()
 
    const userData = useSelector((store) => store.auth.user_data)
    // console.log(userData)
@@ -33,7 +36,7 @@ const CreatePost = ({ userFirstName }) => {
          }
          // console.log(formData.get('images'))
          for (let pair of formData.entries()) {
-            // console.log(pair[0], pair[1])
+         // console.log(pair[0], pair[1])
          }
          const response = await motion_api_auth.post(
             'social/posts/',
@@ -119,7 +122,7 @@ const CreatePost = ({ userFirstName }) => {
                {`What's on your mind, ${userData.user.first_name}?`}{' '}
             </p>
          </div>
-         <div className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]">
+         <div className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px] cursor-pointer">
             <img src={sendButton} />
          </div>
          {createPost && (
@@ -207,8 +210,12 @@ const CreatePost = ({ userFirstName }) => {
                         </label>
                      </div>
                      <div
-                        onClick={(event) => handlePostSubmit(event)}
-                        className="cursor-pointer flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]"
+                        onClick={async (event) => {
+                           await handlePostSubmit(event)
+                           navigate(0)
+                           // window.location.href = '/posts'
+                        }}
+                        className="cursor-pointer flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px] cursor-pointer"
                      >
                         <img src={sendButton} />
                      </div>
