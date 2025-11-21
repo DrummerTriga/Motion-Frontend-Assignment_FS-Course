@@ -30,7 +30,6 @@ function App() {
             const response = await motion_api_auth.get(
                'social/friends/requests/'
             )
-            console.log(response.data.results)
             dispatch(add_requests(response.data.results))
          } catch (error) {
             console.error('Failed to load users', error)

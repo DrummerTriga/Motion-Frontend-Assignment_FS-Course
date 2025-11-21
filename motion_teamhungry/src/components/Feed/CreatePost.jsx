@@ -1,22 +1,25 @@
-import jenniferpic from '../../assets/users/jennifer.png'
 import sendButton from '../../../public/send_button.svg'
 import { useState } from 'react'
 import { motion_api_auth } from '../../axios/axiosBase'
+import { useSelector } from 'react-redux'
 
 const CreatePost = ({ userFirstName }) => {
    const [createPost, setCreatePost] = useState(false)
-   const [selectedFile, setSelectedFile] = useState(null)
-   const [previewURL, setPreviewURL] = useState(null)
+   const [selectedFile, setSelectedFile] = useState([])
+   const [previewURL, setPreviewURL] = useState([])
    const [postMessage, setPostMessage] = useState('')
    const [errorMessage, setErrorMessage] = useState({})
 
-   const handleFileChange = (event) => {
-      const file = event.target.files[0]
-      setSelectedFile(file)
+   const userData = useSelector((store) => store.auth.user_data)
+   // console.log(userData)
 
-      if (file) {
-         const url = URL.createObjectURL(file)
-         setPreviewURL(url)
+   const handleFileChange = (event) => {
+      const files = Array.from(event.target.files).slice(0, 4)
+      setSelectedFile(files)
+
+      if (files) {
+         const urls = files.map((file) => URL.createObjectURL(file))
+         setPreviewURL(urls)
       }
    }
 
@@ -26,10 +29,22 @@ const CreatePost = ({ userFirstName }) => {
          const formData = new FormData()
          formData.append('content', postMessage)
          if (selectedFile) {
-            formData.append('images', selectedFile)
+            selectedFile.forEach((file) => formData.append('images', file))
          }
-         const response = await motion_api_auth.post('social/posts', formData)
-         console.log('API Response:', response.data)
+         // console.log(formData.get('images'))
+         for (let pair of formData.entries()) {
+            // console.log(pair[0], pair[1])
+         }
+         const response = await motion_api_auth.post(
+            'social/posts/',
+            formData,
+            {
+               headers: {
+                  'Content-Type': 'multipart/form-data',
+               },
+            }
+         )
+         // console.log('API Response:', response.data)
          setCreatePost(false)
          setSelectedFile(null)
          setPreviewURL(null)
@@ -88,9 +103,20 @@ const CreatePost = ({ userFirstName }) => {
          className="flex justify-between items-center bg-white w-[580px] h-[120px] p-5 rounded-lg"
       >
          <div className="flex gap-8 w-[80%]">
-            <img className="h-16" src={jenniferpic} />
+            {userData.user.avatar ? (
+               <img
+                  className="h-16"
+                  src={
+                     userData.user.avatar
+                        ? userData.user.avatar
+                        : '/noAvatarReplace.png'
+                  }
+               />
+            ) : (
+               <img className="h-16" src="/noAvatarReplace.png" />
+            )}
             <p className="flex items-center w-full">
-               {`What's on your mind, ${userFirstName}?`}{' '}
+               {`What's on your mind, ${userData.user.first_name}?`}{' '}
             </p>
          </div>
          <div className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]">
@@ -102,8 +128,8 @@ const CreatePost = ({ userFirstName }) => {
                   onClick={(event) => {
                      event.stopPropagation()
                      setCreatePost(false)
-                     setPreviewURL(null)
-                     setSelectedFile(null)
+                     setPreviewURL([])
+                     setSelectedFile([])
                   }}
                   className="relative bottom-54 left-147 cursor-pointer"
                >
@@ -111,32 +137,53 @@ const CreatePost = ({ userFirstName }) => {
                </div>
                <div className="flex flex-col justify-between relative bg-white w-[560px] h-[406px] rounded-sm">
                   <div className="flex gap-10 p-10 pb-2 h-[70%]">
-                     <img className="h-16" src={jenniferpic} />
+                     <img
+                        className="h-16"
+                        src={
+                           userData.user.avatar
+                              ? userData.user.avatar
+                              : '/noAvatarReplace.png'
+                        }
+                     />
                      <div className="flex flex-col justify-between w-full h-full">
                         <textarea
                            className="w-full h-full focus:outline-0 resize-none"
-                           placeholder={`What's on your mind, ${userFirstName}?`}
+                           placeholder={`What's on your mind, ${userData.user.first_name}?`}
                            onChange={(event) =>
                               setPostMessage(event.target.value)
                            }
                         />
                         <div>
-                           {previewURL && (
-                              <div className="relative inline-block">
-                                 <img
-                                    className="h-22 w-20 border border-white rounded-sm"
-                                    src={previewURL}
-                                 />
-
-                                 <div
-                                    onClick={() => {
-                                       ;(setPreviewURL(null),
-                                          setSelectedFile(null))
-                                    }}
-                                    className="absolute top-1 right-1 bg-white text-gray-400 font-bold w-6 h-6 flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200"
-                                 >
-                                    X
-                                 </div>
+                           {previewURL.length > 0 && (
+                              <div className="flex gap-2">
+                                 {previewURL.map((url, index) => (
+                                    <div
+                                       key={index}
+                                       className="relative inline-block"
+                                    >
+                                       <img
+                                          className="h-22 w-20 border border-white rounded-sm object-cover"
+                                          src={url}
+                                          alt={`preview ${index + 1}`}
+                                       />
+                                       <div
+                                          onClick={() => {
+                                             const newURLs = previewURL.filter(
+                                                (_, i) => i !== index
+                                             )
+                                             const newFiles =
+                                                selectedFile.filter(
+                                                   (_, i) => i !== index
+                                                )
+                                             setPreviewURL(newURLs)
+                                             setSelectedFile(newFiles)
+                                          }}
+                                          className="absolute top-1 right-1 bg-white text-gray-400 font-bold w-6 h-6 flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200"
+                                       >
+                                          X
+                                       </div>
+                                    </div>
+                                 ))}
                               </div>
                            )}
                         </div>
@@ -147,6 +194,8 @@ const CreatePost = ({ userFirstName }) => {
                         <input
                            type="file"
                            id="fileUpload"
+                           accept=".png, .jpg, .jpeg"
+                           multiple
                            className="hidden"
                            onChange={handleFileChange}
                         />

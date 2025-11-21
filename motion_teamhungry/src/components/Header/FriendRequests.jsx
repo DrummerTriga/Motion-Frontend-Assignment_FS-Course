@@ -1,5 +1,8 @@
 import PrimaryButtonIcon from '../../elements/Buttons/PrimaryButtonIcon'
 import SecondaryButtonIcon from '../../elements/Buttons/SecondaryButtonIcon'
+import { acceptFriendRequest } from '../../utils/handlingFriendRequests'
+import { rejectFriendRequest } from '../../utils/handlingFriendRequests'
+import { useDispatch } from 'react-redux'
 
 const FriendRequests = ({
    key,
@@ -8,7 +11,9 @@ const FriendRequests = ({
    location,
    avatar,
    type,
+   request_id,
 }) => {
+   const dispatch = useDispatch()
    const iconSVG = (
       <svg
          fill="none"
@@ -75,11 +80,16 @@ const FriendRequests = ({
             <div className="w-2/5 flex justify-end gap-3">
                <PrimaryButtonIcon
                   icon={iconSVG}
-                  onClickHandler={() => console.log('I am the accept button')}
+                  // onClickHandler={() => console.log('Hello')}
+                  onClickHandler={() =>
+                     dispatch(acceptFriendRequest(request_id))
+                  }
                />
                <SecondaryButtonIcon
                   icon={crossIconSVG}
-                  onClickHandler={() => console.log('I am the abort button')}
+                  onClickHandler={() =>
+                     dispatch(rejectFriendRequest(request_id))
+                  }
                />
             </div>
          )}

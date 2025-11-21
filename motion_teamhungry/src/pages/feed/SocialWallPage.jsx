@@ -6,150 +6,61 @@ import FilterAndSearchBar from '../../components/Feed/FilterAndSearchBar'
 import { motion_api_auth } from '../../axios/axiosBase.js'
 import CreatePost from '../../components/Feed/CreatePost'
 
-const SocialWallPage = () => {
-   //  const [posts, setPosts] = useState([
-   //     {
-   //        id: 1001,
-   //        author: {
-   //           id: 1,
-   //           username: 'jant',
-   //           first_name: 'Jan',
-   //           last_name: 'Tillmann',
-   //           avatar: 'https://picsum.photos/seed/jan/200',
-   //        },
-   //        created: '2025-01-20T08:15:00Z',
-   //        content: 'Heute mal richtig produktiv am Frontend weitergebaut! 🎨⚛️',
-   //        images: [],
-   //        shared_post: null,
-   //        likes: 12,
-   //        comments: 3,
-   //     },
-
-   //     {
-   //        id: 1002,
-   //        author: {
-   //           id: 1,
-   //           username: 'jant',
-   //           first_name: 'Jan',
-   //           last_name: 'Tillmann',
-   //           avatar: 'https://picsum.photos/seed/jan/200',
-   //        },
-   //        created: '2025-01-19T17:42:00Z',
-   //        content:
-   //           'Wer hat noch Tipps für ein minimalistisches Dashboard-Design?',
-   //        images: [],
-   //        shared_post: null,
-   //        likes: 7,
-   //        comments: 0,
-   //     },
-
-   //     {
-   //        id: 1003,
-   //        author: {
-   //           id: 21,
-   //           username: 'marcost',
-   //           first_name: 'Marco',
-   //           last_name: 'Stern',
-   //           avatar: 'https://picsum.photos/seed/marco/200',
-   //        },
-   //        created: '2025-01-18T14:01:00Z',
-   //        content: 'Kleines Dev-Setup Update 👨‍💻🔥',
-   //        images: ['https://picsum.photos/seed/devsetup1/600'],
-   //        shared_post: null,
-   //        likes: 34,
-   //        comments: 10,
-   //     },
-
-   //     {
-   //        id: 1004,
-   //        author: {
-   //           id: 31,
-   //           username: 'sofrossi',
-   //           first_name: 'Sofia',
-   //           last_name: 'Rossi',
-   //           avatar: 'https://picsum.photos/seed/sofia/200',
-   //        },
-   //        created: '2025-01-17T10:25:00Z',
-   //        content: 'New reel dropping tomorrow! 💜🎥',
-   //        images: ['https://picsum.photos/seed/sofia-reel/600'],
-   //        shared_post: null,
-   //        likes: 52,
-   //        comments: 4,
-   //     },
-
-   //     {
-   //        id: 1005,
-   //        author: {
-   //           id: 45,
-   //           username: 'ameliaw',
-   //           first_name: 'Amelia',
-   //           last_name: 'Wood',
-   //           avatar: 'https://picsum.photos/seed/amelia/200',
-   //        },
-   //        created: '2025-01-16T09:40:00Z',
-   //        content: 'Moodboard für ein neues Branding-Projekt ✨',
-   //        images: [
-   //           'https://picsum.photos/seed/mb1/600',
-   //           'https://picsum.photos/seed/mb2/600',
-   //           'https://picsum.photos/seed/mb3/600',
-   //           'https://picsum.photos/seed/mb4/600',
-   //           'https://picsum.photos/seed/mb5/600',
-   //           'https://picsum.photos/seed/mb6/600',
-   //        ],
-   //        shared_post: null,
-   //        likes: 89,
-   //        comments: 16,
-   //     },
-
-   //     {
-   //        id: 1006,
-   //        author: {
-   //           id: 58,
-   //           username: 'liam.codes',
-   //           first_name: 'Liam',
-   //           last_name: 'Santos',
-   //           avatar: 'https://picsum.photos/seed/liam/200',
-   //        },
-   //        created: '2025-01-18T20:32:00Z',
-   //        content: 'Das musste einfach geteilt werden! 🤯',
-   //        images: [],
-   //        shared_post: {
-   //           id: 1003,
-   //           author: {
-   //              id: 21,
-   //              username: 'marcost',
-   //              first_name: 'Marco',
-   //              last_name: 'Stern',
-   //              avatar: 'https://picsum.photos/seed/marco/200',
-   //           },
-   //           created: '2025-01-18T14:01:00Z',
-   //           content: 'Kleines Dev-Setup Update 👨‍💻🔥',
-   //           images: ['https://picsum.photos/seed/devsetup1/600'],
-   //           shared_post: null,
-   //        },
-   //        likes: 14,
-   //        comments: 2,
-   //     },
-   //  ])
+const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
+   const [filter, setFilter] = useState('')
+   const [search, setSearch] = useState('')
+   const [debouncedSearch, setDebouncedSearch] = useState('')
+   const [posts, setPosts] = useState([])
    const [viewDeletePost, setViewDeletePost] = useState(false)
 
-   const [posts, setPosts] = useState([])
+   useEffect(() => {
+      const handler = setTimeout(() => {
+         setDebouncedSearch(search)
+      }, 400)
+
+      return () => clearTimeout(handler)
+   }, [search])
+
+   //Runs when filterformProfile is set. By returning directly, it skips the function and otherwise goes to the default fallback.
+   useEffect(() => {
+      if (!filterfromProfile) return
+      setFilter(filterfromProfile)
+
+      const fetchFilteredPosts = async () => {
+         const response = await motion_api_auth.get(
+            `social/posts/${filterfromProfile}`
+         )
+         setPosts(response.data.results)
+      }
+      fetchFilteredPosts()
+   }, [filterfromProfile])
 
    useEffect(() => {
+      if (filterfromProfile) return
+
       const fetchAllPosts = async () => {
          try {
-            const response = await motion_api_auth.get('social/posts/')
+            console.log(debouncedSearch)
+            const response = await motion_api_auth.get(
+               `social/posts/${filter}?search=${debouncedSearch}`
+            )
             setPosts(response.data.results)
          } catch (error) {
             console.error('Failed to load users', error)
          }
       }
       fetchAllPosts()
-   }, [])
+   }, [filter, filterfromProfile, debouncedSearch])
 
    return (
       <div className=" bg-zinc-100 py-5 ">
-         <FilterAndSearchBar />
+         {!hide_create_post && (
+            <FilterAndSearchBar
+               setFilter={setFilter}
+               activeTab={filter}
+               onSearchChange={setSearch}
+            />
+         )}
          <div className="flex justify-center py-5">
             {viewDeletePost && (
                <DeletePost showDeletePostModal={setViewDeletePost} />
@@ -157,7 +68,8 @@ const SocialWallPage = () => {
             <div className="Griddivider grid lg:grid-cols-2 gap-5">
                <div className="gridleft">
                   <div className="flex flex-col gap-5">
-                     <CreatePost />
+                     {!hide_create_post && <CreatePost />}
+
                      {posts.length > 0 ? (
                         posts.map((post, index) =>
                            index % 2 === 0 ? (

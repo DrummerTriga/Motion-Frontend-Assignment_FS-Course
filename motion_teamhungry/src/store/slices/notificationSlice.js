@@ -5,9 +5,7 @@ export const notificationSlice = createSlice({
    initialState: { notifications: [] },
    reducers: {
       add_requests: (state, action) => {
-         // console.log(action.payload)
          state.notifications = action.payload
-         // console.log(state.notifications)
       },
    },
 })

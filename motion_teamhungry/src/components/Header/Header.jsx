@@ -1,12 +1,27 @@
 import logo from '/logo.png'
 import HeaderDropdown from './HeaderDropdown'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import NotificationDropdown from './NotificationDropdown'
-//JTI InformationYou can override the color of all the icons via text-color
+import { useSelector } from 'react-redux'
 
 const Header = () => {
+   const allNotifications = useSelector(
+      (store) => store.notifications.notifications ?? []
+   )
+
+   const userAvatar = useSelector(
+      (store) => store.auth.user_data?.avatar ?? '/noAvatarReplace.png'
+   )
+
+   console.log(userAvatar)
+
+   const pendingCount = allNotifications.filter((n) => n.status === 'P').length
+
+   const navigate = useNavigate()
+
    const profileClickHandler = () => {
+      navigate('/profile')
       console.log('I react to profileClickHandler')
    }
 
@@ -132,15 +147,13 @@ const Header = () => {
                      {notificationSvg}
                   </button>
                   {showNotificationDropdown && <NotificationDropdown />}
-                  {/* The number 4 is the placeholder for the amount of notifications */}
                   <p className="rounded-4xl w-6 h-6 text-s text-center mb-5 text-white bg-gradient-to-r from-purple-400 to-indigo-400">
-                     3
+                     {pendingCount}
                   </p>
                </div>
-               {/* I decided to not use import for this one because we probably get it directly from the API */}
                <img
-                  className="hover:cursor-pointer"
-                  src="/src/assets/users/leticia.png"
+                  className="h-8 hover:cursor-pointer"
+                  src={userAvatar}
                   onClick={profileClickHandler}
                />
                <div
