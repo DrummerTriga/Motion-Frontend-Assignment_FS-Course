@@ -1,8 +1,8 @@
-import jenniferpic from '../../assets/users/jennifer.png'
 import sendButton from '../../../public/send_button.svg'
 import { useState } from 'react'
 import { motion_api_auth } from '../../axios/axiosBase'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const CreatePost = ({ userFirstName }) => {
    const [createPost, setCreatePost] = useState(false)
@@ -10,6 +10,8 @@ const CreatePost = ({ userFirstName }) => {
    const [previewURL, setPreviewURL] = useState([])
    const [postMessage, setPostMessage] = useState('')
    const [errorMessage, setErrorMessage] = useState({})
+
+   const navigate = useNavigate()
 
    const userData = useSelector((store) => store.auth.user_data)
    console.log(userData)
@@ -208,7 +210,11 @@ const CreatePost = ({ userFirstName }) => {
                         </label>
                      </div>
                      <div
-                        onClick={(event) => handlePostSubmit(event)}
+                        onClick={async (event) => {
+                           await handlePostSubmit(event)
+                           navigate(0)
+                           // window.location.href = '/posts'
+                        }}
                         className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]"
                      >
                         <img src={sendButton} />
