@@ -5,6 +5,7 @@ import { motion_api_auth } from '../../axios/axiosBase'
 import FindFriendsPage from '../findfriends/FindFriendsPage'
 import { useSelector } from 'react-redux'
 import { profileSlice } from '../../store/slices/profileSlice'
+import { useParams } from 'react-router'
 
 const ProfilePage = () => {
    //    Possibe code to help switch between profile and edit profile page. Commenting it out - JM
@@ -12,25 +13,39 @@ const ProfilePage = () => {
    const [user, setUser] = useState({})
    const [things_user_likes, setThings_user_likes] = useState([])
    const filterState = useSelector((state) => state.profile.clickedFilter)
-   console.log(filterState)
+
+   const loggedin_profile_user_id = useSelector(
+      (state) => state.auth.user_data.user.id
+   )
+   const { userId } = useParams()
+
+   console.log('friend id from Param', userId)
+   console.log('user id from slice', loggedin_profile_user_id)
 
    useEffect(() => {
       const fetchUserData = async () => {
-         // todo - RH - make the localStorage active again
-         // todo i think we need a switch. If there is a profile id in the URL Parameter it needs so set user_id to this param
-         const user_id = localStorage.getItem('user_id')
-         // console.log(user_id)
-         // const user_id = 4662
-         try {
-            const response = await motion_api_auth.get(`users/${user_id}/`)
-            setUser(response.data)
-            setThings_user_likes(response.data.things_user_likes)
-         } catch (error) {
-            console.error('failed to load users', error)
+         if (userId) {
+            try {
+               const response = await motion_api_auth.get(`users/${userId}/`)
+               setUser(response.data)
+               setThings_user_likes(response.data.things_user_likes)
+               console.log(response.data)
+            } catch (error) {
+               console.error('failed to load users', error)
+            }
+         } else {
+            try {
+               const response = await motion_api_auth.get(`users/me/`)
+               setUser(response.data)
+               setThings_user_likes(response.data.things_user_likes)
+               console.log(response.data)
+            } catch (error) {
+               console.error('failed to load users', error)
+            }
          }
       }
       fetchUserData()
-   }, [])
+   }, [userId])
 
    return (
       <div className="flex flex-col h-full justify-center items-center bg-gray-100">

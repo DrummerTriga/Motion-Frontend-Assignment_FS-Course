@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const profileSlice = createSlice({
    name: 'profile',
-   initialState: { clickedFilter: '' },
+   initialState: { clickedFilter: 'me' },
    reducers: {
       filterSelected: (state, action) => {
          state.clickedFilter = action.payload
