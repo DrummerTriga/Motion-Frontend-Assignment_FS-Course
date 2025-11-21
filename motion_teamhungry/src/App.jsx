@@ -42,6 +42,7 @@ function App() {
       <Routes>
          <Route path="" element={<MainLayout />}>
             <Route path="" element={<ProtectedRoutes />}>
+               <Route path="" element={<SocialWallPage />} />
                <Route path="profile" element={<ProfilePage />} />
                <Route path="profile/:userId" element={<ProfilePage />} />
                <Route path="edit-profile" element={<ProfileEditPage />} />
