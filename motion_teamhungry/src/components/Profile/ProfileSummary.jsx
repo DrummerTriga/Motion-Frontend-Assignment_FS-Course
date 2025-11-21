@@ -57,11 +57,24 @@ const ProfileSummary = ({
    const [followers, setFollowers] = useState({})
    const [following, setFollowing] = useState({})
 
+   useEffect(() => {
+      return () => {
+         dispatch(filterSelected('me'))
+      }
+   }, [])
+
    const handleDisplayPosts = async () => {
-      console.log('click for post')
+      console.log(
+         'click for post',
+         'userId:',
+         userId,
+         'logged in user id',
+         loggedin_profile_user_id
+      )
       // loading
       if (userId) {
          try {
+            console.log('userId was called')
             const posts = await displayPosts(userId)
             setPosts(posts)
             dispatch(filterSelected('me'))
@@ -72,6 +85,7 @@ const ProfileSummary = ({
          }
       } else {
          try {
+            console.log('loggedin user called')
             const posts = await displayPosts(loggedin_profile_user_id)
             setPosts(posts)
             dispatch(filterSelected('me'))
@@ -268,7 +282,7 @@ const ProfileSummary = ({
                   {filterState === 'me' ? (
                      <>
                         <div
-                           className="text-left bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           className="text-left border-transparent transition duration-300 ease-in-out border-4 border-b-purple-600 p-5 cursor-pointer border"
                            onClick={handleDisplayPosts}
                         >
                            {amount_of_posts}
@@ -292,7 +306,7 @@ const ProfileSummary = ({
                   {filterState === 'posts/likes' ? (
                      <>
                         <div
-                           className="text-left  bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           className="text-left border-4 border-b-purple-600 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
                            onClick={handleDisplayLikes}
                         >
                            {amount_of_likes}
@@ -316,7 +330,7 @@ const ProfileSummary = ({
                   {filterState === 'friends' ? (
                      <>
                         <div
-                           className="text-left  bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           className="text-left border-4 border-b-purple-600 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
                            onClick={handleDisplayFriends}
                         >
                            {amount_of_friends}
@@ -340,7 +354,7 @@ const ProfileSummary = ({
                   {filterState === 'followers/followers' ? (
                      <>
                         <div
-                           className="text-left  bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           className="text-left border-4 border-b-purple-600 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
                            onClick={handleDisplayFollowers}
                         >
                            {amount_of_followers}
@@ -368,7 +382,7 @@ const ProfileSummary = ({
                   {filterState === 'followers/following' ? (
                      <>
                         <div
-                           className="text-left  bg-pink-400 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
+                           className="text-left border-4 border-b-purple-600 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
                            onClick={handleDisplayFollowing}
                         >
                            {amount_of_following}
