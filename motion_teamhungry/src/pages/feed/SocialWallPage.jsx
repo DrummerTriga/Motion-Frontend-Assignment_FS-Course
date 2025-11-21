@@ -16,10 +16,6 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    const [isLoading, setIsLoading] = useState(false)
    const [error, setError] = useState(null)
 
-   const timeoutId = setTimeout(() => {
-      setError('Server not responding – please try again later.')
-   }, 10_000)
-
    useEffect(() => {
       const handler = setTimeout(() => {
          setDebouncedSearch(search)
@@ -31,17 +27,31 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
    //Runs when filterformProfile is set. By returning directly, it skips the function and otherwise goes to the default fallback.
    useEffect(() => {
       if (!filterfromProfile) return
-      setFilter(filterfromProfile)
+      let timeoutId
 
       const fetchFilteredPosts = async () => {
-         const response = await motion_api_auth.get(
-            `social/posts/${filterfromProfile}`
-         )
-         setPosts(response.data.results)
-      }
-      fetchFilteredPosts()
-   }, [filterfromProfile])
+         setIsLoading(true)
+         setError(null)
+         timeoutId = setTimeout(() => {
+            setError('Server not responding – please try again later.')
+         }, 10_000)
 
+         try {
+            const response = await motion_api_auth.get(
+               `social/posts/${filterfromProfile}?search=${debouncedSearch}`
+            )
+            setPosts(response.data.results)
+         } catch {
+            setError('Posts could not be loaded')
+         } finally {
+            clearTimeout(timeoutId)
+            setIsLoading(false)
+         }
+      }
+
+      fetchFilteredPosts()
+      return () => clearTimeout(timeoutId)
+   }, [filterfromProfile, debouncedSearch])
    useEffect(() => {
       if (filterfromProfile) return
       let timeoutId
