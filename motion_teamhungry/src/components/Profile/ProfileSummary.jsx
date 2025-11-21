@@ -12,6 +12,9 @@ import {
 } from '../../utils/profile.js'
 import { useDispatch } from 'react-redux'
 import { filterSelected } from '../../store/slices/profileSlice.js'
+import { useParams } from 'react-router'
+import { addNewFollower } from '../../utils/followingandfriends.js'
+import { sendFriendRequest } from '../../utils/followingandfriends.js'
 
 const ProfileSummary = ({
    id,
@@ -28,6 +31,11 @@ const ProfileSummary = ({
    amount_of_friends,
    amount_of_followers,
    amount_of_following,
+   logged_in_user_is_following,
+   logged_in_user_is_friends,
+   logged_in_user_is_rejected,
+   logged_in_user_received_friend_request,
+   logged_in_user_sent_friend_request,
 }) => {
    // todo - RH - make loading logic
    // const [isloading, setIsLoading] = useState(true)
@@ -39,6 +47,8 @@ const ProfileSummary = ({
    const [friends, setFriends] = useState({})
    const [followers, setFollowers] = useState({})
    const [following, setFollowing] = useState({})
+
+   const { userId } = useParams()
 
    const handleDisplayPosts = async () => {
       console.log('click for post')
@@ -121,12 +131,53 @@ const ProfileSummary = ({
                </div>
                <div className="text-xs">{location}</div>
                <br />
-               <div>
-                  {' '}
-                  <Link to="/edit-profile">
-                     <SecondaryButton label="Edit Profile"></SecondaryButton>
-                  </Link>
-               </div>
+
+               {userId ? (
+                  <div className="flex flex-col items-center pt-5 gap-3">
+                     {logged_in_user_is_following && (
+                        // JTI todo probably refine the primary button because of padding
+                        <PrimaryButton
+                           label={'FOLLOWING'}
+                           className={'!px-4 !py-2 !text-sm'}
+                        />
+                     )}
+                     {!logged_in_user_is_following && (
+                        <SecondaryButton
+                           label={'FOLLOW'}
+                           className={'!px-4 !py-2 !text-sm'}
+                           onClickHandler={() => addNewFollower(user_id)}
+                        />
+                     )}
+                     {/* JTI todo add the check as svg inside of the button */}
+                     {logged_in_user_is_friends && (
+                        <SecondaryButton
+                           label={'✓ FRIEND'}
+                           className={'!px-4 !py-2 !text-sm'}
+                        />
+                     )}
+                     {logged_in_user_sent_friend_request && (
+                        <SecondaryButton
+                           label={'PENDING'}
+                           className={
+                              'hover:cursor-progress !px-4 !py-2 !text-sm'
+                           }
+                        />
+                     )}
+                     {!logged_in_user_sent_friend_request && (
+                        <SecondaryButton
+                           label={'ADD FRIEND'}
+                           className={'!px-4 !py-2 !text-sm'}
+                           onClickHandler={() => sendFriendRequest(user_id)}
+                        />
+                     )}
+                  </div>
+               ) : (
+                  <div className="pt-10">
+                     <Link to="/edit-profile">
+                        <SecondaryButton label="EDIT PROFILE"></SecondaryButton>
+                     </Link>
+                  </div>
+               )}
             </div>
             {/*  right side of profile summary */}
             <div className=" w-[70%] flex flex-col border-gray-300">
