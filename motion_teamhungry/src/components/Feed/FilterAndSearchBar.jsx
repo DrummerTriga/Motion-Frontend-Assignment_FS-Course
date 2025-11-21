@@ -17,25 +17,25 @@ const FilterAndSearchBar = ({ setFilter, activeTab, onSearchChange }) => {
          <div className="flex justify-between items-center gap-10 h-full">
             <div
                onClick={() => setFilter('')}
-               className={`flex items-center h-full ${activeTab === '' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
+               className={`flex items-center h-full hover:cursor-pointer ${activeTab === '' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
             >
                <h2>All</h2>
             </div>
             <div
                onClick={() => setFilter('likes')}
-               className={`flex items-center h-full ${activeTab === 'likes' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
+               className={`flex items-center h-full hover:cursor-pointer ${activeTab === 'likes' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
             >
                <h2>Liked</h2>
             </div>
             <div
                onClick={() => setFilter('friends')}
-               className={`flex items-center h-full ${activeTab === 'friends' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
+               className={`flex items-center h-full hover:cursor-pointer ${activeTab === 'friends' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
             >
                <h2>Friends</h2>
             </div>
             <div
                onClick={() => setFilter('following')}
-               className={`flex items-center h-full ${activeTab === 'following' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
+               className={`flex items-center h-full hover:cursor-pointer ${activeTab === 'following' ? 'border-b-2' : 'border-b-2 border-transparent'}`}
             >
                <h2>Follow</h2>
             </div>

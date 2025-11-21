@@ -59,7 +59,7 @@ const ProfileSummary = ({
 
    useEffect(() => {
       return () => {
-         dispatch(filterSelected('me'))
+         dispatch(filterSelected(`user/${userId}`))
       }
    }, [])
 
@@ -77,7 +77,7 @@ const ProfileSummary = ({
             console.log('userId was called')
             const posts = await displayPosts(userId)
             setPosts(posts)
-            dispatch(filterSelected('me'))
+            dispatch(filterSelected(`user/${userId}`))
          } catch {
             ;(error) => console.error('fail', error)
          } finally {
@@ -88,7 +88,7 @@ const ProfileSummary = ({
             console.log('loggedin user called')
             const posts = await displayPosts(loggedin_profile_user_id)
             setPosts(posts)
-            dispatch(filterSelected('me'))
+            dispatch(filterSelected(`user/${userId}`))
          } catch {
             ;(error) => console.error('fail', error)
          } finally {
@@ -108,7 +108,7 @@ const ProfileSummary = ({
       try {
          const likes = await displayLikes()
          setLikes(likes)
-         dispatch(filterSelected('posts/likes'))
+         dispatch(filterSelected(`likes/user/${userId}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -127,7 +127,7 @@ const ProfileSummary = ({
       try {
          const friends = await displayFriends(loggedin_profile_user_id)
          setFriends(friends)
-         dispatch(filterSelected('friends'))
+         dispatch(filterSelected(`friends/user/${userId}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -146,7 +146,7 @@ const ProfileSummary = ({
       try {
          const followers = await displayFollowers(loggedin_profile_user_id)
          setFollowers(followers)
-         dispatch(filterSelected('followers/followers'))
+         dispatch(filterSelected(`followers/followers/user/${userId}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -165,7 +165,7 @@ const ProfileSummary = ({
       try {
          const followings = await displayFollowing(loggedin_profile_user_id)
          setFollowing(followings)
-         dispatch(filterSelected('followers/following'))
+         dispatch(filterSelected(`followers/following/user/${userId}`))
       } catch {
          ;(error) => console.error('fail', error)
       } finally {
@@ -279,7 +279,7 @@ const ProfileSummary = ({
                <div className="flex flex-row text-lg h-[40%] border-t border-gray-300 items-center justify-between  w-full p-4 ">
                   {/* ======================== */}
 
-                  {filterState === 'me' ? (
+                  {filterState === `user/${userId}` ? (
                      <>
                         <div
                            className="text-left border-transparent transition duration-300 ease-in-out border-4 border-b-purple-600 p-5 cursor-pointer border"
@@ -303,7 +303,7 @@ const ProfileSummary = ({
 
                   {/* ======================== */}
 
-                  {filterState === 'posts/likes' ? (
+                  {filterState === `likes/user/${userId}` ? (
                      <>
                         <div
                            className="text-left border-4 border-b-purple-600 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
@@ -327,7 +327,7 @@ const ProfileSummary = ({
 
                   {/* ======================== */}
 
-                  {filterState === 'friends' ? (
+                  {filterState === `friends/user/${userId}` ? (
                      <>
                         <div
                            className="text-left border-4 border-b-purple-600 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
@@ -351,7 +351,7 @@ const ProfileSummary = ({
 
                   {/* ======================== */}
 
-                  {filterState === 'followers/followers' ? (
+                  {filterState === `followers/followers/user/${userId}` ? (
                      <>
                         <div
                            className="text-left border-4 border-b-purple-600 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
@@ -379,7 +379,7 @@ const ProfileSummary = ({
 
                   {/* ======================== */}
 
-                  {filterState === 'followers/following' ? (
+                  {filterState === `followers/following/user/${userId}` ? (
                      <>
                         <div
                            className="text-left border-4 border-b-purple-600 border-transparent transition duration-300 ease-in-out hover:border-b-purple-600 p-5 cursor-pointer border"
