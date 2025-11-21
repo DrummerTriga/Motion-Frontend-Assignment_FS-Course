@@ -64,13 +64,14 @@ const UserCard = ({
                   className={'hover:cursor-progress !px-4 !py-2 !text-sm'}
                />
             )}
-            {!logged_in_user_is_friends && (
-               <SecondaryButton
-                  label={'ADD FRIEND'}
-                  className={'!px-4 !py-2 !text-sm'}
-                  onClickHandler={() => sendFriendRequest(user_id)}
-               />
-            )}
+            {!logged_in_user_is_friends &&
+               !logged_in_user_sent_friend_request && (
+                  <SecondaryButton
+                     label={'ADD FRIEND'}
+                     className={'!px-4 !py-2 !text-sm'}
+                     onClickHandler={() => sendFriendRequest(user_id)}
+                  />
+               )}
          </div>
 
          <div>

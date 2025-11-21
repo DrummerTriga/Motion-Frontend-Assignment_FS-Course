@@ -14,8 +14,6 @@ const Header = () => {
       (store) => store.auth.user_data?.avatar ?? '/noAvatarReplace.png'
    )
 
-   console.log(userAvatar)
-
    const pendingCount = allNotifications.filter((n) => n.status === 'P').length
 
    const navigate = useNavigate()
