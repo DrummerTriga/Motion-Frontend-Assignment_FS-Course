@@ -1,8 +1,10 @@
 import ViewPost from './ViewPost'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { motion_api_auth } from '../../axios/axiosBase'
 import { likingPost } from '../../utils/likingPost'
+import SharePost from './SharePost'
+import SharedPost from './SharedPost'
 import { useNavigate } from 'react-router-dom'
 
 const Post = ({
@@ -14,7 +16,7 @@ const Post = ({
    created,
    content,
    images,
-   shared_post,
+   shared,
    likes,
    comments,
    showDeletePostModal,
@@ -80,7 +82,6 @@ const Post = ({
          />
       </svg>
    )
-
    const shareSVG = (
       <svg
          id="fi_18472875"
@@ -94,7 +95,10 @@ const Post = ({
    )
    const [detailPost, setDetailPost] = useState(null)
    const [viewDetailPost, setViewDetailPost] = useState(false)
-
+   const [openShare, setOpenShare] = useState(false)
+   const [originalPost, setOriginalPost] = useState(null)
+   const [errorMessage, setErrorMessage] = useState(null)
+   console.log('shared', shared)
    const handlePostData = async () => {
       try {
          const response = await motion_api_auth.get(`social/posts/${id}`)
@@ -102,7 +106,7 @@ const Post = ({
          setDetailPost(response.data)
       } catch (error) {
          setErrorMessage(error.response?.data?.detail)
-         // console.log(error.response?.data?.detail)
+         console.log(error.response?.data?.detail)
       }
    }
 
@@ -110,6 +114,11 @@ const Post = ({
       handlePostData()
       setViewDetailPost(true)
    }
+
+   const openShareModal = () => {
+      setOpenShare(true)
+   }
+
    return (
       <div className="postwrapper bg-white  w-[580px] rounded-lg">
          <div className="PostHeader flex gap-4 px-5 py-5 items-center">
@@ -143,6 +152,12 @@ const Post = ({
          </div>
          <div className="postbody px-5 py-5 ">
             <p>{content}</p>
+            {shared && (
+               <div>
+                  <SharedPost shared={shared} />
+               </div>
+            )}
+
             {images.length === 1 && (
                <img
                   className="mt-5 rounded-sm hover:cursor-pointer"
@@ -228,7 +243,10 @@ const Post = ({
                )}
                <p>Like</p>
 
-               <button className="text-neutral-400 hover:cursor-pointer hover:rotate-350 hover:scale-115 hover:text-blue-700">
+               <button
+                  onClick={() => openShareModal()}
+                  className="text-neutral-400 hover:cursor-pointer hover:rotate-350 hover:scale-115 hover:text-blue-700"
+               >
                   {shareSVG}
                </button>
                <p>Share</p>
@@ -248,6 +266,18 @@ const Post = ({
                postData={detailPost}
                setDetailPostToggle={setViewDetailPost}
                showDeletePostModal={showDeletePostModal}
+            />
+         )}
+         {openShare && (
+            <SharePost
+               originalPostId={id}
+               originalPostData={{
+                  author_first_name,
+                  author_last_name,
+                  content,
+                  images,
+               }}
+               closeShare={() => setOpenShare(false)}
             />
          )}
       </div>
