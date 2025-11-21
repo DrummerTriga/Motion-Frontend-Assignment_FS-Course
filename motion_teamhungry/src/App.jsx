@@ -19,6 +19,7 @@ import { useEffect } from 'react'
 import { motion_api_auth } from './axios/axiosBase.js'
 import { add_requests } from './store/slices/notificationSlice'
 import EditProfile from './components/Profile/EditProfile.jsx'
+import ProfileEditPage from './pages/profile/ProfileEditPage.jsx'
 
 function App() {
    const dispatch = useDispatch()
@@ -43,7 +44,7 @@ function App() {
             <Route path="" element={<ProtectedRoutes />}>
                <Route path="profile" element={<ProfilePage />} />
                <Route path="profile/:userId" element={<ProfilePage />} />
-               <Route path="edit-profile" element={<EditProfile />} />
+               <Route path="edit-profile" element={<ProfileEditPage />} />
                <Route path="posts" element={<SocialWallPage />} />
                <Route path="findfriends" element={<FindFriendsPage />} />
             </Route>

@@ -131,7 +131,7 @@ const EditProfile = () => {
       <div>
          {user && (
             <div
-               className="min-h-[10vh] flex  bg-white text-neutral-400 text-xs"
+               className="min-h-[30vh] flex w-400 bg-white text-neutral-400 text-xs"
                key={user.id}
             >
                {/* left side of profile summary */}
