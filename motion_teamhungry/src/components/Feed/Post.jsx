@@ -18,6 +18,7 @@ const Post = ({
    likes,
    comments,
    showDeletePostModal,
+   logged_in_user_liked,
 }) => {
    const navigate = useNavigate()
    //formats the posted date to show Just now, hours or dates
@@ -204,16 +205,29 @@ const Post = ({
 
          <div className="postfooter flex gap-4 px-5 py-5 ">
             <div className="interaction flex gap-4 items-center justify-center">
-               <button
-                  className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115"
-                  onClick={async () => {
-                     await likingPost(id)
-                     navigate(0)
-                  }}
-               >
-                  {heartSVG}
-               </button>
+               {logged_in_user_liked ? (
+                  <button
+                     className="text-neutral-400 hover:cursor-pointer hover:text-red-600 hover:scale-115"
+                     onClick={async () => {
+                        await likingPost(id)
+                        navigate(0)
+                     }}
+                  >
+                     {heartSVG}
+                  </button>
+               ) : (
+                  <button
+                     className="text-neutral-400 text-red-600 "
+                     onClick={async () => {
+                        await likingPost(id)
+                        navigate(0)
+                     }}
+                  >
+                     {heartSVG}
+                  </button>
+               )}
                <p>Like</p>
+
                <button className="text-neutral-400 hover:cursor-pointer hover:rotate-350 hover:scale-115 hover:text-blue-700">
                   {shareSVG}
                </button>

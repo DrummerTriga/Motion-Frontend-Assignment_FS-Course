@@ -115,6 +115,9 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
                                     likes={post.amount_of_likes}
                                     comments={post.comments}
                                     showDeletePostModal={setViewDeletePost}
+                                    logged_in_user_liked={
+                                       post.logged_in_user_liked
+                                    }
                                  />
                               </div>
                            ) : null
@@ -146,6 +149,9 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
                                     likes={post.amount_of_likes}
                                     comments={post.comments}
                                     showDeletePostModal={setViewDeletePost}
+                                    logged_in_user_liked={
+                                       post.logged_in_user_liked
+                                    }
                                  />
                               </div>
                            ) : null
