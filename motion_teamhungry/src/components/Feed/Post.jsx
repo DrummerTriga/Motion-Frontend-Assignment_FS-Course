@@ -1,10 +1,10 @@
 import ViewPost from './ViewPost'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { motion_api_auth } from '../../axios/axiosBase'
 import { likingPost } from '../../utils/likingPost'
-import { motion_api_auth } from '../../axios/axiosBase'
 import SharePost from './SharePost'
+import SharedPost from './SharedPost'
 
 const Post = ({
    id,
@@ -79,7 +79,6 @@ const Post = ({
          />
       </svg>
    )
-
    const shareSVG = (
       <svg
          id="fi_18472875"
@@ -94,7 +93,9 @@ const Post = ({
    const [detailPost, setDetailPost] = useState(null)
    const [viewDetailPost, setViewDetailPost] = useState(false)
    const [openShare, setOpenShare] = useState(false)
-
+   const [originalPost, setOriginalPost] = useState(null)
+   const [errorMessage, setErrorMessage] = useState(null)
+   console.log('shared', shared)
    const handlePostData = async () => {
       try {
          const response = await motion_api_auth.get(`social/posts/${id}`)
@@ -148,6 +149,13 @@ const Post = ({
          </div>
          <div className="postbody px-5 py-5 ">
             <p>{content}</p>
+            {shared && (
+               <div>
+                  {/* <h1>{shared.content}</h1> */}
+                  <SharedPost shared={shared} />
+               </div>
+            )}
+
             {images.length === 1 && (
                <img
                   className="mt-5 rounded-sm hover:cursor-pointer"

@@ -51,7 +51,7 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
       }
       fetchAllPosts()
    }, [filter, filterfromProfile, debouncedSearch])
-
+   
    return (
       <div className=" bg-zinc-100 py-5 ">
          {!hide_create_post && (
@@ -83,7 +83,7 @@ const SocialWallPage = ({ hide_create_post, filterfromProfile }) => {
                                     created={post.created}
                                     content={post.content}
                                     images={post.images}
-                                    shared_post={post.shared_post}
+                                    shared={post.shared}
                                     likes={post.amount_of_likes}
                                     comments={post.comments}
                                     showDeletePostModal={setViewDeletePost}

@@ -1,10 +1,18 @@
 import { useState } from 'react'
 import { motion_api_auth } from '../../axios/axiosBase'
 import sendButton from '../../../public/send_button.svg'
+import { useNavigate } from 'react-router'
 
-const SharePost = ({ originalPostId, originalPostData, closeShare }) => {
+const SharePost = ({
+   originalPostId,
+   originalPostData,
+   closeShare,
+   shared,
+}) => {
    const [message, setMessage] = useState('')
    const [error, setError] = useState(null)
+
+   const navigate = useNavigate()
 
    const handleShare = async () => {
       try {
@@ -12,9 +20,11 @@ const SharePost = ({ originalPostId, originalPostData, closeShare }) => {
             content: message,
             shared: originalPostId,
          })
+         console.log(response)
          closeShare()
-         window.location.reload()
-      } catch (err) {
+         // window.location.reload()
+      } catch (error) {
+         console.log(error)
          setError('Error')
       }
    }
@@ -38,40 +48,46 @@ const SharePost = ({ originalPostId, originalPostData, closeShare }) => {
       <div className="flex items-center justify-center fixed w-full h-full bg-[rgba(25,25,25,0.87)] top-0 z-20 left-0">
          <div
             onClick={closeShare}
-            className="relative bottom-100 left-200 cursor-pointer"
+            className="absolute top-6 right-8 cursor-pointer"
          >
             {crossIconSVG}
          </div>
-         <div className="flex flex-col justify-between relative bg-white w-[30%] h-[60%] rounded-sm p-10">
-            <h2 className="text-xl mb-4">Share this Post</h2>
-            <div className="flex flex-col items-center gap-4">
-               <textarea
-                  className="w-full h-auto border focus:outline-0 resize-none p-4"
-                  placeholder="Add a message..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-               />
-               <div className="bg-gray-200 w-[80%] p-4 rounded mb-4">
-                  <p className="font-semibold">
-                     {originalPostData.author_first_name}{' '}
-                     {originalPostData.author_last_name}
-                  </p>
-                  <p>{originalPostData.content}</p>
+         <div className="flex flex-col justify-between relative bg-white w-[30%] h-[65%] rounded-sm p-6">
+            <div className="flex flex-col">
+               <h2 className="text-xl mb-4">Share this Post</h2>
+               <div className="flex flex-col items-center w-full gap-4">
+                  <textarea
+                     className="w-full flex-1 border-b border-gray-200 focus:outline-0 resize-none p-4"
+                     placeholder="Add a message..."
+                     value={message}
+                     onChange={(e) => setMessage(e.target.value)}
+                  />
+                  <div className=" flex flex-col bg-gray-200 w-[75%] p-4 rounded mb-4">
+                     <p className="font-semibold">
+                        {originalPostData.author_first_name}{' '}
+                        {originalPostData.author_last_name}
+                     </p>
+                     <p className="italic">{originalPostData.content}</p>
 
-                  {originalPostData.images.length > 0 && (
-                     <img
-                        src={originalPostData.images[0].image}
-                        className="rounded mt-3"
-                     />
-                  )}
+                     {originalPostData.images.length > 0 && (
+                        <img
+                           src={originalPostData.images[0].image}
+                           className="rounded mt-3 h-auto w-full object-contain"
+                        />
+                     )}
+                  </div>
                </div>
-            </div>
-            <div className="flex justify-end gap-3 mt-4">
-               <div
-                  onClick={handleShare}
-                  className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px]"
-               >
-                  <img src={sendButton} />
+
+               <div className="flex justify-end gap-3 mt-4 ">
+                  <div
+                     onClick={async () => {
+                        await handleShare()
+                        navigate(0)
+                     }}
+                     className="flex justify-center items-center bg-linear-to-r from-purple-400 to-indigo-400 border-0 rounded-4xl h-[60px] w-[60px] cursor-pointer"
+                  >
+                     <img src={sendButton} />
+                  </div>
                </div>
             </div>
          </div>
