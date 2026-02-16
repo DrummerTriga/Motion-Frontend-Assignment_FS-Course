@@ -1,124 +1,59 @@
+## About the Project
 
-# Commotion - Frontend Assignments
+This project is a frontend social network application developed as part of a Full Stack course. The main objective was to build a modern and scalable frontend architecture using React and related tools.
 
-**Useful Links**
-- Boards
-   - [Dev Board](https://gitlab.propulsion-home.ch/full-stack/batch-34-oct-2025/motion-frontend-assignment/teamhungry/-/boards/1165)
-   - [Page Board](https://gitlab.propulsion-home.ch/full-stack/batch-34-oct-2025/motion-frontend-assignment/teamhungry/-/boards/1164)
-- [Figma project copy](https://www.figma.com/design/BIhmAUontXJfWNtCipdpVG/Motion_TeamHungry?node-id=0-1&p=f&t=fZH6B1zSBEN7VEpv-0)
-- [Discord Meeting room](https://discord.com/channels/689122077504176142/689123774787747903)
+The application includes JWT authentication, allowing users to register and log in securely. Users can create and view posts, follow and add friends, and manage their personal profiles. The project focuses on state management, routing, and responsive UI design.
 
-**Project Specifications:**
+The application is connected to the backend API provided by the school:
+https://motion.propulsion-home.ch/backend/api/docs/
 
-- Tailwind CSS
-- Rule of thumb you ALL need to understand the code, means that no mindless implementations without explaining to the rest —> More Comments with mentionin who did it?
-- If you are stuck in a task for more than a day, you need to MOVE on, since it is a project goal oriented
-- Presentation on Friday at 4:30pm
-- You can use any platform to organize yourself, GitLab Issues board, Miro, Monday, Trello, etc
-- Every meeting, every day 9am. Mandatory
-- two meetings a day at least, one in the morning one at the end of the day, NO more than 3
-- Do not disappear, be in constant communication with the group in the Meeting rooms
-- Take the weekend off as well, do not try to complete the whole project by yourself, stick to your tasks (if set today)
-- usually speaking the organization should take the whole day today.
-- If there is a situation out of the scope of the project group, please reach out to me first
+## Features
 
+- JWT authentication system
+- Create and view posts
+- Add and follow friends
+- User profile management
+- Responsive and modern UI
 
-**Tech Stack for Setup:**
+## Technologies Used
 
+- React + Vite
+- React Router
+- React Redux
 - TailwindCSS
-- Axios
-- Prettier —> Config? (; or no ;)
-- react-dom
-- react-redux toolkit
--react-redux
-- react-router-dom
 
-**Assignments**
+## Getting Started
 
-The work is not limited or exclusive - just one with the responsibility 
-Rafaela —>  (Code Review) / Package Manager /  (Techlead)
-Jan —> - Person for Project Management —> Wann wird was gemacht? Erstellen von Tickets und Timekeeper etc.
-Gil —> - Project Setup / Person for Frontend —> Which components we need? / Responsive Tester
-- Person für API Requests & Redux —> utils? Axios?  
+### Prerequisites
 
+Make sure you have installed:
 
-**Meetings**
+- Node.js
+- npm
 
-- StandUp at 09:00
-- Another at 14:00
+### Installation
 
+1. Clone the repository:
 
-**Directories:**
+   git clone <your-repository-url>
 
-```
-/layouts
-     /AuthLayout.jsx
-    /MainLayout.jsx
-/pages
-    /authpages
-        /Login.jsx
-        /Signup.jsx
-        /SignUpCongratulations.jsx
-        /Verification.jsx
-        /ForgotPassword.jsx
-        /ForgotPassword E-Mail.jsx
-        /ResetPassword.jsx
-    /feed
-         /SocialWall.jsx
-     /profile
-         /Profile.jsx
-    /findfriends
-        /FindFriends.jsx
-/components
-    /Header
-        /Header.jsx
-        /NotificationDropdown.jsx !!!!!!!NEW!!!!!!!
-        /HeaderDropdown.jsx !!!!!!!NEW!!!!!!!
-        /FriendRequests.jsx !!!!!!!NEW!!!!!!!
-    /Auth
-        /VerticalHero.jsx
-        /Form.jsx
-        /LoginForm.jsx
-        /SignupForm.jsx
-        /SignUpCongratulationsForm.jsx
-        /VerificationForm.jsx
-        /ForgotPasswordForm.jsx
-        /ForgotPasswordE-MailForm.jsx
-        /ResetPasswordForm.jsx
-    /Feed
-        /Post.jsx !!!!!!!NEW!!!!!!!
-        ~~/TextPost.jsx~~ !!!!!!!DELETED!!!!!!!
-       ~~ /GalleryPost.jsx~~ !!!!!!!DELETED!!!!!!!
-       ~~ /PicturePost.jsx~~ !!!!!!!DELETED!!!!!!!
-        ~~/Repost.jsx~~ !!!!!!!DELETED!!!!!!!
-        /UserCard.jsx
-        /DeletePostDropdown.jsx !!!!!!!NEW!!!!!!!
-        /SearchBar.jsx
-        /FilterBar.jsx
-        /CreatePost.jsx
-        /ViewPost.jsx
-        /DeletePost.jsx
-    /Profile
-        /ProfileSummary.jsx
-        /EditProfile.jsx
-/elements
-    /Buttons
-        /PrimaryButton.jsx (eG SignUp with color)
-        /PrimaryButtonIcon.jsx(eG CreatePost) !!!!!!!NEW!!!!!!!
-        /SecondaryButton.jsx (eG whiteOutline)
-        /SecondaryButtonIcon.jsx
-    /Login    
-        /InputField.jsx 
-        /InputFieldIcon.jsx !!!!!!!NEW!!!!!!!
-    /Tags
-        /Tag.jsx. !!!!!!!NEW!!!!!!!
-        /TagButton.jsx !!!!!!!NEW!!!!!!!
-/assets
-/utils
-    /fetchingwithAuth.js
-    /fetchingnoAuth.js
-/store
-    /store.js
-    /slices
-        /authSlice.js
-```
+2. Navigate to the project folder:
+
+   cd <project-folder>
+
+3. Install dependencies:
+
+   npm install
+
+### Running the Project
+
+Start the development server:
+
+npm run dev
+
+The application will run locally (usually at http://localhost:5173).
+It connects automatically to the backend API provided by the school.
+
+Thanks for both visitig my profile and exploring my experiences during the Full Stack Development Course!
+
+- Gil

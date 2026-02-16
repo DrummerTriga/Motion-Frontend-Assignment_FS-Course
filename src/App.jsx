@@ -1,6 +1,6 @@
 import './App.css'
 import AuthLayout from './layouts/AuthLayout'
-import { Route, Routes } from 'react-router'
+import { Navigate, Route, Routes } from 'react-router'
 import LoginPage from './pages/authpages/LoginPage'
 import MainLayout from './layouts/MainLayout'
 import SignupPage from './pages/authpages/SignupPage'
@@ -18,7 +18,6 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { motion_api_auth } from './axios/axiosBase.js'
 import { add_requests } from './store/slices/notificationSlice'
-import EditProfile from './components/Profile/EditProfile.jsx'
 import ProfileEditPage from './pages/profile/ProfileEditPage.jsx'
 
 function App() {
@@ -40,6 +39,7 @@ function App() {
 
    return (
       <Routes>
+         <Route path="/" element={<Navigate to="/auth/login" replace />} />
          <Route path="" element={<MainLayout />}>
             <Route path="" element={<ProtectedRoutes />}>
                <Route path="" element={<SocialWallPage />} />
